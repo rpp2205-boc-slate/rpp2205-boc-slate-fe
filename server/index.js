@@ -49,6 +49,28 @@ app.post('/:user1_id/request/:user2_id', (req, res) => {
     })
 });
 
+//user1 accept friend request from user2
+app.post('/:user1_id/accept/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.body.user1_id}/accept/${req.body.user2_id}`)
+    .then((response) => {
+      res.status(201).send('CREATED');
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+//user1 reject friend request from user2
+app.post('/:user1_id/reject/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.body.user1_id}/reject/${req.body.user2_id}`)
+    .then((response) => {
+      res.status(201).send('CREATED');
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
 app.listen(PORT, (err) => {
   if (err) console.log(err);
   console.log("Server listening on PORT", PORT);
