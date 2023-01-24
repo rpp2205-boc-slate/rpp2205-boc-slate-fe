@@ -11,8 +11,8 @@ export default function Home(props) {
     <>
       <h1> placeholder for home page... </h1>
       <Navigation />
-      {/* <Link to="/login">Login</Link>
-      <Link to="/signup">SignUp</Link> */}
+      <Link to="/login">Login</Link>
+      <Link to="/userprofile/30">user30</Link>
     </>
   );
 

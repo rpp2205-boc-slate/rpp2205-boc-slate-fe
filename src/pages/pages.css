@@ -43,3 +43,26 @@
 }
 
 
+/* profile css */
+.profile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.myprofile {
+  position: absolute;
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.leftColumn, .rightColumn {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
