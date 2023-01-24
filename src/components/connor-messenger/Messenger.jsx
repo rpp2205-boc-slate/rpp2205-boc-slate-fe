@@ -17,7 +17,7 @@ await client.connectUser(
 // create a channel by providing list of members for that channel.
 // In this case, id will be auto-generated on backend side
 const channel = client.channel('messaging', {
-  members: ['self', 'otherUser'],
+  members: [client.user.id, 'otherUser'],
  name: 'Chat with otherUser'
 });
 
