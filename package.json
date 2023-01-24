@@ -9,7 +9,8 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch & nodemon ./server/index.js",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "client-dev": "npx webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -38,8 +39,6 @@
     "express": "^4.18.2",
     "nodemon": "^2.0.20",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "stream-chat": "^8.3.0",
-    "stream-chat-react": "^10.5.0"
+    "react-dom": "^18.2.0"
   }
 }
