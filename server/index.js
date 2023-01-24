@@ -17,8 +17,8 @@ app.get('/test', (req, res) => {
 
 //Returns User profiles
 //Usable username for testing: gamer001, gamer002, gamer999.
-app.get('/user/:username/profile', (req, res) => {
-  axios.get(`${apiPath}/user/${req.query.username}/profile`)
+app.get('/user/:user_id/profile', (req, res) => {
+  axios.get(`${apiPath}/user/${req.query.user_id}/profile`)
     .then((response) => {
       res.send(response.data);
     })
