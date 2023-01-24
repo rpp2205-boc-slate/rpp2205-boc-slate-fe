@@ -20,13 +20,56 @@ app.get('/test', (req, res) => {
 
 //Returns User profiles
 //Usable username for testing: gamer001, gamer002, gamer999.
-app.get('/user/:username/profile', (req, res) => {
-  axios.get(`${apiPath}/user/${req.query.username}/profile`)
+app.get('/user/:user_id/profile', (req, res) => {
+  axios.get(`${apiPath}/user/${req.query.user_id}/profile`)
     .then((response) => {
-      res.send(response.data);
+      res.status(200).send(response.data);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(400).send(err);
+    })
+});
+
+//Returns username, userID and profile photo of all users
+app.get('/users', (req, res) => {
+  axios.get(`${apiPath}/users`)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+//user1 send friend request to user2
+app.post('/:user1_id/request/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.body.user1_id}/request/${req.body.user2_id}`)
+    .then((response) => {
+      res.status(201).send('CREATED');
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+//user1 responds to friend request from user2; response is ACCEPT or DENY
+app.post('/:user1_id/:respond/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.body.user1_id}/${req.body.respond}/${req.body.user2_id}`)
+    .then((response) => {
+      res.status(201).send('CREATED');
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+app.get('/user/:user_id/meta', (req, res) => {
+  axios.get(`${apiPath}/user/${req.query.user_id}/meta`)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
     })
 });
 
