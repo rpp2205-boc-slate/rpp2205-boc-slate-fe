@@ -49,20 +49,9 @@ app.post('/:user1_id/request/:user2_id', (req, res) => {
     })
 });
 
-//user1 accept friend request from user2
-app.post('/:user1_id/accept/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.body.user1_id}/accept/${req.body.user2_id}`)
-    .then((response) => {
-      res.status(201).send('CREATED');
-    })
-    .catch((err) => {
-      res.status(400).send(err);
-    })
-});
-
-//user1 reject friend request from user2
-app.post('/:user1_id/reject/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.body.user1_id}/reject/${req.body.user2_id}`)
+//user1 responds to friend request from user2; response is ACCEPT or DENY
+app.post('/:user1_id/:respond/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.body.user1_id}/${req.body.respond}/${req.body.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
