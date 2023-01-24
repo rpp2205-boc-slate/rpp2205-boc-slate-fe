@@ -16,19 +16,16 @@ import MyProfile from '../pages/MyProfile.jsx';
 export default function App(props) {
 
   return(
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-          <Route path='/gameprofile:id' element={<GameProfile/>} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/results:params' element={<SearchResult />} />
-          <Route path='/userlist' element={<UserList />} />
-          <Route path='/userprofile:id' element={<UserProfile />} />
-          <Route path='/myprofile' element={<MyProfile />} />
-      </Routes>
-    </BrowserRouter>
-
+    <Routes>
+      <Route path='/' element={<Home />} />
+        <Route path='/gameprofile/:id' element={<GameProfile/>} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/results:params' element={<SearchResult />} />
+        <Route path='/userlist' element={<UserList />} />
+        <Route path="/userprofile/:userId" element={<UserProfile />} />
+        <Route path='/myprofile' element={<MyProfile />} />
+    </Routes>
   );
 
 }
