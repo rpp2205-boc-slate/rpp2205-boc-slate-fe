@@ -63,8 +63,20 @@ app.post('/:user1_id/:respond/:user2_id', (req, res) => {
     })
 });
 
+//Returns User metadata
 app.get('/user/:user_id/meta', (req, res) => {
   axios.get(`${apiPath}/user/${req.query.user_id}/meta`)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+//Returns User’s friends list. Friends list does not include any blocked friends
+app.get('/user/:user_id/friends', (req, res) => {
+  axios.get(`${apiPath}/user/${req.query.user_id}/friends`)
     .then((response) => {
       res.status(200).send(response.data);
     })
