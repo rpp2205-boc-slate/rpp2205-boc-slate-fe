@@ -60,6 +60,16 @@ app.post('/:user1_id/:respond/:user2_id', (req, res) => {
     })
 });
 
+app.get('/user/:user_id/meta', (req, res) => {
+  axios.get(`${apiPath}/user/${req.query.user_id}/meta`)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
 app.listen(PORT, (err) => {
   if (err) console.log(err);
   console.log("Server listening on PORT", PORT);
