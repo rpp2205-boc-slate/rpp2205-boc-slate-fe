@@ -1,0 +1,45 @@
+/* signup css */
+.signupContainer {
+  height: 400px;
+  width: 300px;
+  margin: 200px;
+  align-items: center;
+  display: block;
+}
+/* .signupButton {
+  position: absolute;
+  right: 10px
+} */
+.signupForm {
+  height: 100px;
+  width: 300px;
+  margin-left: 50%;
+  margin-top: 50%;
+}
+
+.signupLabel {
+  margin: 200px;
+}
+
+.email {
+  border-radius: 5px;
+  border-color: black;
+  margin: 20px;
+  width: 300px;
+}
+.password {
+  border-radius: 5px;
+  border-color: black;
+  width: 300px;
+  margin: 20px;
+}
+.signupButton {
+  margin: 150px;
+  border-color: black;
+  position: absolute;
+  border-radius: 5px;
+  right:550px
+
+}
+
+
