@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 // import { StreamChat } from 'stream-chat';
 import axios from "axios";
-import NavigateBar from "../components/Navigation and Authentication/Navigation.jsx"
+import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import UsersFunc from "../components/Search/UsersFunc.jsx"
 import SearchBar from "../components/Search/SearchBar.jsx"
 
@@ -27,8 +27,7 @@ export default function SearchResult(props) {
 
   return(
     <>
-      {/* <NavigateBar/> */}
-      {/* {Navigation bar to be completed by others uncomment when service is exported} */}
+      <Navigation />
       <SearchBar/>
       <div> {/*Filters List*/}
         <button type="button" onClick={UsersFunc} value={searchQuery} >User</button> <button type="button">Platform</button> <button type="button">Genre</button> <br/>

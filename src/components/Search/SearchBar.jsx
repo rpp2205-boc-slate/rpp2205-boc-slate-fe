@@ -1,8 +1,14 @@
 import React from "react";
-import { useState, useEffect} from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import "./SearchBar.css";
+import {FaSearch} from "react-icons/fa"
 
-export default function SearchBar(props) {
+export default function Search() {
+  const [query, setQuery] = useState("");
+  const handleChange = (e) => {
+    e.preventDefault();
+    setQuery(e.target.value);
+  };
 
   function searchQuery() {
     axios.get('https://api.rawg.io/api/games?key=2539b6cc34574d38b6b056fc7477e16b')
@@ -14,9 +20,10 @@ export default function SearchBar(props) {
     })
   }
 
-  return (
-    <div>
-      <input type="text" placeholder="haha placeholder you funny" onChange={searchQuery}></input>
-    </div>
-  )
-}
+    return (
+      <div>
+        <input type="text" placeholder="Search here" onChange={handleChange} className="query" />
+        < FaSearch className="searchIcon"/>
+      </div>
+    )
+};

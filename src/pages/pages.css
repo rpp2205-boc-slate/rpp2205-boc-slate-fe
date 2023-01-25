@@ -1,0 +1,73 @@
+/* signup css */
+.signupContainer {
+  height: 600px;
+  width: 400px;
+  margin-top: 200px;
+  margin-left: 37.5%;
+  background-color: rgba(128, 128, 128, 0.257);
+  border-radius: 10px;
+  border: 1px solid black;
+  z-index: 1;
+  align-items: center;
+}
+/* .signupButton {
+  position: absolute;
+  right: 10px
+} */
+.signupForm {
+  /* height: 500px; */
+  width: 100%;
+  align-items: center;
+  /* margin:  5% 15% 5% 15%; */
+  padding: 16px;
+}
+
+.signupLabel {
+  color: black;
+}
+
+.email {
+  border-radius: 5px;
+  border-color: black;
+  margin: 20px;
+  width: 300px;
+}
+.password {
+  border-radius: 5px;
+  border-color: black;
+  width: 300px;
+  margin: 20px;
+}
+.signupButton {
+  margin: 150px;
+  border-color: black;
+  position: absolute;
+  border-radius: 5px;
+  right:550px
+
+}
+
+
+/* profile css */
+.profile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.myprofile {
+  position: absolute;
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.leftColumn, .rightColumn {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
