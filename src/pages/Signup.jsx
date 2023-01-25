@@ -44,18 +44,27 @@ export default function SignUp(props) {
       <Button variant="dark" type="submit" className="signupButton">
         Create 
       </Button> */}
+    
       <div className="signupContainer">
       <form className="signupForm">
+      <h2>Welcome to GamerCity!</h2>
+      <p>Please fill in this form to create an account.</p>
+      <hr />
         <label className="signuplabel">
           Email:
-          <input type="text" onChange={(e)=>{setEmail(e.target.value)}} className="email" />
+          <input type="email" onChange={(e)=>{setEmail(e.target.value)}} className="email" placeholder="Enter Email" required/>
         </label>
         <label className="signuplabel">
           Password:
-          <input type="text" onChange={(e)=>{setPassword(e.target.value)}}className="password" />
+          <input type="password" onChange={(e)=>{setPassword(e.target.value)}}className="password" placeholder="Enter Password" required/>
         </label>
+        <label className="signuplabel">
+          Repeat Password:
+          <input type="password" onChange={(e)=>{setPassword(e.target.value)}}className="password" placeholder="Repeat Password" required/>
+        </label>
+        <button onClick={submit} className="signupButton">Create</button>
       </form>
-      <button onClick={submit} className="signupButton">Create</button>
+      
       </div>
       
 
