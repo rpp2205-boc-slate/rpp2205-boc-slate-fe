@@ -2,7 +2,7 @@
 .signupContainer {
   height: 600px;
   width: 400px;
-  margin-top: 200px;
+  margin-top: 8%;
   margin-left: 37.5%;
   background-color: rgba(128, 128, 128, 0.257);
   border-radius: 10px;
@@ -18,7 +18,7 @@
   /* height: 500px; */
   width: 100%;
   align-items: center;
-  /* margin:  5% 15% 5% 15%; */
+  /* margin:  5% 10% 5% 10%; */
   padding: 16px;
 }
 

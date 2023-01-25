@@ -7,6 +7,7 @@ import {Button, Form, Container} from 'react-bootstrap';
 import './pages.css';
 
 export default function SignUp(props) {
+  const [username, setUsername] = useState({username: ''});
   const [email, setEmail] = useState({email: ''});
   const [password, setPassword] = useState({password: ''});
 
@@ -50,6 +51,10 @@ export default function SignUp(props) {
       <h2>Welcome to GamerCity!</h2>
       <p>Please fill in this form to create an account.</p>
       <hr />
+      <label className="signuplabel">
+          Username:
+          <input type="text" onChange={(e)=>{setUsername(e.target.value)}} className="email" placeholder="Enter Username" required/>
+        </label>
         <label className="signuplabel">
           Email:
           <input type="email" onChange={(e)=>{setEmail(e.target.value)}} className="email" placeholder="Enter Email" required/>
