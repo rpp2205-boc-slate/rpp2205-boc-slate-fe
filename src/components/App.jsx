@@ -44,7 +44,7 @@ export default function App(props) {
             <Route path='/results:params' element={<SearchResult />} />
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthenticationGuard component={UserProfile} />} />
-            <Route path='/myprofile' element={<MyProfile />} />
+            <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
         </Routes>
         <Navigation setIsAuthenticated={setIsAuthenticated}/>
         <ProfileButton isAuthenticated={isAuthenticated}/>

@@ -9,7 +9,7 @@ export default function ProfileButton(props) {
     return (
       <>
         <div>
-          <button>Profile</button>
+          <button>My Profile</button>
         </div>
       </>
     )
