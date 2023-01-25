@@ -1,24 +1,28 @@
 /* signup css */
 .signupContainer {
-  height: 400px;
-  width: 300px;
-  margin: 200px;
+  height: 600px;
+  width: 400px;
+  margin-top: 200px;
+  margin-left: 37.5%;
+  background-color: rgba(128, 128, 128, 0.257);
+  border-radius: 10px;
+  border: 1px solid black;
+  z-index: 1;
   align-items: center;
-  display: block;
 }
 /* .signupButton {
   position: absolute;
   right: 10px
 } */
 .signupForm {
-  height: 100px;
-  width: 300px;
-  margin-left: 50%;
-  margin-top: 50%;
+  /* height: 500px; */
+  width: 100%;
+  align-items: center;
+  /* margin:  5% 15% 5% 15%; */
+  padding: 16px;
 }
 
 .signupLabel {
-  margin: 200px;
   color: black;
 }
 
