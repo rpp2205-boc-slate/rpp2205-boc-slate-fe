@@ -13,7 +13,12 @@ app.get('/*', (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-  res.json('testing index')
+  res.send('hello')
+});
+
+app.get('/query', (req, res) => {
+  console.log('hi')
+  res.send('test2')
 });
 
 app.listen(PORT, (err) => {
