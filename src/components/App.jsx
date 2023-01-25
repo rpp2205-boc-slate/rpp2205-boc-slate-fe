@@ -10,7 +10,7 @@ import SearchResult from '../pages/SearchResult.jsx';
 import UserList from '../pages/UserList.jsx';
 import UserProfile from '../pages/UserProfile.jsx';
 import MyProfile from '../pages/MyProfile.jsx';
-import Messenger from '../pages/Chat.jsx';
+import Chat from '../pages/Chat.jsx';
 
 
 
