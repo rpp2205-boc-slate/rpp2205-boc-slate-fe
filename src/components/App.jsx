@@ -10,6 +10,7 @@ import SearchResult from '../pages/SearchResult.jsx';
 import UserList from '../pages/UserList.jsx';
 import UserProfile from '../pages/UserProfile.jsx';
 import MyProfile from '../pages/MyProfile.jsx';
+import Chat from '../pages/Chat.jsx';
 import { createBrowserHistory } from "history";
 import { Auth0Provider } from '@auth0/auth0-react';
 import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
@@ -49,8 +50,6 @@ export default function App(props) {
         <Navigation setIsAuthenticated={setIsAuthenticated}/>
         <ProfileButton isAuthenticated={isAuthenticated}/>
     </>
-
-
   );
 
 }

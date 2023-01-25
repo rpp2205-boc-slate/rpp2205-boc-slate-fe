@@ -33,11 +33,13 @@
     "babel-loader": "^9.1.2",
     "dotenv-webpack": "^8.0.1",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",
     "@restart/ui": "^1.5.2",
+    "@rgrove/parse-xml": "^4.0.1",
     "axios": "^1.2.3",
     "bootstrap": "^5.2.3",
     "css-loader": "^6.7.3",
@@ -47,9 +49,11 @@
     "nodemon": "^2.0.20",
     "os": "^0.1.2",
     "path": "^0.12.7",
+    "parse-xml": "^1.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
+    "react-lifecycles-compat": "^3.0.4",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.7.0",
     "stream-chat": "^8.3.0",
