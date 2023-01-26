@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import './C.css';
 import { dataDigitalBestSeller } from './data';
 import imgTest from './Testing/1.png';
@@ -79,5 +78,5 @@ function Carousel(props) {
     </div>
   );
 }
-
+//testing
 export default Carousel
