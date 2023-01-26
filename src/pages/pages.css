@@ -55,16 +55,22 @@
   flex-direction: column;
 }
 
-.myprofile {
+.profile-for-all {
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
   position: absolute;
   margin-top: 50px;
   width: 100%;
+  height: 500px;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
 .leftColumn, .rightColumn {
+  border-style: solid;
+  border-color: black;
   width: 50%;
   display: flex;
   flex-direction: column;
