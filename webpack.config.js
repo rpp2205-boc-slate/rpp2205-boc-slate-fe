@@ -4,6 +4,7 @@ const path = require('path');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
+//const TerserPlugin = require('terser-webpack-plugin');
 //const Dotenv = require('dotenv-webpack');
 
 const stylesHandler = 'style-loader';
@@ -21,17 +22,6 @@ const config = {
         open: true,
         host: 'localhost',
     },
-    // plugins: [
-    //     new Dotenv()
-    //   ],
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         template: 'index.html',
-    //     }),
-
-    //     // Add your plugins here
-    //     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-    // ],
     module: {
         rules: [
             {
@@ -51,7 +41,11 @@ const config = {
             // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
-    target: 'node'
+    // optimization: {
+    //     minimizer: [new TerserPlugin({
+    //         extractComments: false
+    //     })]
+    // }
 };
 
 module.exports = () => {
