@@ -13,6 +13,7 @@ function Navigation() {
           <Navbar.Brand href="/">Home</Navbar.Brand>
           <Navbar.Brand href="/myprofile">Profile</Navbar.Brand>
           <Search />
+          <Navbar.Brand href="/chat">Chat</Navbar.Brand>
           <Navbar.Brand href="/login">Sign In</Navbar.Brand>
           <Navbar.Brand href="/signup">Sign Up</Navbar.Brand>
       </Container>

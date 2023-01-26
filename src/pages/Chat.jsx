@@ -5,7 +5,6 @@ import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window
 import 'stream-chat-react/dist/css/v2/index.css';
 
 const chatClient = new StreamChat('npwanznmku2q');
-// const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicG9saXNoZWQtZ2xpdHRlci05In0.TAW3vlhl1ax6jQ4htt2-xJP4k8pih5ScZp_zcM-CbfI';
 const userToken = chatClient.devToken('connor')
 
 chatClient.connectUser(
@@ -25,7 +24,7 @@ const channel = chatClient.channel('messaging', 'GamerCity', {
 });
 
 const ChatApp = () => (
-  <Chat client={chatClient} theme='str-chat__theme-light'>
+  <Chat client={chatClient} theme='str-chat__theme-dark'>
     <Channel channel={channel}>
       <Window>
         <ChannelHeader />
