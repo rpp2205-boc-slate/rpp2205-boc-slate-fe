@@ -5,6 +5,7 @@ import Search from '../Search/SearchBar.jsx';
 import { LoginButton } from './login-button.jsx';
 import { LogoutButton } from './logout-button.jsx';
 import { SignupButton } from './signup-button.jsx';
+import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
 
 
@@ -33,10 +34,10 @@ function Navigation(props) {
             {isAuthenticated && (
               <>
                 <LogoutButton />
+                <ChatButton />
               </>
             )}
           </div>
-          <Navbar.Brand href="/chat">Chat</Navbar.Brand>
           <Navbar.Brand href="/login">Sign In</Navbar.Brand>
           <Navbar.Brand href="/signup">Sign Up</Navbar.Brand>
       </Container>

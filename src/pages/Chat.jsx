@@ -1,6 +1,6 @@
 import React from 'react';
 import { StreamChat } from 'stream-chat';
-import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
+import { Chat, Channel, ChannelList, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
 
 import 'stream-chat-react/dist/css/v2/index.css';
 
@@ -23,17 +23,31 @@ const channel = chatClient.channel('messaging', 'GamerCity', {
   members: ['connor', 'otherUser'],
 });
 
-const ChatApp = () => (
-  <Chat client={chatClient} theme='str-chat__theme-dark'>
-    <Channel channel={channel}>
-      <Window>
-        <ChannelHeader />
-        <MessageList />
-        <MessageInput />
-      </Window>
-      <Thread />
-    </Channel>
-  </Chat>
-);
+
+const ChatApp = (props) => {
+  console.log('chat', props.isAuthenticated, props.chatOpen);
+  console.log(chatClient.user.id)
+  const filters = { members: [chatClient.user.id]}
+  const sort = { last_message_at: -1 };
+  const options = { limit: 10 }
+  if (props.isAuthenticated) {
+    return (
+      <Chat client={chatClient} theme='str-chat__theme-dark'>
+        <ChannelList filters={filters} sort={sort} options={options} />
+        <Channel channel={channel}>
+          <Window>
+            <ChannelHeader />
+            <MessageList />
+            <MessageInput />
+          </Window>
+          <Thread />
+        </Channel>
+      </Chat>
+    )
+
+  } else {
+    return null;
+  }
+}
 
 export default ChatApp;
