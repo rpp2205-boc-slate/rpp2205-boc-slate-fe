@@ -25,16 +25,46 @@ export default function SearchResult(props) {
     return rows;
   }
 
+  let filtersBackground = {
+    position: "fixed",
+    border: "5px solid",
+    left: "auto",
+    padding: "10px",
+    top: "20%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
+  }
+
+  let resultBackground = {
+    position: "fixed",
+    color: "red",
+    borderStyle: "solid",
+    backgroundColor: "#A9A9A9",
+    borderRadius: "20px",
+    width: "100%",
+    height: "700px",
+    padding: "1%",
+    top: "30%",
+
+  }
+
+  let resultStyle = {
+    position: "fixed",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
+  }
+
   return(
     <>
-      <Navigation />
+      <div><Navigation /></div>
       <SearchBar/>
-      <div> {/*Filters List*/}
+      <div style={filtersBackground}> {/*Filters List*/}
         <button type="button" onClick={UsersFunc} value={searchQuery} >User</button> <button type="button">Platform</button> <button type="button">Genre</button> <br/>
         <button type="button">Friends</button> <button type="button">Platofrm</button> <button type="button">Online</button>
       </div>
-      <div> {/*Search Results */}
-        <table><tbody>{showResults(result)}</tbody></table>
+      <div style={resultBackground}> {/*Search Results */}
+        <h3 style={{textAlign:"center", padding:"0px 0px 25px 0px"}}>Results</h3>
+        <table style={resultStyle}><tbody>{showResults(result)}</tbody></table>
       </div>
     </>
   );
