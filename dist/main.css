@@ -24,3 +24,8 @@
 .item:hover {
   transform: scale(1.5) !important;
 }
+
+.signUpButton {
+  color: white;
+  background-color: black;
+}

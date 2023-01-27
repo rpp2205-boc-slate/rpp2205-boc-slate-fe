@@ -34,6 +34,16 @@ app.get('/user/:user_id/profile', (req, res) => {
     })
 });
 
+//post user info
+app.post('/users', (req, res) => {
+  console.log('req', req.body)
+  axios.post(`${apiPath}/users`, req.body)
+  .then((response) => {
+    res.status(201).send('created');
+  })
+  .catch(err => res.status(400).send(err));
+})
+
 //Returns username, userID and profile photo of all users
 app.get('/users', (req, res) => {
   axios.get(`${apiPath}/users`)
@@ -44,6 +54,7 @@ app.get('/users', (req, res) => {
       res.status(400).send(err);
     })
 });
+
 
 //user1 send friend request to user2
 app.post('/:user1_id/request/:user2_id', (req, res) => {
