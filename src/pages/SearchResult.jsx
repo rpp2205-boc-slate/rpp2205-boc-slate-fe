@@ -42,6 +42,7 @@ export default function SearchResult(props) {
   }, [])
 
  // /genres to get all the genres
+ // /platform to list all platforms
 
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
@@ -78,7 +79,13 @@ export default function SearchResult(props) {
     position: "relative",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    top: "30%"
+    top: "45%",
+    bottom: "5%",
+    width: "1000px",
+    height: "600px",
+    overflow: "scroll",
+    display: "grid",
+
   }
 
 
@@ -95,7 +102,7 @@ export default function SearchResult(props) {
       </div>
       <div style={resultBackground}> {/*Search Results */}
         <h3 style={{textAlign:"center", padding:"0px 0px 25px 0px"}}>Results</h3>
-        <table style={resultStyle}><tbody>{ShowResults(result)}</tbody></table>
+        <div style={resultStyle}>{ShowResults(dataDigitalBestSeller)}</div>
       </div>
     </>
   );

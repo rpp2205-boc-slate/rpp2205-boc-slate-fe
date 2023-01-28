@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import imgTest from '../Carousel/Testing/1.png';
+import './C.css';
+
 
 export default function showResults(input) {
+  const [defaultImage, setDefaultImage] = useState({});
   let cardStyle = {
     height: "40px",
     width: "20px",
@@ -14,80 +18,36 @@ export default function showResults(input) {
     display: "in-line block",
     padding: "10px"
   }
+  const handleErrorImage = (data) => {
+    setDefaultImage((prev) => ({
+      ...prev,
+      [data.target.alt]: data.target.alt,
+      linkDefault: imgTest,
+    }));
+  };
 
-
-
-  let count = 0;
-  let rows = [];
-  for (var i = 0; i < input.length; i+=5) {
-    rows.push([<tr key={i} style={rowStyle}>
-      <td style={cardStyle} key={i}>
-        <div>
-          image Here
-          <h1>{input[i + 1]}</h1>
+  return (<div className>
+    {input.map((item) => (
+      <div  key={item.id} className="card">
+        <div className="card-top">
+          <img
+            src={
+              defaultImage[item.title] === item.title
+                ? defaultImage.linkDefault
+                : item.linkImg
+            }
+            alt={item.title}
+            onError={handleErrorImage}
+          />
+          <h1>{item.title}</h1>
         </div>
-        <div>
-          <h3>price</h3>
-          <span>console</span>
+        <div className="card-bottom">
+          <h3>{item.price}</h3>
+          <span className="category">{item.category}</span>
         </div>
-        <div>
-          console
-        </div>
-      </td>
-      <td style={cardStyle} key={i+1}>
-        <div>
-          image Here
-          <h1>{input[i + 2]}</h1>
-        </div>
-        <div>
-          <h3>price</h3>
-          <span>console</span>
-        </div>
-        <div>
-          console
-        </div>
-      </td>
-      <td style={cardStyle} key={i+2}>
-        <div>
-          image Here
-          <h1>{input[i + 3]}</h1>
-        </div>
-        <div>
-          <h3>price</h3>
-          <span>console</span>
-        </div>
-        <div>
-          console
-        </div>
-      </td>
-      <td style={cardStyle} key={i+3}>
-        <div>
-          image Here
-          <h1>{input[i + 4]}</h1>
-        </div>
-        <div>
-          <h3>price</h3>
-          <span>console</span>
-        </div>
-        <div>
-          console
-        </div>
-      </td>
-      <td style={cardStyle} key={i+4}>
-        <div>
-          image Here
-          <h1>{input[i + 5]}</h1>
-        </div>
-        <div>
-          <h3>price</h3>
-          <span>console</span>
-        </div>
-        <div>
-          console
-        </div>
-      </td>
-      </tr>])
-  }
+      </div>
+    ))}
+  </div>)
   console.log(rows)
   return rows;
 }
