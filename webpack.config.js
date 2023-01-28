@@ -51,7 +51,7 @@ const config = {
             // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
-    target: 'node'
+    target: 'web'
 };
 
 module.exports = () => {
