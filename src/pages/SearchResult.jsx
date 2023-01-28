@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 // import { StreamChat } from 'stream-chat';
 import axios from "axios";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
-import UsersFunc from "../components/Search/UsersFunc.jsx"
-import SearchBar from "../components/Search/SearchBar.jsx"
+import UsersFunc from "../components/Search/UsersFunc.jsx";
+import SearchBar from "../components/Search/SearchBar.jsx";
 import ShowResults from "../components/Search/ShowResults.jsx";
 import { dataDigitalBestSeller } from '../components/Carousel/data';
 import imgTest from '../components/Carousel/Testing/1.png';
