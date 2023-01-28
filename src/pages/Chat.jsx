@@ -38,14 +38,14 @@ const ChatApp = (props) => {
   // const filters = { members: [chatClient.user.id]}
   const sort = { last_message_at: -1 };
   const options = { limit: 10 }
-  const [selectedChat, setSelectedChat] = useState(null);
+  const [selectedChat, setSelectedChat] = useState(true);
 
   const handleChannelClick = (chat) => {
     console.log(chat);
     setSelectedChat(chat);
   }
 
-  if (props.isAuthenticated && props.chatOpen) {
+  if (props.isAuthenticated) {
     return (
       <Chat client={chatClient} theme='str-chat__theme-dark'  >
         <ChannelList  sort={sort} options={options} onClick={handleChannelClick}/>

@@ -7,7 +7,6 @@ import { LogoutButton } from './logout-button.jsx';
 import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
-import axios from 'axios';
 
 
 function Navigation(props) {
@@ -15,15 +14,7 @@ function Navigation(props) {
   useEffect(() => {
     if (props.setIsAuthenticated) {
       props.setIsAuthenticated(isAuthenticated);
-
-      axios.post('/users', {user})
-      .then(response => {
-        console.log('posted')
-      })
-      .catch(err => console.log(err));
-    }
     };
-
     if (props.setUser) {
       props.setUser(user);
     }
@@ -49,7 +40,8 @@ function Navigation(props) {
               </>
             )}
           </div>
-          
+          <Navbar.Brand href="/login">Sign In</Navbar.Brand>
+          <Navbar.Brand href="/signup">Sign Up</Navbar.Brand>
       </Container>
     </Navbar>
     </>
