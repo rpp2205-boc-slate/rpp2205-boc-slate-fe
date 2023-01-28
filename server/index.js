@@ -4,15 +4,16 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const PORT = 3000;
 const axios = require('axios');
+require('dotenv').config();
 //mock api path
-const apiPath = 'https://6l9qj.wiremockapi.cloud';
+//const apiPath = 'https://6l9qj.wiremockapi.cloud';
+const gameApiPath = 'https://api.rawg.io/api/games';
+const gameApiKey = process.env.API_KEY;
+const apiPath = 'http://54.159.164.8';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../dist')));
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-})
 
 app.get('/test', (req, res) => {
   res.send('hello')
@@ -47,7 +48,7 @@ app.get('/users', (req, res) => {
 
 //user1 send friend request to user2
 app.post('/:user1_id/request/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.body.user1_id}/request/${req.body.user2_id}`)
+  axios.post(`${apiPath}/${req.query.user1_id}/request/${req.query.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -56,9 +57,9 @@ app.post('/:user1_id/request/:user2_id', (req, res) => {
     })
 });
 
-//user1 responds to friend request from user2; response is ACCEPT or DENY
-app.post('/:user1_id/:respond/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.body.user1_id}/${req.body.respond}/${req.body.user2_id}`)
+//user1 responds to friend request from user2; response is APPROVED or REJECTED
+app.post('/:user1_id/respond/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.query.user1_id}/${req.body.respond}/${req.query.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -67,27 +68,67 @@ app.post('/:user1_id/:respond/:user2_id', (req, res) => {
     })
 });
 
-//Returns User metadata
-app.get('/user/:user_id/meta', (req, res) => {
-  axios.get(`${apiPath}/user/${req.query.user_id}/meta`)
+//user1 blocks/unblocks user2
+app.post('/:user1_id/block/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.query.user1_id}/${req.body.blocked}/${req.query.user2_id}`)
     .then((response) => {
-      res.status(200).send(response.data);
+      res.status(201).send('CREATED');
     })
     .catch((err) => {
       res.status(400).send(err);
     })
 });
 
-//Returns User’s friends list. Friends list does not include any blocked friends
-app.get('/user/:user_id/friends', (req, res) => {
-  axios.get(`${apiPath}/user/${req.query.user_id}/friends`)
+//user likes/dislikes a game
+app.post('/game/:user_id/:game_id', (req, res) => {
+  axios.post(`${apiPath}/game/${req.query.user_id}/${req.query.game_id}`)
     .then((response) => {
-      res.status(200).send(response.data);
+      res.status(201).send('CREATED');
     })
     .catch((err) => {
       res.status(400).send(err);
     })
 });
+
+
+//returns game's information based on searching keyword including the game name, game description, limiting results to be 100 games.
+app.get('/games/keyword/:keyword', (req, res) => {
+  const keyword = req.params.keyword;
+  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
+    .then((response) => {
+      res.status(200).send(response.results.slice(0, 100));
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+//return games ordering by rating (popularity) and released (trending), limiting the results to be 100 games.
+app.get('/games/orderBy/:orderBy', (req, res) => {
+  const orderBy = req.params.orderBy;
+  axios.get(`${gameApiPath}?key=${gameApiKey}&ordering=-${orderBy}`)
+    .then((response) => {
+      res.status(200).send(response.results.slice(0, 100));
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+//return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
+app.get('/games/slug/:slugname', (req, res) => {
+  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${req.params.slugname}&search_exact=true&search_precise=true`)
+    .then((response) => {
+      res.status(200).send(response.data.results[0])
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+})
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);
