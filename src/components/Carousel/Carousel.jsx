@@ -58,11 +58,10 @@ function Carousel(props) {
 
   useEffect(() => {
     if (props.type === "Pop") {
-      console.log(" MAking Request")
       axios.get('https://api.rawg.io/api/games', {
         params: {
           ordering: '-rating',
-          key: 'APIKey'
+          key: '61f56f92cd35421a90a7b9ff9f3a1583'
         }
       })
         .then((response) => {
@@ -71,12 +70,24 @@ function Carousel(props) {
         .catch(error => {
           console.log(error);
         });
+    } else {
+      axios.get('/user/1/profile')
+      .then((response) => {
+        console.log(response, " CarFriend")
+      })
+      .catch((error) => {
+        console.log('Error ', error)
+      })
     }
   }, [props.type]);
 
 
-  const handleClick = () => {
-    window.location.href = `/gameprofile/${data.id}`;
+  const handleClick = (input) => {
+    if (props.type !== "Friend") {
+    window.location.href = `/gameprofile/${input}`;
+    } else {
+      window.location.href = `/userprofile/${input}`
+    }
   }
 
 
@@ -84,10 +95,10 @@ function Carousel(props) {
   return (
     <div className="Car"> Popular
       <Slider {...settings}>
-        {data.map((item) => (
-          <div key={item.id} gameID={item.id}className="card" onClick={(e) => console.log(e.target.gamid, ' Clicked')}>
-            <div gameID={item.id} className="card-top">
-              <img gameID={item.id}
+        {dataDigitalBestSeller.map((item) => (
+          <div key={item.id} gameid={item.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+            <div gameid={item.slug} className="card-top">
+              <img gameid={item.slug}
                 src={
                   defaultImage[item.name] === item.name
                     ? defaultImage.linkDefault
@@ -96,11 +107,11 @@ function Carousel(props) {
                 alt={item.title}
                 onError={handleErrorImage}
               />
-              <h1 gameID={item.id}>{item.name}</h1>
+              <h1 gameid={item.slug}>{item.name}</h1>
             </div>
-            <div gameID={item.id} className="card-bottom">
+            <div gameid={item.slug} className="card-bottom">
               {/* <h3>{item.name}</h3> */}
-              <span gameID={item.id}className="category">{}</span>
+              <span gameid={item.slug}className="category">{}</span>
             </div>
           </div>
         ))}
@@ -108,7 +119,7 @@ function Carousel(props) {
     </div>
   );
               } else {
-                return <div>NOT</div>
+                return <div onClick={(e) => handleClick('Testing')}>NOT</div>
               }
             }
 //testing
