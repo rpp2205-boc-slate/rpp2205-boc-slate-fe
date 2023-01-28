@@ -26,8 +26,8 @@ export default function SearchResult(props) {
 
   useEffect(() => {
     console.log(dataDigitalBestSeller)
-    function searchQuery() {
-      console.log('inside func')
+    // function searchQuery() {
+    //   console.log('inside func')
       // useResult([dataDigitalBestSeller])
       // axios.get('https://api.rawg.io/api/games?key=2539b6cc34574d38b6b056fc7477e16b')
       // .then((response) => {
@@ -37,8 +37,9 @@ export default function SearchResult(props) {
       // .catch((err) => {
       //   console.log(err)
       // })
-    }
-    searchQuery();
+    // }
+    // searchQuery();
+    console.log(SearchBar)
   }, [])
 
  // /genres to get all the genres
@@ -85,7 +86,6 @@ export default function SearchResult(props) {
     height: "600px",
     overflow: "scroll",
     display: "grid",
-
   }
 
 
@@ -97,8 +97,15 @@ export default function SearchResult(props) {
       <div><Navigation /></div>
       <SearchBar/>
       <div style={filtersBackground}> {/*Filters List*/}
-        <button type="button" onClick={UsersFunc} value={searchQuery} >User</button> <button type="button">Platform</button> <button type="button">Genre</button> <br/>
-        <button type="button">Friends</button> <button type="button">Platofrm</button> <button type="button">Online</button>
+        <button type="button" onClick={UsersFunc} value={searchQuery} >Users</button> <button type="button">Platform</button><br/>
+       <label for="cars">Choose a Genre:</label>
+
+<select name="cars" id="cars">
+  <option value="volvo">RPG</option>
+  <option value="saab">MMORPG</option>
+  <option value="mercedes">Adventure</option>
+  <option value="audi">Strategy</option>
+</select>
       </div>
       <div style={resultBackground}> {/*Search Results */}
         <h3 style={{textAlign:"center", padding:"0px 0px 25px 0px"}}>Results</h3>

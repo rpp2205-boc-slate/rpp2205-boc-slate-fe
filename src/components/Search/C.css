@@ -20,9 +20,9 @@
   height: 400px;
   color: black;
   cursor: pointer;
-  display: grid;
-  grid-template-columns: 200px 200px 200px;
+
 }
+
 
 .card-top h1 {
   font-size: 0.9rem;

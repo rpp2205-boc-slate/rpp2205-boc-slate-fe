@@ -5,6 +5,7 @@ import './C.css';
 
 export default function showResults(input) {
   const [defaultImage, setDefaultImage] = useState({});
+  const [data, setData] = useState(input);
   let cardStyle = {
     height: "40px",
     width: "20px",
@@ -26,27 +27,27 @@ export default function showResults(input) {
     }));
   };
 
-  return (<div className>
-    {input.map((item) => (
-      <div  key={item.id} className="card">
-        <div className="card-top">
-          <img
-            src={
-              defaultImage[item.title] === item.title
-                ? defaultImage.linkDefault
-                : item.linkImg
-            }
-            alt={item.title}
-            onError={handleErrorImage}
-          />
-          <h1>{item.title}</h1>
-        </div>
-        <div className="card-bottom">
-          <h3>{item.price}</h3>
-          <span className="category">{item.category}</span>
-        </div>
-      </div>
-    ))}
+  return (<div className='holder'>
+    {data.map((item) => (
+          <div key={item.id} gameID={item.id}className="card" onClick={(e) => console.log(e.target.gamid, ' Clicked')}>
+            <div gameID={item.id} className="card-top">
+              <img gameID={item.id}
+                src={
+                  defaultImage[item.name] === item.name
+                    ? defaultImage.linkDefault
+                    : item.background_image
+                }
+                alt={item.title}
+                onError={handleErrorImage}
+              />
+              <h1 gameID={item.id}>{item.name}</h1>
+            </div>
+            <div gameID={item.id} className="card-bottom">
+              {/* <h3>{item.name}</h3> */}
+              <span gameID={item.id}className="category">{}</span>
+            </div>
+          </div>
+        ))}
   </div>)
   console.log(rows)
   return rows;

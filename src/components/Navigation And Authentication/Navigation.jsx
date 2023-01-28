@@ -22,7 +22,7 @@ function Navigation(props) {
       })
       .catch(err => console.log(err));
     }
-    };
+    // };
 
     if (props.setUser) {
       props.setUser(user);
@@ -49,7 +49,7 @@ function Navigation(props) {
               </>
             )}
           </div>
-          
+
       </Container>
     </Navbar>
     </>
