@@ -41,11 +41,11 @@ const ChatApp = (props) => {
   const [selectedChat, setSelectedChat] = useState(null);
 
   const handleChannelClick = (chat) => {
-    console.log(chat);
+    console.log('clicked', chat);
     setSelectedChat(chat);
   }
 
-  if (props.isAuthenticated ) {
+  if (props.isAuthenticated && props.chatOpen) {
     return (
       <Chat client={chatClient} theme='str-chat__theme-dark'  >
         <ChannelList  sort={sort} options={options} onClick={handleChannelClick}/>
