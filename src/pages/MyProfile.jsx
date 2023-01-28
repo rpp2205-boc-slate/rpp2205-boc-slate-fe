@@ -10,7 +10,7 @@ export default function MyProfile(props) {
   return(
     <div class="profile">
       <Navigation />
-      <Profile userId={'self'} />
+      <Profile userId={'self'} myUserId={props.userId}/>
     </div>
   );
 
