@@ -16,6 +16,23 @@ export default function SearchResult(props) {
   const [searchQuery, useSearchQuery] = useState('Halo');
   const [result, useResult] = useState(['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7']);
 
+  useEffect(() => {
+    console.log('inside useEffect')
+    function searchQuery() {
+      console.log('inside func')
+      // axios.get('https://api.rawg.io/api/games?key=2539b6cc34574d38b6b056fc7477e16b')
+      // .then((response) => {
+      //   console.log('inside response')
+      //   useSearchQuery(response)
+      // })
+      // .catch((err) => {
+      //   console.log(err)
+      // })
+    }
+    return searchQuery()
+
+  })
+
   function showResults(input) {
     let count = 0;
     let rows = [];
