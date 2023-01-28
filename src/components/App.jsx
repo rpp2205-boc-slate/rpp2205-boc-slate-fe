@@ -26,7 +26,7 @@ import { AuthenticationGuard } from "../authentication-guard.js";
 export const appHistory = createBrowserHistory();
 export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  console.log('app', isAuthenticated, setIsAuthenticated);
+  // console.log('app', isAuthenticated, setIsAuthenticated);
   const { isLoading } = useAuth0();
   if (isLoading) {
     return (

@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 export default function ProfileButton(props) {
-  console.log('profilebutton', props.isAuthenticated);
+  // console.log('profilebutton', props.isAuthenticated);
   if (props.isAuthenticated) {
     return (
       <>

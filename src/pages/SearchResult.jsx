@@ -5,7 +5,13 @@ import axios from "axios";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import UsersFunc from "../components/Search/UsersFunc.jsx"
 import SearchBar from "../components/Search/SearchBar.jsx"
+import ShowResults from "../components/Search/ShowResults.jsx";
+import { dataDigitalBestSeller } from '../components/Carousel/data';
+import imgTest from '../components/Carousel/Testing/1.png';
 
+/*
+checkout /components/Search for list of functions used
+*/
 
 export default function SearchResult(props) {
 
@@ -15,11 +21,14 @@ export default function SearchResult(props) {
   //using as default for testing purposes
   const [searchQuery, useSearchQuery] = useState('Halo');
   const [result, useResult] = useState(['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7']);
+  const [defaultImage, setDefaultImage] = useState({});
+
 
   useEffect(() => {
-    console.log('inside useEffect')
+    console.log(dataDigitalBestSeller)
     function searchQuery() {
       console.log('inside func')
+      // useResult([dataDigitalBestSeller])
       // axios.get('https://api.rawg.io/api/games?key=2539b6cc34574d38b6b056fc7477e16b')
       // .then((response) => {
       //   console.log('inside response')
@@ -29,18 +38,18 @@ export default function SearchResult(props) {
       //   console.log(err)
       // })
     }
-    return searchQuery()
+    searchQuery();
+  }, [])
 
-  })
+ // /genres to get all the genres
 
-  function showResults(input) {
-    let count = 0;
-    let rows = [];
-    for (var i = 0; i < input.length; i+=5) {
-      rows.push([<tr key={i}><td key={i}>{input[i + 1]}</td><td key={i + 2}>{input[i + 1]}</td><td key={i + 3}>{input[i + 2]}</td><td key={i+ 4}>{input[i + 3]}</td><td key={i + 5}>{input[i + 4]}</td></tr>])
-    }
-    return rows;
-  }
+  const handleErrorImage = (data) => {
+    setDefaultImage((prev) => ({
+      ...prev,
+      [data.target.alt]: data.target.alt,
+      linkDefault: imgTest,
+    }));
+  };
 
   let filtersBackground = {
     position: "fixed",
@@ -66,10 +75,15 @@ export default function SearchResult(props) {
   }
 
   let resultStyle = {
-    position: "fixed",
+    position: "relative",
     left: "50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
+    top: "30%"
   }
+
+
+
+
 
   return(
     <>
@@ -81,7 +95,7 @@ export default function SearchResult(props) {
       </div>
       <div style={resultBackground}> {/*Search Results */}
         <h3 style={{textAlign:"center", padding:"0px 0px 25px 0px"}}>Results</h3>
-        <table style={resultStyle}><tbody>{showResults(result)}</tbody></table>
+        <table style={resultStyle}><tbody>{ShowResults(result)}</tbody></table>
       </div>
     </>
   );
