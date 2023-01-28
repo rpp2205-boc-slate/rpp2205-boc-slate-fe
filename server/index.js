@@ -6,9 +6,10 @@ const PORT = 3000;
 const axios = require('axios');
 require('dotenv').config();
 //mock api path
-const apiPath = 'https://6l9qj.wiremockapi.cloud';
+//const apiPath = 'https://6l9qj.wiremockapi.cloud';
 const gameApiPath = 'https://api.rawg.io/api/games';
 const gameApiKey = process.env.API_KEY;
+const apiPath = 'http://54.159.164.8';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -50,7 +51,7 @@ app.get('/users', (req, res) => {
 
 //user1 send friend request to user2
 app.post('/:user1_id/request/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.body.user1_id}/request/${req.body.user2_id}`)
+  axios.post(`${apiPath}/${req.query.user1_id}/request/${req.query.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -59,9 +60,9 @@ app.post('/:user1_id/request/:user2_id', (req, res) => {
     })
 });
 
-//user1 responds to friend request from user2; response is ACCEPT or DENY
-app.post('/:user1_id/:respond/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.body.user1_id}/${req.body.respond}/${req.body.user2_id}`)
+//user1 responds to friend request from user2; response is APPROVED or REJECTED
+app.post('/:user1_id/respond/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.query.user1_id}/${req.body.respond}/${req.query.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -70,22 +71,22 @@ app.post('/:user1_id/:respond/:user2_id', (req, res) => {
     })
 });
 
-//Returns User metadata
-app.get('/user/:user_id/meta', (req, res) => {
-  axios.get(`${apiPath}/user/${req.query.user_id}/meta`)
+//user1 blocks/unblocks user2
+app.post('/:user1_id/block/:user2_id', (req, res) => {
+  axios.post(`${apiPath}/${req.query.user1_id}/${req.body.blocked}/${req.query.user2_id}`)
     .then((response) => {
-      res.status(200).send(response.data);
+      res.status(201).send('CREATED');
     })
     .catch((err) => {
       res.status(400).send(err);
     })
 });
 
-//Returns User’s friends list. Friends list does not include any blocked friends
-app.get('/user/:user_id/friends', (req, res) => {
-  axios.get(`${apiPath}/user/${req.query.user_id}/friends`)
+//user likes/dislikes a game
+app.post('/game/:user_id/:game_id', (req, res) => {
+  axios.post(`${apiPath}/game/${req.query.user_id}/${req.query.game_id}`)
     .then((response) => {
-      res.status(200).send(response.data);
+      res.status(201).send('CREATED');
     })
     .catch((err) => {
       res.status(400).send(err);
