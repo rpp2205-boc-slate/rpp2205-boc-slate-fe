@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./SearchBar.css";
-// import {FaSearch} from "react-icons/fa"
+ import {FaSearch} from "react-icons/fa"
 
 export default function Search() {
   const [query, setQuery] = useState("");
@@ -23,7 +23,7 @@ export default function Search() {
     return (
       <div>
         <input type="text" placeholder="Search here" onChange={handleChange} className="query" />
-        {/* < FaSearch className="searchIcon"/> */}
+         < FaSearch className="searchIcon"/> 
       </div>
     )
 };
