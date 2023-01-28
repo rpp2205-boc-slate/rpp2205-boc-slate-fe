@@ -16,13 +16,19 @@ chatClient.connectUser(
   userToken,
 );
 
-const channel = chatClient.channel('messaging', 'GamerCity', {
+
+const channel = chatClient.channel('messaging', 'GamerCity2', {
   // add as many custom fields as you'd like
   image: 'https://www.drupal.org/files/project-images/react.png',
-  name: 'GamerCity Chat',
+  name: 'GamerCity Chat 2',
   members: ['connor', 'otherUser'],
 });
 
+channel.sendEvent({
+  type: "friendship_request",
+  text: "Hey there, long time no see!",
+  user: 'otherUser'
+});
 
 const ChatApp = (props) => {
   console.log('chat', props.isAuthenticated, props.chatOpen);
