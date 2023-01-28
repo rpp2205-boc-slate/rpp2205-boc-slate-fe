@@ -4,6 +4,7 @@ import axios from "axios";
 
 
 export default function Profile(props) {
+  console.log(props.isAuthenticated);
   return (
     <div class="myprofile">
       <div class="leftColumn">

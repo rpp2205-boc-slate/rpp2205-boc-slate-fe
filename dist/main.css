@@ -1,0 +1,26 @@
+.carousel {
+  display: flex;
+  padding: 55px 55px;
+  outline: auto;
+  margin-left: 5px;
+  overflow: hidden;
+  background-color: grey;
+  box-shadow: 1px;
+}
+.carousel:hover .item {
+  transform: translateX(-25%);
+}
+
+.item {
+  background: green;
+  flex: 0 0 19.7%;
+  text-align: center;
+  margin: 0 2px;
+  transition: transform 300ms ease 100ms;
+}
+.item:hover ~ .item {
+  transform: translateX(25%);
+}
+.item:hover {
+  transform: scale(1.5) !important;
+}

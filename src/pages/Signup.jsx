@@ -42,9 +42,9 @@ export default function SignUp(props) {
         <Form.Control type="password" placeholder="Password" className="rePassword"/>
       </Form.Group>
       <Button variant="dark" type="submit" className="signupButton">
-        Create 
+        Create
       </Button> */}
-    
+
       <div className="signupContainer">
       <form className="signupForm">
       <h2>Welcome to GamerCity!</h2>
@@ -64,12 +64,12 @@ export default function SignUp(props) {
         </label>
         <button onClick={submit} className="signupButton">Create</button>
       </form>
-      
-      </div>
-      
 
-     </Container> 
-      
+      </div>
+
+
+     </Container>
+
 
     </>
   );

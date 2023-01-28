@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
-
+import Carousel from "../components/Carousel/Carousel.jsx"
 export default function Home(props) {
 
   return(
@@ -13,6 +13,7 @@ export default function Home(props) {
       <Navigation />
       <Link to="/login">Login</Link>
       <Link to="/userprofile/30">user30</Link>
+      <Carousel datas={[]}/>
     </>
   );
 
