@@ -1,8 +1,10 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { StreamChat } from 'stream-chat';
 import { Chat, Channel, ChannelList, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
 
 import 'stream-chat-react/dist/css/v2/index.css';
+// import './App.css';
 
 const chatClient = new StreamChat('npwanznmku2q');
 const userToken = chatClient.devToken('connor')
@@ -24,23 +26,30 @@ const channel = chatClient.channel('messaging', 'GamerCity2', {
   members: ['connor', 'otherUser'],
 });
 
-channel.sendEvent({
-  type: "friendship_request",
-  text: "Hey there, long time no see!",
-  user: 'otherUser'
-});
+// let request = chatClient.sendUserCustomEvent('connor', {
+//   type: 'friendship_request',
+//   text: 'Joaquin wants to be your friend',
+// });
 
 const ChatApp = (props) => {
   console.log('chat', props.isAuthenticated, props.chatOpen);
   console.log(chatClient.user.id)
-  const filters = { members: [chatClient.user.id]}
+  // console.log(request)
+  // const filters = { members: [chatClient.user.id]}
   const sort = { last_message_at: -1 };
   const options = { limit: 10 }
-  if (props.isAuthenticated) {
+  const [selectedChat, setSelectedChat] = useState(null);
+
+  const handleChannelClick = (chat) => {
+    console.log(chat);
+    setSelectedChat(chat);
+  }
+
+  if (props.isAuthenticated ) {
     return (
-      <Chat client={chatClient} theme='str-chat__theme-dark'>
-        <ChannelList filters={filters} sort={sort} options={options} />
-        <Channel channel={channel}>
+      <Chat client={chatClient} theme='str-chat__theme-dark'  >
+        <ChannelList  sort={sort} options={options} onClick={handleChannelClick}/>
+        <Channel channel={selectedChat} >
           <Window>
             <ChannelHeader />
             <MessageList />
