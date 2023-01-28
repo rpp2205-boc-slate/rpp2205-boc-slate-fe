@@ -63,9 +63,9 @@ export default function App(props) {
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
             <Route path='/chat' element={<AuthenticationGuard component={Chat} />} />
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} />
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <ProfileButton isAuthenticated={isAuthenticated}/>
-        <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/>
+        {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
         <div class="hidden" style={{display: 'none'}}>
           <MyProfile userId={userId}/>
         </div>
