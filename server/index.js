@@ -4,8 +4,11 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const PORT = 3000;
 const axios = require('axios');
+require('dotenv').config();
 //mock api path
 const apiPath = 'https://6l9qj.wiremockapi.cloud';
+const gameApiPath = 'https://api.rawg.io/api/games';
+const gameApiKey = process.env.API_KEY;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -85,6 +88,40 @@ app.get('/user/:user_id/friends', (req, res) => {
       res.status(200).send(response.data);
     })
     .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+
+//returns game's information based on searching keyword including the game name, game description, limiting results to be 100 games.
+app.get('/games/:keyword', (req, res) => {
+  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
+    .then((response) => {
+      res.status(200).send(response.results.slice(0, 100));
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
+//return games ordering by rating (popularity) and released (trending), limiting the results to be 100 games.
+app.get('/games/:orderBy', (req, res) => {
+  axios.get(`${gameApiPath}?key=${gameApiKey}&ordering=-${orderBy}`)
+    .then((response) => {
+      res.status(200).send(response.results.slice(0, 100));
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+//return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
+app.get('/games/:slug', (req, res) => {
+  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${slug}&search_exact=true&search_precise=true`)
+    .then((response) => {
+      res.status(200).send(response.results[0])
+    })
+    .catch(err => {
       res.status(400).send(err);
     })
 });
