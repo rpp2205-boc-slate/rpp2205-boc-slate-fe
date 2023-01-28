@@ -33,6 +33,11 @@ export default function App(props) {
   useEffect(() => {
     //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
   })
+  const [chatOpen, setChatOpen] = useState(null);
+  const handleToggle = () => {
+    console.log('handle toggle', chatOpen)
+    setChatOpen((bool) => !bool);
+  };
   if (isLoading) {
     return (
       <div className="page-layout">
@@ -51,12 +56,14 @@ export default function App(props) {
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthenticationGuard component={UserProfile} />} />
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
+            <Route path='/chat' element={<AuthenticationGuard component={Chat} />} />
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user}/>
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} onClick={handleToggle} setChatOpen={setChatOpen}/>
         <ProfileButton isAuthenticated={isAuthenticated}/>
         <div class="hidden" style={{display: 'none'}}>
           <MyProfile userId={userId}/>
         </div>
+        <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>
     </>
   );
 
