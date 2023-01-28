@@ -35,12 +35,12 @@ export default function App(props) {
   useEffect(() => {
     //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
   })
-  const [chatOpen, setChatOpen] = useState(null);
+  const [chatOpen, setChatOpen] = useState(false);
 
-  const handleChatClick = (bool) => {
-    console.log(bool);
-    setChatOpen(bool);
-  }
+  // const handleChatClick = (bool) => {
+  //   console.log('clicked', bool);
+  //   setChatOpen(bool);
+  // }
 
   if (isLoading) {
     return (
@@ -61,15 +61,17 @@ export default function App(props) {
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthenticationGuard component={UserProfile} />} />
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
-            <Route path='/chat' element={<AuthenticationGuard component={Chat} />} />
+            {/* <Route path='/chat' element={<AuthenticationGuard component={Chat} />} /> */}
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user}  />
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <ProfileButton isAuthenticated={isAuthenticated}/>
-        <ChatButton onClick={handleChatClick} />
-        <div class="hidden" style={{display: 'none'}}>
+        {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
+        <div class="hidden profile" style={{display: 'none'}}>
           <MyProfile userId={userId}/>
         </div>
-        <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>
+        <div className="chat">
+          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>
+        </div>
     </>
   );
 

@@ -43,7 +43,7 @@ function Navigation(props) {
             {isAuthenticated && (
               <>
                 <LogoutButton />
-                <ChatButton />
+                <ChatButton setChatOpen={props.setChatOpen} chatOpen={props.chatOpen} />
               </>
             )}
           </div>

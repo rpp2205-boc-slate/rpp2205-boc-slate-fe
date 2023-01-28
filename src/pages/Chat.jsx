@@ -32,23 +32,21 @@ const channel = chatClient.channel('messaging', 'GamerCity2', {
 // });
 
 const ChatApp = (props) => {
-  console.log('chat', props.isAuthenticated, props.chatOpen);
   console.log(chatClient.user.id)
-  // console.log(request)
   // const filters = { members: [chatClient.user.id]}
   const sort = { last_message_at: -1 };
   const options = { limit: 10 }
   const [selectedChat, setSelectedChat] = useState(null);
 
   const handleChannelClick = (chat) => {
-    console.log(chat);
+    console.log('clicked', chat);
     setSelectedChat(chat);
   }
 
-  if (props.isAuthenticated ) {
+  if (props.isAuthenticated && props.chatOpen) {
     return (
       <Chat client={chatClient} theme='str-chat__theme-dark'  >
-        <ChannelList  sort={sort} options={options} onClick={handleChannelClick}/>
+        <ChannelList  sort={sort} options={options} onClick={handleChannelClick} className="channels" />
         <Channel channel={selectedChat} >
           <Window>
             <ChannelHeader />
