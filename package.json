@@ -42,6 +42,7 @@
     "@rgrove/parse-xml": "^4.0.1",
     "axios": "^1.2.4",
     "bootstrap": "^5.2.3",
+    "bufferutil": "^4.0.7",
     "css-loader": "^6.7.3",
     "cssesc": "^3.0.0",
     "dotenv": "^16.0.3",
@@ -61,6 +62,7 @@
     "slick-carousel": "^1.8.1",
     "stream-chat": "^8.3.0",
     "stream-chat-react": "^10.5.0",
-    "style-loader": "^3.3.1"
+    "style-loader": "^3.3.1",
+    "utf-8-validate": "^5.0.10"
   }
 }
