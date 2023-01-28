@@ -27,6 +27,7 @@ import { AuthenticationGuard } from "../authentication-guard.js";
 export const appHistory = createBrowserHistory();
 export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+
   console.log('app', isAuthenticated, setIsAuthenticated);
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState('667'); //667 is for tesing purpose only. userid will be passed after the login which sends a post request to server and return back an id for the current user.
@@ -48,6 +49,7 @@ export default function App(props) {
       </div>
     );
   }
+
   return(
     <>
         <Routes history={appHistory}>

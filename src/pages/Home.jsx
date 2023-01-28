@@ -12,8 +12,6 @@ export default function Home(props) {
       <Navigation />
       <Link to="/login">Login</Link>
       <Link to="/userprofile/30">user30</Link>
-      {/* <Carousel datas={[]} type={this.state.type}/> */}
-      {console.log(props.types, " HEEEER")}
       {props['types'].map((t) => (
         <Carousel type={t} />
       ))}
