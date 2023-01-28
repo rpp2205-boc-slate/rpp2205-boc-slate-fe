@@ -32,9 +32,7 @@ const channel = chatClient.channel('messaging', 'GamerCity2', {
 // });
 
 const ChatApp = (props) => {
-  console.log('chat', props.isAuthenticated, props.chatOpen);
   console.log(chatClient.user.id)
-  // console.log(request)
   // const filters = { members: [chatClient.user.id]}
   const sort = { last_message_at: -1 };
   const options = { limit: 10 }

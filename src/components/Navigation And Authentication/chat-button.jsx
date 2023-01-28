@@ -1,7 +1,6 @@
 import React from "react";
 
 export const ChatButton = (props) => {
-  console.log(props)
   let opposite = !props.chatOpen;
   const handleChatClick = () => {
     console.log('clicked', opposite);
