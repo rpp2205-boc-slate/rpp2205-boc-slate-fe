@@ -47,12 +47,8 @@ function Navigation(props) {
               </>
             )}
           </div>
-<<<<<<< HEAD
-
-=======
           <Navbar.Brand href="/login">Sign In</Navbar.Brand>
           <Navbar.Brand href="/signup">Sign Up</Navbar.Brand>
->>>>>>> main
       </Container>
     </Navbar>
     </>

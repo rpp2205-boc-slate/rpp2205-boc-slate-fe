@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./SearchBar.css";
  import {FaSearch} from "react-icons/fa";
+ import { Link, useNavigate } from "react-router-dom";
 
 export default function Search() {
   const [query, setQuery] = useState("");
@@ -19,8 +20,14 @@ export default function Search() {
   //     console.log(err)
   //   })
   // }
+  const navigate = useNavigate();
   const searchClick = (e) => {
-    console.log(e)
+    console.log(query)
+
+    navigate({
+      pathname: "/results:params",
+      search: `?${query}`
+    })
   }
 
     return (
