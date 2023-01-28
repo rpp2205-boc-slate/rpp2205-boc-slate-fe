@@ -10,10 +10,12 @@ import { useState, useEffect } from "react";
 
 function Navigation(props) {
   var { isAuthenticated, user } = useAuth0();
-  console.log(user, 'userinfo');
   useEffect(() => {
     if (props.setIsAuthenticated) {
       props.setIsAuthenticated(isAuthenticated);
+    };
+    if (props.setUser) {
+      props.setUser(user);
     }
   });
   return (

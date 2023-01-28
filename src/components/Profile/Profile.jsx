@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FriendRequestButton from './friend-request-button.jsx';
+import getProfile from './helperFunctions.js';
 
 
 export default function Profile(props) {
@@ -11,7 +12,19 @@ export default function Profile(props) {
   const [name, setName] = useState('placeholderforname');
   const [about, setAbout] = useState('placeholderforabout');
   const [friendRequest, setFriendRequest] = useState('placeholderforfriendrequest');
+  const [profileObj, setProfileObj] = useState({});
   useEffect(() => {
+    var type = (props.gameId) ? 'game' : 'user';
+    var identifier = props.gameId || props.myUserId;
+    getProfile(type, identifier, (err, result) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('profile 23', result);
+        setProfileObj(result);
+      }
+    })
+
   })
 
   const onlineStatusDiv = props.gameId ? null : (
@@ -23,7 +36,6 @@ export default function Profile(props) {
   const nameDiv = (
     <div class="profile-name">{name}</div>
   );
-  console.log('26here', props.gameId, props.userId === 'self');
   const friendRequestButtonDiv = (props.gameId || props.userId === 'self') ? null : (
     <div class="friendRequest">
       <FriendRequestButton friendRequest={props.friendRequest} userId={props.userId} />

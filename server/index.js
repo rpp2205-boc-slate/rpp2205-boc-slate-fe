@@ -14,9 +14,6 @@ const apiPath = 'http://54.159.164.8';
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../dist')));
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-})
 
 app.get('/test', (req, res) => {
   res.send('hello')
@@ -95,7 +92,8 @@ app.post('/game/:user_id/:game_id', (req, res) => {
 
 
 //returns game's information based on searching keyword including the game name, game description, limiting results to be 100 games.
-app.get('/games/:keyword', (req, res) => {
+app.get('/games/keyword/:keyword', (req, res) => {
+  const keyword = req.params.keyword;
   axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
     .then((response) => {
       res.status(200).send(response.results.slice(0, 100));
@@ -106,7 +104,8 @@ app.get('/games/:keyword', (req, res) => {
 });
 
 //return games ordering by rating (popularity) and released (trending), limiting the results to be 100 games.
-app.get('/games/:orderBy', (req, res) => {
+app.get('/games/orderBy/:orderBy', (req, res) => {
+  const orderBy = req.params.orderBy;
   axios.get(`${gameApiPath}?key=${gameApiKey}&ordering=-${orderBy}`)
     .then((response) => {
       res.status(200).send(response.results.slice(0, 100));
@@ -117,15 +116,19 @@ app.get('/games/:orderBy', (req, res) => {
 });
 
 //return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
-app.get('/games/:slug', (req, res) => {
-  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${slug}&search_exact=true&search_precise=true`)
+app.get('/games/slug/:slugname', (req, res) => {
+  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${req.params.slugname}&search_exact=true&search_precise=true`)
     .then((response) => {
-      res.status(200).send(response.results[0])
+      res.status(200).send(response.data.results[0])
     })
     .catch(err => {
       res.status(400).send(err);
     })
 });
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+})
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

@@ -27,7 +27,12 @@ export const appHistory = createBrowserHistory();
 export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   console.log('app', isAuthenticated, setIsAuthenticated);
+  const [user, setUser] = useState({});
+  const [userId, setUserId] = useState('667'); //667 is for tesing purpose only. userid will be passed after the login which sends a post request to server and return back an id for the current user.
   const { isLoading } = useAuth0();
+  useEffect(() => {
+    //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
+  })
   if (isLoading) {
     return (
       <div className="page-layout">
@@ -47,8 +52,11 @@ export default function App(props) {
             <Route path='/userprofile/:userId' element={<AuthenticationGuard component={UserProfile} />} />
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated}/>
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user}/>
         <ProfileButton isAuthenticated={isAuthenticated}/>
+        <div class="hidden" style={{display: 'none'}}>
+          <MyProfile userId={userId}/>
+        </div>
     </>
   );
 
