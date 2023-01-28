@@ -26,6 +26,7 @@ import { AuthenticationGuard } from "../authentication-guard.js";
 export const appHistory = createBrowserHistory();
 export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [pop, setPop] = useState({})
   console.log('app', isAuthenticated, setIsAuthenticated);
   const { isLoading } = useAuth0();
   if (isLoading) {
@@ -35,10 +36,27 @@ export default function App(props) {
       </div>
     );
   }
+
+//   const info = () => {
+//     axios.get('https://api.rawg.io/api/games', {
+//   params: {
+//     ordering: '-rating',
+//     key: '61f56f92cd35421a90a7b9ff9f3a1583'
+//   }
+// })
+//   .then(response => {
+//     console.log(response.data.results);
+//     // setData(response.data.results)
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
+// }
+//   info()
   return(
     <>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home types={['Pop', 'Not']}/>} />
             <Route path='/gameprofile/:gameId' element={<GameProfile/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
