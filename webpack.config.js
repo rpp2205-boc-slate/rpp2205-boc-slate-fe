@@ -4,7 +4,7 @@ const path = require('path');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
-const Dotenv = require('dotenv-webpack');
+//const Dotenv = require('dotenv-webpack');
 
 const stylesHandler = 'style-loader';
 
@@ -21,9 +21,9 @@ const config = {
         open: true,
         host: 'localhost',
     },
-    plugins: [
-        new Dotenv()
-      ],
+    // plugins: [
+    //     new Dotenv()
+    //   ],
     // plugins: [
     //     new HtmlWebpackPlugin({
     //         template: 'index.html',
