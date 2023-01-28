@@ -17,6 +17,7 @@ import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
 import { useAuth0 } from "@auth0/auth0-react";
 import Navigation from './Navigation And Authentication/Navigation.jsx';
 import ProfileButton from './Profile/profile-button.jsx';
+import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
 // import { LoginButton } from './Navigation And Authentication/login-button.jsx';
 // import { LogoutButton } from './Navigation And Authentication/logout-button.jsx';
@@ -34,10 +35,12 @@ export default function App(props) {
     //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
   })
   const [chatOpen, setChatOpen] = useState(null);
-  const handleToggle = () => {
-    console.log('handle toggle', chatOpen)
-    setChatOpen((bool) => !bool);
-  };
+
+  const handleChatClick = (bool) => {
+    console.log(bool);
+    setChatOpen(bool);
+  }
+
   if (isLoading) {
     return (
       <div className="page-layout">
@@ -58,8 +61,9 @@ export default function App(props) {
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
             <Route path='/chat' element={<AuthenticationGuard component={Chat} />} />
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} onClick={handleToggle} setChatOpen={setChatOpen}/>
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user}  />
         <ProfileButton isAuthenticated={isAuthenticated}/>
+        <ChatButton onClick={handleChatClick} />
         <div class="hidden" style={{display: 'none'}}>
           <MyProfile userId={userId}/>
         </div>
