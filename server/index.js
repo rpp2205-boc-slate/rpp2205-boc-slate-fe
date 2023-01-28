@@ -25,7 +25,6 @@ app.get('/query', (req, res) => {
 
 //Returns User profiles
 app.get('/user/:user_id/profile', (req, res) => {
-  console.log(req)
   axios.get(`${apiPath}/user/${req.query.user_id}/profile`)
     .then((response) => {
       res.status(200).send(response.data);
@@ -81,7 +80,7 @@ app.get('/user/:user_id/meta', (req, res) => {
 
 //Returns User’s friends list. Friends list does not include any blocked friends
 app.get('/user/:user_id/friends', (req, res) => {
-  axios.get(`${apiPath}/user/${req.params.user_id}/friends`)
+  axios.get(`${apiPath}/user/${req.query.user_id}/friends`)
     .then((response) => {
       res.status(200).send(response.data);
     })
