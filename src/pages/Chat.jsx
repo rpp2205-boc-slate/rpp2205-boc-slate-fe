@@ -46,7 +46,7 @@ const ChatApp = (props) => {
   if (props.isAuthenticated && props.chatOpen) {
     return (
       <Chat client={chatClient} theme='str-chat__theme-dark'  >
-        <ChannelList  sort={sort} options={options} onClick={handleChannelClick}/>
+        <ChannelList  sort={sort} options={options} onClick={handleChannelClick} className="channels" />
         <Channel channel={selectedChat} >
           <Window>
             <ChannelHeader />
