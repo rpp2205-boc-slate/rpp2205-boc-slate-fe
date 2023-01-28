@@ -28,6 +28,11 @@ export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   console.log('app', isAuthenticated, setIsAuthenticated);
   const { isLoading } = useAuth0();
+  const [chatOpen, setChatOpen] = useState(null);
+  const handleToggle = () => {
+    console.log('handle toggle', chatOpen)
+    setChatOpen((bool) => !bool);
+  };
   if (isLoading) {
     return (
       <div className="page-layout">
@@ -46,9 +51,11 @@ export default function App(props) {
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthenticationGuard component={UserProfile} />} />
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
+            <Route path='/chat' element={<AuthenticationGuard component={Chat} />} />
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated}/>
+        <Navigation setIsAuthenticated={setIsAuthenticated} onClick={handleToggle} setChatOpen={setChatOpen}/>
         <ProfileButton isAuthenticated={isAuthenticated}/>
+        <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>
     </>
   );
 
