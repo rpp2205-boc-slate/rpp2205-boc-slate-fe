@@ -15,11 +15,11 @@ function Navigation(props) {
     if (props.setIsAuthenticated) {
       props.setIsAuthenticated(isAuthenticated);
 
-      axios.post('/users', {user})
-      .then(response => {
-        console.log('posted')
-      })
-      .catch(err => console.log(err));
+      // axios.post('/users', {user})
+      // .then(response => {
+      //   console.log('posted')
+      // })
+      // .catch(err => console.log(err));
     }
 
     if (props.setUser) {
