@@ -8,7 +8,6 @@ import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { response } from 'express';
 
 
 function Navigation(props) {
