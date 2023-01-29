@@ -6,14 +6,15 @@ import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import Carousel from "../components/Carousel/Carousel.jsx"
 export default function Home(props) {
-
   return(
     <>
       <h1> placeholder for home page... </h1>
       <Navigation />
       <Link to="/login">Login</Link>
       <Link to="/userprofile/30">user30</Link>
-      <Carousel datas={[]}/>
+      {props['types'].map((t) => (
+        <Carousel type={t} />
+      ))}
     </>
   );
 

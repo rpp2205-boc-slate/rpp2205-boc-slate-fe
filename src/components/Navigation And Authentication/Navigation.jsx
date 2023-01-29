@@ -14,7 +14,14 @@ function Navigation(props) {
   useEffect(() => {
     if (props.setIsAuthenticated) {
       props.setIsAuthenticated(isAuthenticated);
-    };
+
+      // axios.post('/users', {user})
+      // .then(response => {
+      //   console.log('posted')
+      // })
+      // .catch(err => console.log(err));
+    }
+
     if (props.setUser) {
       props.setUser(user);
     }
@@ -36,7 +43,7 @@ function Navigation(props) {
             {isAuthenticated && (
               <>
                 <LogoutButton />
-                <ChatButton />
+                <ChatButton setChatOpen={props.setChatOpen} chatOpen={props.chatOpen} />
               </>
             )}
           </div>

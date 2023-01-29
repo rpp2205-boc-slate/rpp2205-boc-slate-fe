@@ -24,6 +24,16 @@ app.get('/query', (req, res) => {
   res.send('test2')
 });
 
+//post user info
+app.post('/users', (req, res) => {
+  console.log('req.body', req.body);
+  axios.post(`${apiPath}/users`, req.body)
+  .then((response) => {
+    res.status(201).send('created');
+  })
+  .catch(err => res.status(400).send(err));
+})
+
 //Returns User profiles
 app.get('/user/:user_id/profile', (req, res) => {
   axios.get(`${apiPath}/user/${req.query.user_id}/profile`)
