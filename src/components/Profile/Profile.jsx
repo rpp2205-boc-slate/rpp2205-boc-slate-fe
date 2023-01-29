@@ -6,28 +6,31 @@ import getProfile from './helperFunctions.js';
 
 
 export default function Profile(props) {
-  console.log(props.isAuthenticated);
   const [onlineStatus, setOnlineStatus] = useState('placeholderforonlinestatus');
   const [img, setImg] = useState('./img_avatar2.png');
+  const [id, setId] = useState('');
   const [name, setName] = useState('placeholderforname');
   const [about, setAbout] = useState('placeholderforabout');
   const [friendRequest, setFriendRequest] = useState('placeholderforfriendrequest');
   const [profileObj, setProfileObj] = useState({});
   useEffect(() => {
-    var type = (props.gameId) ? 'game' : 'user';
-    var identifier = props.gameId || props.myUserId;
+    var type = (props.slug) ? 'game' : 'user';
+    var identifier = props.slug || props.myUserId;
     getProfile(type, identifier, (err, result) => {
       if (err) {
-        console.error(err);
+        console.error('err0r', err);
       } else {
-        console.log('profile 23', result);
         setProfileObj(result);
+        setName(result.name || result.username);
+        setImg(result.background_image || result.photos[0]?.photo_url);
+        setAbout(result.description || result.bio);
+        setId(result.id || user_id);
       }
     })
+  });
 
-  })
 
-  const onlineStatusDiv = props.gameId ? null : (
+  const onlineStatusDiv = props.slug ? null : (
     <div class="onlineStatus">
       {(!onlineStatus) ? <div class="offline"><span class="logged-in">●</span>Offline</div> : <div class="online"><span class="logged-in">●</span>Online</div>}
     </div>
@@ -36,13 +39,13 @@ export default function Profile(props) {
   const nameDiv = (
     <div class="profile-name">{name}</div>
   );
-  const friendRequestButtonDiv = (props.gameId || props.userId === 'self') ? null : (
+  const friendRequestButtonDiv = (props.slug || props.userId === 'self') ? null : (
     <div class="friendRequest">
       <FriendRequestButton friendRequest={props.friendRequest} userId={props.userId} />
     </div>
   );
 
-  const likeGameDiv = (!props.gameId) ? null : (
+  const likeGameDiv = (!props.slug) ? null : (
     <div class="likeGame">
       <button>Like</button>
       <button>Add to Favourite</button>
@@ -74,7 +77,7 @@ export default function Profile(props) {
         <div class="rightColumn">
           <div class="aboutMe">
             {editAboutDiv}
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h4>
+            <h4>{about}</h4>
           </div>
         </div>
       </div>

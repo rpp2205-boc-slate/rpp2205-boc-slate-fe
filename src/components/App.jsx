@@ -49,7 +49,7 @@ export default function App(props) {
     <>
         <Routes history={appHistory}>
           <Route path='/' element={<Home />} />
-            <Route path='/gameprofile/:gameId' element={<GameProfile/>} />
+            <Route path='/gameprofile/:slug' element={<GameProfile/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results:params' element={<SearchResult />} />

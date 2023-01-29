@@ -92,7 +92,7 @@ app.post('/game/:user_id/:game_id', (req, res) => {
 
 
 //returns game's information based on searching keyword including the game name, game description, limiting results to be 100 games.
-app.get('/games/keyword/:keyword', (req, res) => {
+app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
   const keyword = req.params.keyword;
   axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
     .then((response) => {
@@ -117,9 +117,9 @@ app.get('/games/orderBy/:orderBy', (req, res) => {
 
 //return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
 app.get('/games/slug/:slugname', (req, res) => {
-  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${req.params.slugname}&search_exact=true&search_precise=true`)
+  axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
     .then((response) => {
-      res.status(200).send(response.data.results[0])
+      res.status(200).send(response.data)
     })
     .catch(err => {
       res.status(400).send(err);
