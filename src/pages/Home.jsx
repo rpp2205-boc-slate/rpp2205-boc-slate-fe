@@ -12,7 +12,7 @@ export default function Home(props) {
       <Navigation />
       <Link to="/login">Login</Link>
       <Link to="/userprofile/30">user30</Link>
-      {props['types'].map((t) => (
+      {props['types']?.map((t) => (
         <Carousel type={t} />
       ))}
     </>

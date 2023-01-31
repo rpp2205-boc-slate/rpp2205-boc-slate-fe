@@ -36,7 +36,7 @@ app.post('/users', (req, res) => {
 
 //Returns User profiles
 app.get('/user/:user_id/profile', (req, res) => {
-  axios.get(`${apiPath}/user/${req.query.user_id}/profile`)
+  axios.get(`${apiPath}/user/${req.params.user_id}/profile`)
     .then((response) => {
       res.status(200).send(response.data);
     })
@@ -58,7 +58,7 @@ app.get('/users', (req, res) => {
 
 //user1 send friend request to user2
 app.post('/:user1_id/request/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.query.user1_id}/request/${req.query.user2_id}`)
+  axios.post(`${apiPath}/${req.params.user1_id}/request/${req.params.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -69,7 +69,7 @@ app.post('/:user1_id/request/:user2_id', (req, res) => {
 
 //user1 responds to friend request from user2; response is APPROVED or REJECTED
 app.post('/:user1_id/respond/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.query.user1_id}/${req.body.respond}/${req.query.user2_id}`)
+  axios.post(`${apiPath}/${req.params.user1_id}/${req.body.respond}/${req.params.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -80,7 +80,7 @@ app.post('/:user1_id/respond/:user2_id', (req, res) => {
 
 //user1 blocks/unblocks user2
 app.post('/:user1_id/block/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.query.user1_id}/${req.body.blocked}/${req.query.user2_id}`)
+  axios.post(`${apiPath}/${req.params.user1_id}/${req.body.blocked}/${req.params.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -91,7 +91,7 @@ app.post('/:user1_id/block/:user2_id', (req, res) => {
 
 //user likes/dislikes a game
 app.post('/game/:user_id/:game_id', (req, res) => {
-  axios.post(`${apiPath}/game/${req.query.user_id}/${req.query.game_id}`)
+  axios.post(`${apiPath}/game/${req.params.user_id}/${req.params.game_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -129,6 +129,7 @@ app.get('/games/orderBy/:orderBy', (req, res) => {
 app.get('/games/slug/:slugname', (req, res) => {
   axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
     .then((response) => {
+      console.log(typeof response.data, response.data.name)
       res.status(200).send(response.data)
     })
     .catch(err => {
@@ -138,7 +139,7 @@ app.get('/games/slug/:slugname', (req, res) => {
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-})
+});
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);
