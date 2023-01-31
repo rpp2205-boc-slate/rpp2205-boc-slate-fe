@@ -10,6 +10,7 @@ import SearchResult from '../pages/SearchResult.jsx';
 import UserList from '../pages/UserList.jsx';
 import UserProfile from '../pages/UserProfile.jsx';
 import MyProfile from '../pages/MyProfile.jsx';
+import Profile from './Profile/Profile.jsx';
 import Chat from '../pages/Chat.jsx';
 import { createBrowserHistory } from "history";
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -62,8 +63,8 @@ export default function App(props) {
   return(
     <>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Pop', 'Not']} />} />
-            <Route path='/gameprofile/:gameId' element={<GameProfile/>} />
+          <Route path='/' element={<Home types={['Pop', 'Not']}/>} />
+            <Route path='/gameprofile/:slug' element={<GameProfile/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results:params' element={<SearchResult />} />
@@ -76,7 +77,7 @@ export default function App(props) {
         <ProfileButton isAuthenticated={isAuthenticated}/>
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
         <div class="hidden profile" style={{display: 'none'}}>
-          <MyProfile userId={userId}/>
+          <Profile selfId={userId}/>
         </div>
         <div className="chat">
           <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>

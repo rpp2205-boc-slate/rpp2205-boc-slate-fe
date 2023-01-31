@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 
 
 function Navigation(props) {
+  console.log("useAuth0 obj", useAuth0());
   var { isAuthenticated, user } = useAuth0();
   
   useEffect(() => {
