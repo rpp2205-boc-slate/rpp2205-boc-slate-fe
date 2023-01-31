@@ -1,0 +1,41 @@
+import imgTest from './Testing/1.png';
+import axios from 'axios'
+import React from 'react';
+import { useEffect, useState } from 'react';
+import './F.css';
+
+function Fri (props) {
+  const [fr, setFr] = useState({});
+
+
+
+  useEffect(() => {
+    // console.log(props.f.userid, " HURURURURU")
+    axios.get('/user/:user_id/profile', {params: { user_id: props.f.userid }})
+      .then((response) => {
+        console.log(response.data)
+        setFr(response.data)
+      })
+      .catch((error) => {
+        console.log('Error ', error)
+      })
+  }, [props.f])
+
+return (
+
+    <div onClick={(e) => props.clickFun(`/user/${fr.user_id}/profile`)} className='fcard'>
+      <div className='fcard-top'>
+      <img src={fr.photos && fr.photos.length > 0 ? fr.photos[0].photo_url : imgTest} alt='img' />
+      </div>
+      <div className='fcard-bottom'>{fr.name}</div>
+    </div>
+
+)
+
+
+
+
+}
+
+
+export default Fri

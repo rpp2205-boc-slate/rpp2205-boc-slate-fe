@@ -7,10 +7,12 @@ import './C.css';
 import { dataDigitalBestSeller } from './data';
 import imgTest from './Testing/1.png';
 import axios from 'axios'
+import Fri from './friends.jsx'
 
 function Carousel(props) {
   const [defaultImage, setDefaultImage] = useState({});
   const [data, setData] = useState({});
+  const [friends, setFriends] = useState([])
   const settings = {
     dots: true,
     infinite: false,
@@ -65,15 +67,19 @@ function Carousel(props) {
         }
       })
         .then((response) => {
+          console.log(response.data.results)
           setData(response.data.results)
         })
         .catch(error => {
           console.log(error);
         });
-    } else {
-      axios.get('/user/1/profile')
+    } else if (props.type === 'Fri') {
+      console.log('TESSSSTING')
+      axios.get('/user/:user_id/profile', {params: { user_id: 2}})
       .then((response) => {
-        console.log(response, " CarFriend")
+        console.log(response.data.friends, " CarFriend")
+        setFriends(response.data.friends)
+
       })
       .catch((error) => {
         console.log('Error ', error)
@@ -118,6 +124,17 @@ function Carousel(props) {
       </Slider>
     </div>
   );
+              } else if (props.type === 'Fri' && friends.length > 0) {
+                  return (
+                   <div className='fCar'>Friends
+                   <Slider {...settings}>
+                      {friends.map((friend) => (
+                        // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
+                        <Fri clickFun={handleClick} f={friend} />
+                      ))}
+                      </Slider>
+                    </div>
+                  )
               } else {
                 return <div onClick={(e) => handleClick('Testing')}>NOT</div>
               }
