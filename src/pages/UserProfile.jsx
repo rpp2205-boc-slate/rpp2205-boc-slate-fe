@@ -12,6 +12,7 @@ export default function UserProfile(props) {
     <div>
     <Navigation />
     <Profile userId={userId}/>
+
     </div>
   );
 
