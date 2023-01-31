@@ -94,9 +94,10 @@ app.post('/game/:user_id/:game_id', (req, res) => {
 //returns game's information based on searching keyword including the game name, game description, limiting results to be 100 games.
 app.get('/games/keyword/:keyword', (req, res) => {
   const keyword = req.params.keyword;
+  // console.log('inside', keyword, gameApiKey)
   axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
     .then((response) => {
-      res.status(200).send(response.results.slice(0, 100));
+      res.status(200).send(response.data.results.slice(0, 100));
     })
     .catch((err) => {
       res.status(400).send(err);

@@ -6,19 +6,7 @@ import './C.css';
 export default function showResults(input) {
   const [defaultImage, setDefaultImage] = useState({});
   const [data, setData] = useState(input);
-  let cardStyle = {
-    height: "40px",
-    width: "20px",
-    backgroundColor: "purple",
-    border: "1px solid black",
-    padding: "20px"
-  }
 
-  let rowStyle =  {
-    top: "200px",
-    display: "in-line block",
-    padding: "10px"
-  }
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
       ...prev,

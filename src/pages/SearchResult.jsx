@@ -1,13 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 // import { StreamChat } from 'stream-chat';
 import axios from "axios";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import UsersFunc from "../components/Search/UsersFunc.jsx"
-import SearchBar from "../components/Search/SearchBar.jsx"
 import ShowResults from "../components/Search/ShowResults.jsx";
 import { dataDigitalBestSeller } from '../components/Carousel/data';
 import imgTest from '../components/Carousel/Testing/1.png';
+import './C.css'
 
 /*
 checkout /components/Search for list of functions used
@@ -15,35 +16,22 @@ checkout /components/Search for list of functions used
 
 export default function SearchResult(props) {
 
-  // uncomment this function once appropriate props is passed in
-  // const [searchQuery, useSearchQuery] = useState(props)
-
-  //using as default for testing purposes
-  const [searchQuery, useSearchQuery] = useState('Halo');
-  const [result, useResult] = useState(['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7']);
+  // const [result, useResult] = useState(props.query);
   const [defaultImage, setDefaultImage] = useState({});
-
+  const query = useParams();
+  const [result, setResult] = useState([]);
+  const nav = useNavigate()
 
   useEffect(() => {
-    console.log(dataDigitalBestSeller)
-    // function searchQuery() {
-    //   console.log('inside func')
-      // useResult([dataDigitalBestSeller])
-      // axios.get('https://api.rawg.io/api/games?key=2539b6cc34574d38b6b056fc7477e16b')
-      // .then((response) => {
-      //   console.log('inside response')
-      //   useSearchQuery(response)
-      // })
-      // .catch((err) => {
-      //   console.log(err)
-      // })
-    // }
-    // searchQuery();
-    console.log(SearchBar)
-  }, [])
-
- // /genres to get all the genres
- // /platform to list all platforms
+    axios.get(`/games/keyword/${query.params}`)
+    .then((response) => {
+      // console.log(response, 'response')
+      setResult(response.data)
+    })
+    .catch((err)=> {
+      console.log(err, 'error in getting results')
+    })
+  }, [query.params])
 
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
@@ -53,65 +41,55 @@ export default function SearchResult(props) {
     }));
   };
 
-  let filtersBackground = {
-    position: "fixed",
-    border: "5px solid",
-    left: "auto",
-    padding: "10px",
-    top: "20%",
-    left: "50%",
-    transform: "translate(-50%, -50%)"
+  const handleClick = (input) => {
+    if (props.type !== "Friend") {
+    window.location.href = `/gameprofile/${input}`;
+    } else {
+      window.location.href = `/userprofile/${input}`
+    }
   }
-
-  let resultBackground = {
-    position: "fixed",
-    color: "red",
-    borderStyle: "solid",
-    backgroundColor: "#A9A9A9",
-    borderRadius: "20px",
-    width: "100%",
-    height: "700px",
-    padding: "1%",
-    top: "30%",
-
-  }
-
-  let resultStyle = {
-    position: "relative",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    top: "45%",
-    bottom: "5%",
-    width: "1000px",
-    height: "600px",
-    overflow: "scroll",
-    display: "grid",
-  }
-
-
-
 
 
   return(
-    <>
-      <div><Navigation /></div>
-      <SearchBar/>
-      <div style={filtersBackground}> {/*Filters List*/}
-        <button type="button" onClick={UsersFunc} value={searchQuery} >Users</button> <button type="button">Platform</button><br/>
+    <div className="main">
+      <div className="filterList"> {/*Filters List*/}
+        <button type="button" >Users</button> <button type="button">Platform</button><br/>
        <label for="cars">Choose a Genre:</label>
-
-<select name="cars" id="cars">
-  <option value="volvo">RPG</option>
-  <option value="saab">MMORPG</option>
-  <option value="mercedes">Adventure</option>
-  <option value="audi">Strategy</option>
-</select>
+      <select name="cars" id="cars">
+        <option value="volvo">RPG</option>
+        <option value="saab">MMORPG</option>
+        <option value="mercedes">Adventure</option>
+        <option value="audi">Strategy</option>
+      </select>
       </div>
-      <div style={resultBackground}> {/*Search Results */}
-        <h3 style={{textAlign:"center", padding:"0px 0px 25px 0px"}}>Results</h3>
-        <div style={resultStyle}>{ShowResults(dataDigitalBestSeller)}</div>
+      <div className="searchBackground"> {/*Search Results */}
+        <h3 >Results</h3>
+        <div>
+          <div className='holder'>
+            {result.map((item) => (
+            <div key={item.id} gameid={item.id}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+            <div gameid={item.id} className="card-top">
+              <img gameid={item.id}
+                src={
+                  defaultImage[item.name] === item.name
+                    ? defaultImage.linkDefault
+                    : item.background_image
+                }
+                alt={item.title}
+                onError={handleErrorImage}
+              />
+              <h1 gameid={item.id}>{item.name}</h1>
+            </div>
+            <div gameid={item.id} className="card-bottom">
+              {/* <h3>{item.name}</h3> */}
+              <span gameid={item.id}className="category">{}</span>
+            </div>
+          </div>
+          ))}
+          </div>
+          </div>
       </div>
-    </>
+    </div>
   );
 
 }
