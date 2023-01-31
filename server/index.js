@@ -25,11 +25,11 @@ app.get('/query', (req, res) => {
 });
 
 //post user info
-app.post('/users', (req, res) => {
+app.post('/user/addinfo', (req, res) => {
   console.log('req.body', req.body);
-  axios.post(`${apiPath}/users`, req.body)
+  axios.post(`${apiPath}/user/addinfo`, req.body)
   .then((response) => {
-    res.status(201).send('created');
+    res.status(201).send(response.data)
   })
   .catch(err => res.status(400).send(err));
 })

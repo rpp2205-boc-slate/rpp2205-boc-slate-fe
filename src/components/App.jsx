@@ -32,9 +32,27 @@ export default function App(props) {
   console.log('app', isAuthenticated, setIsAuthenticated);
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState('667'); //667 is for tesing purpose only. userid will be passed after the login which sends a post request to server and return back an id for the current user.
+  const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   useEffect(() => {
-    //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
+    //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to the state
+    if (user !== {}) {
+      var obj = {};
+      console.log(user, 'user41')
+      axios.post('/user/addinfo', user)
+        .then(response => {
+          var profile = response.data;
+          console.log(profile, 'response48')
+          setUserProfile(profile);
+          setTimeout(() => {
+            console.log('here', response.data, userProfile);
+          }, 2000);
+
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    }
   })
   const [chatOpen, setChatOpen] = useState(false);
 
