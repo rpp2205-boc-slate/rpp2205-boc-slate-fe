@@ -35,6 +35,15 @@ export default function App(props) {
   const { isLoading } = useAuth0();
   useEffect(() => {
     //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
+    if (isAuthenticated) {
+      axios.post('/user/addinfo', {user})
+      .then(response => {
+        setUserId(response.data.user_id);
+      })
+      .catch(err => console.log(err));
+    }
+   
+                                       
   })
   const [chatOpen, setChatOpen] = useState(false);
 

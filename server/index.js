@@ -25,11 +25,10 @@ app.get('/query', (req, res) => {
 });
 
 //post user info
-app.post('/users', (req, res) => {
-  console.log('req.body', req.body);
-  axios.post(`${apiPath}/users`, req.body)
+app.post('/user/addinfo', (req, res) => {
+  axios.post(`${apiPath}/user/addinfo`, req.body)
   .then((response) => {
-    res.status(201).send('created');
+    res.status(201).send(response.data);
   })
   .catch(err => res.status(400).send(err));
 })
@@ -104,9 +103,11 @@ app.post('/game/:user_id/:game_id', (req, res) => {
 //returns game's information based on searching keyword including the game name, game description, limiting results to be 100 games.
 app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
   const keyword = req.params.keyword;
+  console.log('keyword', keyword);
   axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
     .then((response) => {
-      res.status(200).send(response.results.slice(0, 100));
+      console.log(response.data.results.length);
+      res.status(200).send(response.data.results.slice(0,100));
     })
     .catch((err) => {
       res.status(400).send(err);
