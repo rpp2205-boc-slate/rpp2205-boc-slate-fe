@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./SearchBar.css";
-import {FaSearch} from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+ import {FaSearch} from "react-icons/fa";
+ import { Link, useNavigate } from "react-router-dom";
+ import axios from "axios";
 
 
 export default function Search(props) {
@@ -12,9 +13,24 @@ export default function Search(props) {
     setQuery(e.target.value);
   };
 
+  // function searchQuery() {
+  //   axios.get('/games/keyword/:keyword', {params: {keyword: {query }}})
+  //   .then((response) => {
+  //     console.log(response.data.results)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  // }
   const navigate = useNavigate();
   const searchClick = (e) => {
-    navigate(`/results/${query}`, {state: {query : query}})
+    console.log(query)
+    navigate({
+      pathname: "/results:params",
+      search: `?${query}`
+    })
+    setQuery("");
+    console.log(query)
   }
 
     return (

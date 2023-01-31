@@ -10,6 +10,7 @@ import SearchResult from '../pages/SearchResult.jsx';
 import UserList from '../pages/UserList.jsx';
 import UserProfile from '../pages/UserProfile.jsx';
 import MyProfile from '../pages/MyProfile.jsx';
+import Profile from './Profile/Profile.jsx';
 import Chat from '../pages/Chat.jsx';
 import { createBrowserHistory } from "history";
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -34,13 +35,22 @@ export default function App(props) {
   const { isLoading } = useAuth0();
   useEffect(() => {
     //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
-  })
-  const [chatOpen, setChatOpen] = useState(null);
+    if (isAuthenticated) {
+      axios.post('/user/addinfo', {user})
+      .then(response => {
+        setUserId(response.data.user_id);
+      })
+      .catch(err => console.log(err));
+    }
 
-  const handleChatClick = (bool) => {
-    console.log(bool);
-    setChatOpen(bool);
-  }
+
+  })
+  const [chatOpen, setChatOpen] = useState(false);
+
+  // const handleChatClick = (bool) => {
+  //   console.log('clicked', bool);
+  //   setChatOpen(bool);
+  // }
 
   if (isLoading) {
     return (
@@ -53,23 +63,25 @@ export default function App(props) {
   return(
     <>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Pop', 'Not']} />} />
-            <Route path='/gameprofile/:gameId' element={<GameProfile/>} />
+          <Route path='/' element={<Home types={['Pop', 'Not']}/>} />
+            <Route path='/gameprofile/:slug' element={<GameProfile/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthenticationGuard component={UserProfile} />} />
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
-            <Route path='/chat' element={<AuthenticationGuard component={Chat} />} />
+            {/* <Route path='/chat' element={<AuthenticationGuard component={Chat} />} /> */}
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user}  />
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <ProfileButton isAuthenticated={isAuthenticated}/>
-        <ChatButton onClick={handleChatClick} />
-        <div class="hidden" style={{display: 'none'}}>
-          <MyProfile userId={userId}/>
+        {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
+        <div class="hidden profile" style={{display: 'none'}}>
+          <Profile selfId={userId}/>
         </div>
-        <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>
+        <div className="chat">
+          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>
+        </div>
     </>
   );
 

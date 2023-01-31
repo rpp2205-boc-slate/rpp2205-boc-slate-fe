@@ -4,7 +4,8 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 // import { StreamChat } from 'stream-chat';
 import axios from "axios";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
-import UsersFunc from "../components/Search/UsersFunc.jsx"
+import UsersFunc from "../components/Search/UsersFunc.jsx";
+import SearchBar from "../components/Search/SearchBar.jsx";
 import ShowResults from "../components/Search/ShowResults.jsx";
 import { dataDigitalBestSeller } from '../components/Carousel/data';
 import imgTest from '../components/Carousel/Testing/1.png';
@@ -23,9 +24,10 @@ export default function SearchResult(props) {
   const nav = useNavigate()
 
   useEffect(() => {
-    axios.get(`/games/keyword/${query.params}`)
+    console.log(query.params, 'hel')
+    axios.get(`/games/keyword/${query.params}/0`)
     .then((response) => {
-      // console.log(response, 'response')
+      console.log(response, 'response')
       setResult(response.data)
     })
     .catch((err)=> {
