@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FriendRequestButtons from './friend-request-buttons.jsx';
-import AddToFavButton from './add-to-fav-button.jsx';
 import AddToLikeButton from './add-to-like-button.jsx';
 import EditAboutButton from './edit-about-button.jsx';
 import EditProfileButton from './edit-profile-button.jsx';
@@ -33,7 +32,7 @@ export default function Profile(props) {
         //setWebsite(result.website);
       }
     })
-  }, [id]);
+  }, [profileObj.name]);
 
 
   const onlineStatusDiv = props.slug ? null : (
@@ -53,14 +52,13 @@ export default function Profile(props) {
 
   const likeGameDiv = (!props.slug) ? null : (
     <div class="likeGame">
-      <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} /></div>
-      <div id="add-to-favourite"><AddToFavButton selfId={props.selfId} slug={props.slug} /></div>
+      <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} profileObj={profileObj}/></div>
     </div>
   );
 
   const editProfileButtonDiv = (props.userId !== props.selfId || props.slug) ? null : (
     <div class="editProfileButton">
-      <EditProfileButton selfId={props.selfId}/>
+      <EditProfileButton selfId={props.selfId} profileObj={profileObj}/>
     </div>
   );
 

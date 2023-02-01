@@ -17,7 +17,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
 import { useAuth0 } from "@auth0/auth0-react";
 import Navigation from './Navigation And Authentication/Navigation.jsx';
-import ProfileButton from './Profile/profile-button.jsx';
+//import ProfileButton from './Profile/profile-button.jsx';
 import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
 // import { LoginButton } from './Navigation And Authentication/login-button.jsx';
@@ -28,18 +28,13 @@ import { AuthenticationGuard } from "../authentication-guard.js";
 export const appHistory = createBrowserHistory();
 export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-
-  console.log('app', isAuthenticated, setIsAuthenticated);
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState('667'); //667 is for tesing purpose only. userid will be passed after the login which sends a post request to server and return back an id for the current user.
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
-  console.log(user, Object.keys(user).length, userId);
   useEffect(() => {
-    console.log('useeffectapp', user, Object.keys(user).length);
     //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to the state
-    if (Object.keys(user).length !== 0) {
-      console.log('useeffectapp2');
+    if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
       axios.post('/user/addinfo', user)
         .then(response => {
           var profile = response.data;
@@ -54,7 +49,7 @@ export default function App(props) {
           console.error(err);
         })
     }
-  }, [user.name]);
+  }, [user]);
   const [chatOpen, setChatOpen] = useState(false);
 
   // const handleChatClick = (bool) => {
@@ -84,7 +79,7 @@ export default function App(props) {
             {/* <Route path='/chat' element={<AuthenticationGuard component={Chat} />} /> */}
         </Routes>
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
-        <ProfileButton isAuthenticated={isAuthenticated}/>
+        {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
         <div class="hidden profile" style={{display: 'none'}}>
           <Profile selfId={userId}/>
@@ -94,5 +89,4 @@ export default function App(props) {
         </div>
     </>
   );
-
 }
