@@ -9,10 +9,7 @@ export default function Home(props) {
   console.log(props)
   return(
     <>
-      <h1> placeholder for home page... </h1>
       <Navigation />
-      <Link to="/login">Login</Link>
-      <Link to="/userprofile/30">user30</Link>
       {props['types']?.map((t) => (
         <Carousel type={t} />
       ))}
