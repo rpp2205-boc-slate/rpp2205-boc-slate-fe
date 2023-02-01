@@ -5,7 +5,8 @@ import "./SearchBar.css";
  import { Link, useNavigate } from "react-router-dom";
  import axios from "axios";
 
-export default function Search() {
+
+export default function Search(props) {
   const [query, setQuery] = useState("");
   const handleChange = (e) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ export default function Search() {
     return (
       <div>
         <input type="text" placeholder="Search here" onChange={handleChange} className="query" />
-         < FaSearch className="searchIcon" onClick={searchClick} value={query}/>
+         < FaSearch className="searchIcon" onClick={searchClick}/>
       </div>
     )
 };

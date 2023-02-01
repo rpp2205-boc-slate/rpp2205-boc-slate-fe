@@ -77,7 +77,7 @@ export default function App(props) {
             <Route path='/gameprofile/:slug' element={<GameProfile/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
-            <Route path='/results:params' element={<SearchResult />} />
+            <Route path='/results/:params' element={<SearchResult/>} />
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthenticationGuard component={UserProfile} />} />
             <Route path='/myprofile' element={<AuthenticationGuard component={MyProfile} />} />
