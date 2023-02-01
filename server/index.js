@@ -10,6 +10,7 @@ require('dotenv').config();
 const gameApiPath = 'https://api.rawg.io/api/games';
 const gameApiKey = process.env.API_KEY;
 const apiPath = 'http://54.159.164.8';
+//const apiPath = 'http://localhost:3001';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,7 +27,6 @@ app.get('/query', (req, res) => {
 
 //post user info
 app.post('/user/addinfo', (req, res) => {
-  console.log('req.body', req.body);
   axios.post(`${apiPath}/user/addinfo`, req.body)
   .then((response) => {
     res.status(201).send(response.data)
