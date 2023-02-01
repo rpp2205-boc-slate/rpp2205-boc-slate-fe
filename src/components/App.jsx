@@ -32,19 +32,29 @@ export default function App(props) {
   console.log('app', isAuthenticated, setIsAuthenticated);
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState('667'); //667 is for tesing purpose only. userid will be passed after the login which sends a post request to server and return back an id for the current user.
+  const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
+  console.log(user, Object.keys(user).length, userId);
   useEffect(() => {
-    //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to
-    if (isAuthenticated) {
-      axios.post('/user/addinfo', {user})
-      .then(response => {
-        setUserId(response.data.user_id);
-      })
-      .catch(err => console.log(err));
+    console.log('useeffectapp', user, Object.keys(user).length);
+    //axios.post() post a new user if not existing to the db, return the user id in response, then pass the user id to state, then pass it to the state
+    if (Object.keys(user).length !== 0) {
+      console.log('useeffectapp2');
+      axios.post('/user/addinfo', user)
+        .then(response => {
+          var profile = response.data;
+          setUserProfile(profile);
+          setUserId(profile.user_id);
+          setTimeout(() => {
+            console.log('here', response.data, userProfile);
+          }, 2000);
+
+        })
+        .catch(err => {
+          console.error(err);
+        })
     }
-   
-                                       
-  })
+  }, [user.name]);
   const [chatOpen, setChatOpen] = useState(false);
 
   // const handleChatClick = (bool) => {

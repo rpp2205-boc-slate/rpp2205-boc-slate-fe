@@ -1,18 +1,22 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import FriendRequestButton from './friend-request-button.jsx';
+import FriendRequestButtons from './friend-request-buttons.jsx';
+import AddToFavButton from './add-to-fav-button.jsx';
+import AddToLikeButton from './add-to-like-button.jsx';
+import EditAboutButton from './edit-about-button.jsx';
+import EditProfileButton from './edit-profile-button.jsx';
 import { getProfile } from './helperFunctions.js';
 
 
 export default function Profile(props) {
-  const [onlineStatus, setOnlineStatus] = useState('placeholderforonlinestatus');
-  const [img, setImg] = useState('./img_avatar2.png');
+  const [onlineStatus, setOnlineStatus] = useState('');
+  //const [img, setImg] = useState('');
   const [id, setId] = useState('');
-  const [name, setName] = useState('placeholderforname');
-  const [about, setAbout] = useState('placeholderforabout');
+  //const [name, setName] = useState('');
+  //const [about, setAbout] = useState('');
   const [website, setWebsite] = useState(undefined);
-  const [friendRequest, setFriendRequest] = useState('placeholderforfriendrequest');
+  const [friendRequest, setFriendRequest] = useState('');
   const [profileObj, setProfileObj] = useState({});
   useEffect(() => {
     var type = (props.slug) ? 'game' : 'user';
@@ -21,13 +25,12 @@ export default function Profile(props) {
       if (err) {
         console.error('err0r', err);
       } else {
-        console.log(result.website);
         setProfileObj(result);
-        setName(result.name || result.username);
-        setImg(props.slug ? result.background_image : result.photos[0]?.photo_url);
-        setAbout(result.description || result.bio);
+        //setName(result.name || result.username);
+        //setImg(props.slug ? result.background_image : result.photos[0]?.photo_url);
+        //setAbout(result.description || result.bio);
         setId(result.id || result.user_id);
-        setWebsite(result.website);
+        //setWebsite(result.website);
       }
     })
   }, [id]);
@@ -40,41 +43,44 @@ export default function Profile(props) {
   );
 
   const nameDiv = (
-    <div class="profile-name">{name}</div>
+    <div class="profile-name">{profileObj.name || profileObj.username}</div>
   );
   const friendRequestButtonDiv = (props.slug || props.userId === props.selfId) ? null : (
     <div class="friendRequest">
-      <FriendRequestButton friendRequest={props.friendRequest} userId={props.userId} selfId={props.selfId}/>
+      <FriendRequestButtons friendRequest={props.friendRequest} userId={props.userId} selfId={props.selfId}/>
     </div>
   );
 
   const likeGameDiv = (!props.slug) ? null : (
     <div class="likeGame">
-      <button id="like">Like</button>
-      <button id="add-to-favourite">Add to Favourite</button>
+      <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} /></div>
+      <div id="add-to-favourite"><AddToFavButton selfId={props.selfId} slug={props.slug} /></div>
     </div>
   );
 
-  const editPhotoButtonDiv = (props.userId !== props.selfId) ? null : (
-    <div class="editPhotoButton">
-      <button>Edit Profile Photo</button>
+  const editProfileButtonDiv = (props.userId !== props.selfId || props.slug) ? null : (
+    <div class="editProfileButton">
+      <EditProfileButton selfId={props.selfId}/>
     </div>
   );
 
   const editAboutDiv = (props.userId !== props.selfId) ? null : (<div class="editAbout">
-    <button>Edit About</button>
+    <EditAboutButton selfId={props.selfId} slug={props.slug}/>
   </div>);
 
-  return (
+if (Object.keys(profileObj).length === 0) {
+  return null;
+}
+return (
     <div class="profile-for-all">
         <div class="leftColumn">
           <div class="profilePhoto">
-            <a href={website}>
-             <img src={img} id="profilePhoto" />
+            <a href={profileObj.website}>
+             <img src={props.slug ? profileObj.background_image : profileObj.photos[0]?.photo_url} id="profilePhoto" />
             </a>
-            {editPhotoButtonDiv}
+            {editProfileButtonDiv}
           </div>
-          <a href={website}>{nameDiv}</a>
+          <a href={profileObj.website}>{nameDiv}</a>
           {onlineStatusDiv}
           {friendRequestButtonDiv}
           {likeGameDiv}
@@ -83,7 +89,7 @@ export default function Profile(props) {
           <div class="aboutMe">
             <div class="aboutTitle"><h3>{"About " + (props.userId === props.selfId && !props.slug ? 'Me' : name)}</h3></div>
             {editAboutDiv}
-            <div className="content" dangerouslySetInnerHTML={{__html: about}}></div>
+            <div className="content" dangerouslySetInnerHTML={{__html: profileObj.description || profileObj.bio}}></div>
           </div>
         </div>
       </div>
