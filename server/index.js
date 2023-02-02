@@ -8,6 +8,7 @@ require('dotenv').config();
 //mock api path
 //const apiPath = 'https://6l9qj.wiremockapi.cloud';
 const gameApiPath = 'https://api.rawg.io/api/games';
+const genreApiPath = 'https://api.rawg.io/api/genres';
 const gameApiKey = process.env.API_KEY;
 const apiPath = 'http://54.159.164.8';
 //const apiPath = 'http://localhost:3001';
@@ -138,6 +139,18 @@ app.get('/games/slug/:slugname', (req, res) => {
   axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
     .then((response) => {
       console.log(typeof response.data, response.data.name)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// get list of genre types
+app.get('/genre', (req, res) => {
+  axios.get(`${genreApiPath}?key=${gameApiKey}`)
+    .then((response) => {
+
       res.status(200).send(response.data)
     })
     .catch(err => {

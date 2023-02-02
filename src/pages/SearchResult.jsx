@@ -21,9 +21,19 @@ export default function SearchResult(props) {
   const [defaultImage, setDefaultImage] = useState({});
   const query = useParams();
   const [result, setResult] = useState([]);
+  const [genre, setGenre] = useState([])
   const nav = useNavigate()
 
   useEffect(() => {
+    // get list of genres
+    axios.get(`/genre`)
+      .then((response) => {
+        setGenre(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting genre')
+      })
+      // if theres a query being searched, then search that query
     if (query.params) {
       axios.get(`/games/keyword/${query.params}/0`)
       .then((response) => {
@@ -33,6 +43,7 @@ export default function SearchResult(props) {
         console.log(err, 'error in getting results')
       })
     } else {
+      // if no query is being searched, search most popular
       axios.get(`/games/orderBy/${'rating'}`)
       .then((response) => {
         setResult(response.data)
@@ -65,12 +76,11 @@ export default function SearchResult(props) {
       <div className="filterList"> {/*Filters List*/}
         <button type="button" >Users</button> <button type="button">Platform</button><br/>
        <label for="cars">Choose a Genre:</label>
-      <select name="cars" id="cars">
-        <option value="volvo">RPG</option>
-        <option value="saab">MMORPG</option>
-        <option value="mercedes">Adventure</option>
-        <option value="audi">Strategy</option>
-      </select>
+        <select className="list">
+          {genre.map((item) => (
+            <option value={item.name} key={item.id}>{item.name}</option>
+          ))}
+        </select>
       </div>
       <div className="searchBackground"> {/*Search Results */}
         <h3 >Results</h3>
