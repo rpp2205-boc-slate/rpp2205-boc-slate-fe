@@ -25,12 +25,12 @@ export default function Search(props) {
     previousController.current = controller;
     axios.get(`/games/keyword/${query}/1`)
       .then(response => {
-        console.log(response.data);
+        //console.log(response.data);
        const newData = response.data.map(item => {
           return {'name': item.name}
         });
         setOptions(newData);
-        console.log(options);
+       // console.log(options);
       })
       .catch(err => console.log(err))
   }
@@ -78,7 +78,7 @@ export default function Search(props) {
         getOptionLabel={(option) => option.name}
         style={{ width: 300 }}
         renderInput={(params) => (
-          <TextField {...params} label="Search" variant="outlined" />
+          <TextField  {...params} label="Search" variant="outlined" />
         )}
       />
          < FaSearch className="searchIcon" onClick={searchClick}/>
