@@ -12,6 +12,7 @@ const gameApiKey = process.env.API_KEY;
 const apiPath = 'http://54.159.164.8';
 //const apiPath = 'http://localhost:3001';
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -105,6 +106,9 @@ app.post('/game/:user_id/:game_id', (req, res) => {
 app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
   const keyword = req.params.keyword;
   console.log('keyword', keyword);
+  console.log('pagenumber', req.params.pagenumber);
+  var path = `${gameApiPath}?key=${gameApiKey}&search=${keyword}`
+  console.log('path', path)
   axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
     .then((response) => {
       console.log(response.data.results.length);
