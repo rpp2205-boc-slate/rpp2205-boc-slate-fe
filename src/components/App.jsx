@@ -85,7 +85,7 @@ export default function App(props) {
           <Profile selfId={userId}/>
         </div>
         <div className="chat">
-          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={user}/>
+          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile}/>
         </div>
     </>
   );
