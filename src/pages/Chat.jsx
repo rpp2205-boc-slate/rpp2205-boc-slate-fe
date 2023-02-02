@@ -2,12 +2,15 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { StreamChat } from 'stream-chat';
 import { Chat, Channel, ChannelList, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
+import axios from "axios";
+import {useParams} from 'react-router-dom';
 
 import 'stream-chat-react/dist/css/v2/index.css';
 // import './App.css';
 
 const chatClient = new StreamChat('npwanznmku2q');
 const userToken = chatClient.devToken('connor')
+
 
 chatClient.connectUser(
   {
@@ -26,13 +29,11 @@ const channel = chatClient.channel('messaging', 'GamerCity2', {
   members: ['connor', 'otherUser'],
 });
 
-// let request = chatClient.sendUserCustomEvent('connor', {
-//   type: 'friendship_request',
-//   text: 'Joaquin wants to be your friend',
-// });
 
 const ChatApp = (props) => {
   console.log(chatClient.user.id)
+  console.log(props.user, props.userId)
+  // now that userId is accessed we can get the user/:userId/profile data and access received_req_from to display all pending friend requests!
   // const filters = { members: [chatClient.user.id]}
   const sort = { last_message_at: -1 };
   const options = { limit: 10 }
