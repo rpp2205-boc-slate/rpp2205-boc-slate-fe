@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 
-export default function FriendRequestButton(props) {
+export default function FriendRequestButtons(props) {
   return (
     <div>
       {props.userId}

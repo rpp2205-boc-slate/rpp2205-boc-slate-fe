@@ -8,11 +8,11 @@ import {useParams} from 'react-router-dom';
 
 
 export default function GameProfile(props) {
-  let { gameId } = useParams();
+  let { slug } = useParams();
   return(
     <div class="profile">
       <Navigation />
-      <Profile gameId={gameId} />
+      <Profile slug={slug} />
     </div>
   );
 

@@ -10,17 +10,13 @@ import { useState, useEffect } from "react";
 
 
 function Navigation(props) {
+  console.log("useAuth0 obj", useAuth0());
   var { isAuthenticated, user } = useAuth0();
+
   useEffect(() => {
     if (props.setIsAuthenticated) {
       props.setIsAuthenticated(isAuthenticated);
-
-      // axios.post('/users', {user})
-      // .then(response => {
-      //   console.log('posted')
-      // })
-      // .catch(err => console.log(err));
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
 
     if (props.setUser) {
       props.setUser(user);
@@ -31,24 +27,24 @@ function Navigation(props) {
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
           <Navbar.Brand href="/">Home</Navbar.Brand>
-          <Navbar.Brand href="/myprofile">Profile</Navbar.Brand>
+          {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}
           <Search />
           <div className="nav-bar__buttons">
             {isAuthenticated === false && (
               <>
-                <SignupButton />
-                <LoginButton />
+                <Navbar.Brand><SignupButton /></Navbar.Brand>
+                <Navbar.Brand><LoginButton /></Navbar.Brand>
               </>
             )}
             {isAuthenticated && (
               <>
-                <LogoutButton />
-                <ChatButton setChatOpen={props.setChatOpen} chatOpen={props.chatOpen} />
+                <Navbar.Brand><LogoutButton /></Navbar.Brand>
+                <Navbar.Brand><ChatButton setChatOpen={props.setChatOpen} chatOpen={props.chatOpen} /></Navbar.Brand>
               </>
             )}
           </div>
-          <Navbar.Brand href="/login">Sign In</Navbar.Brand>
-          <Navbar.Brand href="/signup">Sign Up</Navbar.Brand>
+          {/* <Navbar.Brand href="/login">Sign In</Navbar.Brand>
+          <Navbar.Brand href="/signup">Sign Up</Navbar.Brand> */}
       </Container>
     </Navbar>
     </>

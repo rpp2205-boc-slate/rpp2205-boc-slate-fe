@@ -75,6 +75,7 @@
 }
 
 .leftColumn, .rightColumn {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -85,14 +86,28 @@
 }
 
 .leftColumn {
-  width: 40%
+  width: 28%
 }
 
 .rightColumn {
-  width: 60%
+  width: 50%
 }
 
 #profilePhoto {
-  width: 200px;
+  margin-top: 50px;
+  width: 300px;
   height: auto;
+}
+
+.aboutTitle {
+  width: 100%;
+  text-align: center;
+}
+
+.profile-name, .friendRequest, .likeGame, .editPhotoButton, .editAbout {
+  margin: 5px;
+}
+
+#like, #add-to-favourite {
+  margin: 5px;
 }
