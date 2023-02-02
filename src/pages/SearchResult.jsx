@@ -24,15 +24,23 @@ export default function SearchResult(props) {
   const nav = useNavigate()
 
   useEffect(() => {
-    console.log(query.params, 'hel')
-    axios.get(`/games/keyword/${query.params}/0`)
-    .then((response) => {
-      console.log(response, 'response')
-      setResult(response.data)
-    })
-    .catch((err)=> {
-      console.log(err, 'error in getting results')
-    })
+    if (query.params) {
+      axios.get(`/games/keyword/${query.params}/0`)
+      .then((response) => {
+        setResult(response.data)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting results')
+      })
+    } else {
+      axios.get(`/games/orderBy/${'rating'}`)
+      .then((response) => {
+        setResult(response.data)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting results')
+      })
+    }
   }, [query.params])
 
   const handleErrorImage = (data) => {

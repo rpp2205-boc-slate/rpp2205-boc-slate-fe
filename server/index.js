@@ -123,8 +123,10 @@ app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
 app.get('/games/orderBy/:orderBy', (req, res) => {
   const orderBy = req.params.orderBy;
   axios.get(`${gameApiPath}?key=${gameApiKey}&ordering=-${orderBy}`)
-    .then((response) => {
-      res.status(200).send(response.results.slice(0, 100));
+  .then((response) => {
+      // console.log(orderBy, response.data)
+      // for some reason response.data.slice(0, 100) didnt work. Only response.data)
+      res.status(200).send(response.data.results.slice(0, 100));
     })
     .catch(err => {
       res.status(400).send(err);
