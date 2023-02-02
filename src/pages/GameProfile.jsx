@@ -10,7 +10,7 @@ import {useParams} from 'react-router-dom';
 export default function GameProfile(props) {
   let { gameId } = useParams();
   return(
-    <div class="profile">
+    <div className="profile">
       <Navigation />
       <Profile gameId={gameId} />
     </div>

@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './C.css';
+import './F.css';
 import { dataDigitalBestSeller } from './data';
 import imgTest from './Testing/1.png';
 import axios from 'axios'
