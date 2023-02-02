@@ -25,12 +25,13 @@ export default function Search(props) {
     previousController.current = controller;
     axios.get(`/games/keyword/${query}/1`)
       .then(response => {
-        //console.log(response.data);
+        // console.log(response.data);
+        setQuery(query)
        const newData = response.data.map(item => {
           return {'name': item.name}
         });
         setOptions(newData);
-       // console.log(options);
+        // console.log(options);
       })
       .catch(err => console.log(err))
   }
@@ -43,32 +44,13 @@ export default function Search(props) {
     }
   }
 
-  // function searchQuery() {
-  //   axios.get('/games/keyword/:keyword', {params: {keyword: {query }}})
-  //   .then((response) => {
-  //     console.log(response.data.results)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }
+
   const navigate = useNavigate();
   const searchClick = (e) => {
-    console.log(query)
-    navigate({
-      pathname: "/results/:params",
-      search: `?${query}`
-    })
-    setQuery("");
-    console.log(query)
+    navigate(`/results/${query}`, {state: {query : query}})
   }
 
-    // return (
-    //   <div>
-    //     <input type="text" placeholder="Search here" onChange={handleChange} className="query" />
-    //      < FaSearch className="searchIcon" onClick={searchClick}/>
-    //   </div>
-    // )
+
     return (
       <>
      <Autocomplete
@@ -82,7 +64,8 @@ export default function Search(props) {
         )}
       />
          < FaSearch className="searchIcon" onClick={searchClick}/>
-      
+
          </>
     )
 };
+
