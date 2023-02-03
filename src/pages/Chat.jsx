@@ -35,7 +35,7 @@ const ChatApp = (props) => {
     chatClient.connectUser(
       {
         id: firstName,
-        name: 'Connor Thurston',
+        name: props.user.username,
         image: '',
       },
       userToken,
