@@ -7,7 +7,7 @@ import { LogoutButton } from './logout-button.jsx';
 import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
-import './navBar.css';
+
 
 
 function Navigation(props) {
@@ -25,7 +25,7 @@ function Navigation(props) {
   });
   return (
     <>
-    <Navbar className="color-nav" variant="dark" expand="lg" fixed="top">
+    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
           <Navbar.Brand href="/">Home</Navbar.Brand>
           {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}
