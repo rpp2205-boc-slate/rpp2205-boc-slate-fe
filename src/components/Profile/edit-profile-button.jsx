@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ModalComponent from './modal.jsx';
 
 
 export default function EditProfileButton(props) {
   return (
     <div>
-      <button>Edit Profile</button>
+      <ModalComponent selfProfile={props.selfProfile} changeImage={props.changeImage}/>
     </div>
   )
 }

@@ -5,15 +5,27 @@ import axios from "axios";
 import Profile from '../components/Profile/Profile.jsx';
 import {useParams} from 'react-router-dom';
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-export default function UserProfile(props) {
+function UserProfile(props) {
+  var selfId = props.selfId;
+  var selfProfile = props.selfProfile;
   let { userId } = useParams();
   return(
     <div>
     <Navigation />
-    <Profile userId={userId}/>
-
+    <Profile userId={userId} selfId={selfId} selfProfile={selfProfile}/>
     </div>
   );
-
 }
+
+const AuthUserProfile = withAuthenticationRequired(UserProfile, {
+  onRedirecting: () => (
+    <div className="page-layout">
+      loading...
+    </div>
+  ),
+});
+
+// console.log('aa', AuthenticationGuard(UserProfile), UserProfile);
+export default AuthUserProfile;
