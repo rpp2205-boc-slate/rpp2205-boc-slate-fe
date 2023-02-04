@@ -21,7 +21,9 @@ export default function SearchResult(props) {
   const [defaultImage, setDefaultImage] = useState({});
   const query = useParams();
   const [result, setResult] = useState([]);
-  const [genre, setGenre] = useState([])
+  const [genre, setGenre] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState('');
+  const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
 
   useEffect(() => {
@@ -33,8 +35,19 @@ export default function SearchResult(props) {
       .catch((err)=> {
         console.log(err, 'error in getting genre')
       })
+
+
       // if theres a query being searched, then search that query
     if (query.params) {
+      if (clickUser) {
+        axios.get(`/users`)
+        .then((response) => {
+          console.log(response.data.users)
+        })
+        .catch((err)=> {
+          console.log(err, 'error in getting genre')
+        })
+      }
       axios.get(`/games/keyword/${query.params}/0`)
       .then((response) => {
         setResult(response.data)
@@ -70,13 +83,25 @@ export default function SearchResult(props) {
     }
   }
 
+  const genreClick = (e) => {
+    setSelectedGenre(e.target.value)
+    axios.get(`/games/${e.target.value}`)
+      .then((response) => {
+        console.log(response.data,e.target.value,' inside gengr')
+        setResult(response.data)
+      })
+      .catch((err)=> {
+        console.log(err, 'error genreClick')
+      })
+  }
+
 
   return(
     <div className="main">
       <div className="filterList"> {/*Filters List*/}
-        <button type="button" >Users</button> <button type="button">Platform</button><br/>
+        <button type="button" onClick={setClickUser}>Users</button> <button type="button">Platform</button><br/>
        <label for="cars">Choose a Genre:</label>
-        <select className="list">
+        <select className="list" value={selectedGenre} onChange={genreClick}>
           {genre.map((item) => (
             <option value={item.name} key={item.id}>{item.name}</option>
           ))}

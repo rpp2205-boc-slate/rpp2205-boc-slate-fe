@@ -158,6 +158,23 @@ app.get('/genre', (req, res) => {
     })
 });
 
+// get a list of games based off of genre
+app.get('/games/:genre', (req, res) => {
+  let genre = req.params.genre
+  genre = genre.toLowerCase();
+  if (genre === "rpg") {
+    genre = 4;
+  }
+  console.log(genre, 'inside server')
+  axios.get(`${gameApiPath}?genres=${genre}&key=${gameApiKey}`)
+    .then((response) => {
+      res.status(200).send(response.data.results.slice(0,100));
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+});
+
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });
