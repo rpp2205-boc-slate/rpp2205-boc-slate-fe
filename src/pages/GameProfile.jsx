@@ -12,7 +12,7 @@ export default function GameProfile(props) {
   var selfProfile = props.selfProfile;
   let { slug } = useParams();
   return(
-    <div class="profile">
+    <div className="profile">
       <Navigation />
       <Profile slug={slug} selfId={selfId} selfProfile={selfProfile}/>
     </div>

@@ -10,7 +10,7 @@ function MyProfile(props) {
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   return(
-    <div class="profile">
+    <div className="profile">
       <Navigation />
       <Profile selfId={selfId} selfProfile={selfProfile}/>
     </div>
