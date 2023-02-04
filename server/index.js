@@ -160,6 +160,33 @@ app.get('/games/slug/:slugname', (req, res) => {
     })
 });
 
+// return list of genres
+app.get('/genre', (req, res) => {
+  axios.get(`${genreApiPath}?key=${gameApiKey}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// get related games based off of genre
+app.get('/games/:genre', (req, res) => {
+  let q = req.params.genre.toLowerCase();
+  if (q === "rpg") {
+    q = 4;
+  }
+  axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}`)
+    .then((response) => {
+      // console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });

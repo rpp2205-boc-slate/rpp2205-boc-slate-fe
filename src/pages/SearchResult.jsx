@@ -87,8 +87,7 @@ export default function SearchResult(props) {
     setSelectedGenre(e.target.value)
     axios.get(`/games/${e.target.value}`)
       .then((response) => {
-        console.log(response.data,e.target.value,' inside gengr')
-        setResult(response.data)
+        setResult(response.data.results)
       })
       .catch((err)=> {
         console.log(err, 'error genreClick')
@@ -111,8 +110,7 @@ export default function SearchResult(props) {
         <h3 >Results</h3>
         <div>
           <div className='holder'>
-            {console.log(dataDigitalBestSeller)}
-            {dataDigitalBestSeller.map((item) => (
+            {result.map((item) => (
             <div key={item.id} gameid={item.id}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
             <div gameid={item.id} className="card-top">
               <img gameid={item.id}
