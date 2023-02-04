@@ -37,6 +37,7 @@ const ModalComponent = (props) => {
     var last_name = document.getElementById('textfield-lastname').value;
     var email = document.getElementById('textfield-email').value;
     console.log(files[0], name, first_name, last_name, email);
+    var bio = 'Hi my name is Tim! Nice to meet you.';
     const formData = new FormData();
     formData.append("file", files[0]);
     formData.append("upload_preset", `${config.cloudinary_preset}`);
@@ -44,7 +45,7 @@ const ModalComponent = (props) => {
     .then(response => {
       var picture = response.data.url;
       props.changeImage(picture);
-      axios.post(`/user/${props.selfProfile.user_id}/profile`, {picture, name, first_name, last_name, email})
+      axios.post(`/user/${props.selfProfile.user_id}/profile`, {picture, name, first_name, last_name, email, bio})
         .then(response => {
           handleClose();
           console.log("uploaded")
