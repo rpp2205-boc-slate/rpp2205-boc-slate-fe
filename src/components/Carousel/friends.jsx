@@ -10,11 +10,8 @@ function Fri (props) {
 
 
   useEffect(() => {
-    // console.log(props.f.userid, " HURURURURU")
-    console.log(props, " Fprops")
     axios.get(`/user/${props.f.userid }/profile`)
       .then((response) => {
-        console.log(response.data)
         setFr(response.data)
       })
       .catch((error) => {

@@ -10,6 +10,7 @@ import imgTest from './Testing/1.png';
 import axios from 'axios'
 import Fri from './friends.jsx'
 import Gam from './game.jsx'
+import Fa from './favorite.jsx'
 
 function Carousel(props) {
   const [defaultImage, setDefaultImage] = useState({});
@@ -53,7 +54,6 @@ function Carousel(props) {
   };
 
 
-
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
       ...prev,
@@ -71,7 +71,7 @@ function Carousel(props) {
         }
       })
         .then((response) => {
-          console.log(response.data.results)
+          // console.log(response.data.results)
           setData(response.data.results)
         })
         .catch(error => {
@@ -81,16 +81,19 @@ function Carousel(props) {
     //   console.log('TESSSSTING')
     //   axios.get('/user/:user_id/profile', {params: { user_id: 2}})
     } else if (props.type === 'Fri') {
-      console.log('TESSSSTING')
+      // console.log('TESSSSTING')
       axios.get(`/user/2/profile`)
       .then((response) => {
-        console.log(response.data.friends, " CarFriend")
+        // console.log(response.data.friends, " CarFriend")
         setFriends(response.data.friends)
 
       })
       .catch((error) => {
         console.log('Error ', error)
       })
+    } else if (props.type === "Fav") {
+      console.log(props, " CFAVE")
+      setFav(props.fav.fav_games)
     }
   }, [props.type]);
 
@@ -142,10 +145,9 @@ function Carousel(props) {
                       </Slider>
                     </div>
                   )
-              }
-              else if (props.type === 'Gam' && game.length > 0) {
+              } else if (props.type === 'Gam' && game.length > 0) {
                 return (
-                 <div className='Car'>Friends
+                 <div className='Car'>
                  <Slider {...settings}>
                     {game.map((dlc) => (
                       // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
@@ -154,8 +156,19 @@ function Carousel(props) {
                     </Slider>
                   </div>
                 )
+              }else if (props.type === 'Fav' && fav.length > 0) {
+                return (
+                 <div className='Car'>Favorites
+                 <Slider {...settings}>
+                    {fav.map((fa) => (
+                      // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
+                      <Fa  clickFun={handleClick} fa={fa} />
+                    ))}
+                    </Slider>
+                  </div>
+                )
               } else {
-                return <div onClick={(e) => handleClick('Testing')}>{console.log(props)}NOT</div>
+                return <div onClick={(e) => handleClick('Testing')}>NOT</div>
               }
             }
 //testing
