@@ -45,24 +45,24 @@ export default function Profile(props) {
     <div class="profile-name">{profileObj.name || profileObj.username}</div>
   );
   const friendRequestButtonDiv = (props.slug || props.userId === props.selfId) ? null : (
-    <div class="friendRequest">
+    <div className="friendRequest">
       <FriendRequestButtons friendRequest={props.friendRequest} userId={props.userId} selfId={props.selfId}/>
     </div>
   );
 
   const likeGameDiv = (!props.slug) ? null : (
-    <div class="likeGame">
+    <div className="likeGame">
       <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} profileObj={profileObj}/></div>
     </div>
   );
 
   const editProfileButtonDiv = (props.userId !== props.selfId || props.slug) ? null : (
-    <div class="editProfileButton">
+    <div className="editProfileButton">
       <EditProfileButton selfId={props.selfId} profileObj={profileObj}/>
     </div>
   );
 
-  const editAboutDiv = (props.userId !== props.selfId) ? null : (<div class="editAbout">
+  const editAboutDiv = (props.userId !== props.selfId) ? null : (<div className="editAbout">
     <EditAboutButton selfId={props.selfId} slug={props.slug}/>
   </div>);
 
@@ -70,9 +70,9 @@ if (Object.keys(profileObj).length === 0) {
   return null;
 }
 return (
-    <div class="profile-for-all">
-        <div class="leftColumn">
-          <div class="profilePhoto">
+    <div className="profile-for-all">
+        <div className="leftColumn">
+          <div className="profilePhoto">
             <a href={profileObj.website}>
              <img src={props.slug ? profileObj.background_image : profileObj.photos[0]?.photo_url} id="profilePhoto" />
             </a>
@@ -83,8 +83,8 @@ return (
           {friendRequestButtonDiv}
           {likeGameDiv}
         </div>
-        <div class="rightColumn">
-          <div class="aboutMe">
+        <div className="rightColumn">
+          <div className="aboutMe">
             <div class="aboutTitle"><h3>{"About " + (props.userId === props.selfId && !props.slug ? 'Me' : name)}</h3></div>
             {editAboutDiv}
             <div className="content" dangerouslySetInnerHTML={{__html: profileObj.description || profileObj.bio}}></div>

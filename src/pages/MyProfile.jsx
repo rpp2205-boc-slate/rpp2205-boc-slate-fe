@@ -8,7 +8,7 @@ import Profile from '../components/Profile/Profile.jsx';
 export default function MyProfile(props) {
 
   return(
-    <div class="profile">
+    <div className="profile">
       <Navigation />
       <Profile />
     </div>

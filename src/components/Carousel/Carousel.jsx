@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './C.css';
 import './F.css';
+import './F.css';
 import { dataDigitalBestSeller } from './data';
 import imgTest from './Testing/1.png';
 import axios from 'axios'
@@ -14,6 +15,7 @@ import Gam from './game.jsx'
 function Carousel(props) {
   const [defaultImage, setDefaultImage] = useState({});
   const [data, setData] = useState({});
+  const [friends, setFriends] = useState([])
   const [friends, setFriends] = useState([])
   const settings = {
     dots: true,
@@ -70,6 +72,7 @@ function Carousel(props) {
       })
         .then((response) => {
           console.log(response.data.results)
+          console.log(response.data.results)
           setData(response.data.results)
         })
         .catch(error => {
@@ -78,7 +81,13 @@ function Carousel(props) {
     } else if (props.type === 'Fri') {
       console.log('TESSSSTING')
       axios.get('/user/:user_id/profile', {params: { user_id: 2}})
+    } else if (props.type === 'Fri') {
+      console.log('TESSSSTING')
+      axios.get('/user/:user_id/profile', {params: { user_id: 2}})
       .then((response) => {
+        console.log(response.data.friends, " CarFriend")
+        setFriends(response.data.friends)
+
         console.log(response.data.friends, " CarFriend")
         setFriends(response.data.friends)
 
@@ -149,6 +158,17 @@ function Carousel(props) {
                     </Slider>
                   </div>
                 )
+              } else if (props.type === 'Fri' && friends.length > 0) {
+                  return (
+                   <div className='fCar'>Friends
+                   <Slider {...settings}>
+                      {friends.map((friend) => (
+                        // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
+                        <Fri clickFun={handleClick} f={friend} />
+                      ))}
+                      </Slider>
+                    </div>
+                  )
              } else {
                 return <div onClick={(e) => handleClick('Testing')}>NOT</div>
               }

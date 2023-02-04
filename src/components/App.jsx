@@ -81,7 +81,7 @@ export default function App(props) {
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
-        <div class="hidden profile" style={{display: 'none'}}>
+        <div className="hidden profile" style={{display: 'none'}}>
           <Profile selfId={userId}/>
         </div>
         <div className="chat">
