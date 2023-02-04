@@ -9,88 +9,115 @@ import { getProfile } from './helperFunctions.js';
 
 
 export default function Profile(props) {
-  const [onlineStatus, setOnlineStatus] = useState('');
-  //const [img, setImg] = useState('');
+  const [onlineStatus, setOnlineStatus] = useState(true);
   const [id, setId] = useState('');
-  //const [name, setName] = useState('');
-  //const [about, setAbout] = useState('');
   const [website, setWebsite] = useState(undefined);
   const [friendRequest, setFriendRequest] = useState('');
   const [profileObj, setProfileObj] = useState({});
+  const [img, setImg] = useState('');
+  const changeImage = (url) => {
+    setImg(url);
+  }
   useEffect(() => {
-    var type = (props.slug) ? 'game' : 'user';
-    var identifier = props.slug || props.userId || props.selfId;
-    getProfile(type, identifier, (err, result) => {
-      if (err) {
-        console.error('err0r', err);
-      } else {
-        setProfileObj(result);
-        //setName(result.name || result.username);
-        //setImg(props.slug ? result.background_image : result.photos[0]?.photo_url);
-        //setAbout(result.description || result.bio);
-        setId(result.id || result.user_id);
-        //setWebsite(result.website);
-      }
-    })
-  }, [profileObj.name]);
+    setImg(props.selfProfile.photos ? props.selfProfile.photos[0].photo_url : null);
+  }, [props.selfProfile]);
 
+  useEffect(() => {
+    if (props.userId || props.slug) {
+      var type = props.userId ? 'user' : 'game';
+      var identifier = props.userId || props.slug;
+      getProfile(type, identifier, (err, result) => {
+        if (err) {
+          console.error(err);
+        } else {
+          setProfileObj(result);
+        }
+      })
+    }
+  }, [props.userId, props.slug]);
 
-  const onlineStatusDiv = props.slug ? null : (
-    <div class="onlineStatus">
-      {(!onlineStatus) ? <div class="offline"><span class="logged-in">●</span>Offline</div> : <div class="online"><span class="logged-in">●</span>Online</div>}
-    </div>
-  );
-
-  const nameDiv = (
-    <div class="profile-name">{profileObj.name || profileObj.username}</div>
-  );
-  const friendRequestButtonDiv = (props.slug || props.userId === props.selfId) ? null : (
-    <div className="friendRequest">
-      <FriendRequestButtons friendRequest={props.friendRequest} userId={props.userId} selfId={props.selfId}/>
-    </div>
-  );
-
-  const likeGameDiv = (!props.slug) ? null : (
-    <div className="likeGame">
-      <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} profileObj={profileObj}/></div>
-    </div>
-  );
-
-  const editProfileButtonDiv = (props.userId !== props.selfId || props.slug) ? null : (
-    <div className="editProfileButton">
-      <EditProfileButton selfId={props.selfId} profileObj={profileObj}/>
-    </div>
-  );
-
-  const editAboutDiv = (props.userId !== props.selfId) ? null : (<div className="editAbout">
-    <EditAboutButton selfId={props.selfId} slug={props.slug}/>
-  </div>);
-
-if (Object.keys(profileObj).length === 0) {
-  return null;
-}
-return (
-    <div className="profile-for-all">
-        <div className="leftColumn">
-          <div className="profilePhoto">
-            <a href={profileObj.website}>
-             <img src={props.slug ? profileObj.background_image : profileObj.photos[0]?.photo_url} id="profilePhoto" />
-            </a>
-            {editProfileButtonDiv}
+  if (props.slug) {
+    if (Object.keys(profileObj).length === 0) {
+      return null;
+    }
+    return (
+      <>
+        <div class="profile-for-all">
+          <div class="leftColumn">
+            <div class="profilePhoto">
+              <a href={profileObj.website}>
+                <img src={profileObj.background_image} class="profilePhoto" />
+              </a>
+              <div class="likeGame">
+                <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} /></div>
+              </div>
+            </div>
+            <a href={profileObj.website}><div class="profile-name">{profileObj.name}</div></a>
           </div>
-          <a href={profileObj.website}>{nameDiv}</a>
-          {onlineStatusDiv}
-          {friendRequestButtonDiv}
-          {likeGameDiv}
-        </div>
-        <div className="rightColumn">
-          <div className="aboutMe">
-            <div class="aboutTitle"><h3>{"About " + (props.userId === props.selfId && !props.slug ? 'Me' : name)}</h3></div>
-            {editAboutDiv}
-            <div className="content" dangerouslySetInnerHTML={{__html: profileObj.description || profileObj.bio}}></div>
+          <div class="rightColumn">
+            <div class="aboutMe">
+              <div class="aboutTitle"><h3>{"About " + (profileObj.name)}</h3></div>
+              <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.description }}></div>
+            </div>
           </div>
         </div>
-      </div>
-  )
+      </>
+    )
+  } else if (props.userId) {
+    if (Object.keys(profileObj).length === 0) {
+      return null;
+    }
+    return (
+      <>
+        <div class="profile-for-all">
+          <div class="leftColumn">
+            <div class="profilePhoto">
+              <img src={profileObj.photos ? profileObj.photos[0].photo_url : "./img_avatar2.png"} class="profilePhoto" />
+            </div>
+            <div class="profile-name">{profileObj.username}</div>
+            <div class="friendRequest">
+              <FriendRequestButtons friendRequest={props.friendRequest} userId={props.userId} selfId={props.selfId} />
+            </div>
+          </div>
+          <div class="rightColumn">
+            <div class="aboutMe">
+              <div class="aboutTitle"><h3>{"About " + (profileObj.username)}</h3></div>
+              <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.bio }}></div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  } else {
+    if (Object.keys(props.selfProfile).length === 0) {
+      return null;
+    }
+    return (
+      <>
+        <div class="profile-for-all">
+          <div class="leftColumn">
+            <div class="editProfileButton">
+              <EditProfileButton selfId={props.selfId} selfProfile={props.selfProfile} changeImage={changeImage}/>
+            </div>
+            <div class="profilePhoto">
+              <img src={img} class="profilePhoto" />
+            </div>
+            <div class="profile-name">{props.selfProfile.username}</div>
+          </div>
+          <div class="rightColumn">
+            <div class="editAboutButton">
+              <EditAboutButton selfId={props.selfId} selfProfile={props.selfProfile} />
+            </div>
+            <div class="aboutMe">
+              <div class="aboutTitle"><h3>{"About Me"}</h3></div>
+              <div className="content" dangerouslySetInnerHTML={{ __html: props.selfProfile.bio }}></div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+
 
 }

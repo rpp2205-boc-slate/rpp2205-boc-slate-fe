@@ -4,14 +4,25 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import Profile from '../components/Profile/Profile.jsx';
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-export default function MyProfile(props) {
-
+function MyProfile(props) {
+  var selfId = props.selfId;
+  var selfProfile = props.selfProfile;
   return(
     <div className="profile">
       <Navigation />
-      <Profile />
+      <Profile selfId={selfId} selfProfile={selfProfile}/>
     </div>
   );
-
 }
+
+const AuthMyProfile = withAuthenticationRequired(MyProfile, {
+  onRedirecting: () => (
+    <div className="page-layout">
+      loading...
+    </div>
+  ),
+});
+
+export default AuthMyProfile;
