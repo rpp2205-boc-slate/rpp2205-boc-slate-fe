@@ -36,6 +36,8 @@ app.post('/user/addinfo', (req, res) => {
   .catch(err => res.status(400).send(err));
 })
 
+
+
 //Returns User profiles
 app.get('/user/:user_id/profile', (req, res) => {
   console.log(req.params.user_id)
@@ -47,6 +49,18 @@ app.get('/user/:user_id/profile', (req, res) => {
       res.status(400).send(err);
     })
 });
+
+//update user infor
+app.post('/user/:user_id/profile', (req, res) => {
+  axios.post(`${apiPath}/user/${req.params.user_id}/profile`, req.body)
+  .then((response) => {
+    res.status(201).send("updated!");
+  })
+  .catch((err) => {
+    res.status(400).send(err);
+  })
+});
+
 
 //Returns username, userID and profile photo of all users
 app.get('/users', (req, res) => {
@@ -61,7 +75,7 @@ app.get('/users', (req, res) => {
 
 //user1 send friend request to user2
 app.post('/:user1_id/request/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.params.user1_id}/request/${req.params.user2_id}`)
+  axios.post(`${apiPath}/friends/${req.params.user1_id}/request/${req.params.user2_id}`)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -94,7 +108,8 @@ app.post('/:user1_id/block/:user2_id', (req, res) => {
 
 //user likes/dislikes a game
 app.post('/game/:user_id/:game_id', (req, res) => {
-  axios.post(`${apiPath}/game/${req.params.user_id}/${req.params.game_id}`)
+  var liked = req.body.liked === 'true' || req.body.liked === true;
+  axios.post(`${apiPath}/game/${req.params.user_id}/${req.params.game_id}`, {liked})
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -113,7 +128,6 @@ app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
   // console.log('path', path)
   axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
     .then((response) => {
-      // console.log(response.data.results.length);
       res.status(200).send(response.data.results.slice(0,100));
     })
     .catch((err) => {
@@ -139,39 +153,9 @@ app.get('/games/orderBy/:orderBy', (req, res) => {
 app.get('/games/slug/:slugname', (req, res) => {
   axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
     .then((response) => {
-      console.log(typeof response.data, response.data.name)
       res.status(200).send(response.data)
     })
     .catch(err => {
-      res.status(400).send(err);
-    })
-});
-
-// get list of genre types
-app.get('/genre', (req, res) => {
-  axios.get(`${genreApiPath}?key=${gameApiKey}`)
-    .then((response) => {
-
-      res.status(200).send(response.data)
-    })
-    .catch(err => {
-      res.status(400).send(err);
-    })
-});
-
-// get a list of games based off of genre
-app.get('/games/:genre', (req, res) => {
-  let genre = req.params.genre
-  genre = genre.toLowerCase();
-  if (genre === "rpg") {
-    genre = 4;
-  }
-  console.log(genre, 'inside server')
-  axios.get(`${gameApiPath}?genres=${genre}&key=${gameApiKey}`)
-    .then((response) => {
-      res.status(200).send(response.data.results.slice(0,100));
-    })
-    .catch((err) => {
       res.status(400).send(err);
     })
 });

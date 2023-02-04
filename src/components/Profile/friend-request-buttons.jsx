@@ -13,5 +13,4 @@ export default function FriendRequestButtons(props) {
       <button>Send Friend Request</button>
     </div>
   )
-
 }
