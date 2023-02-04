@@ -10,41 +10,8 @@ import axios from 'axios'
 
 function Fa (props) {
   const [favorite, setFavorite] = useState({});
+  const [defaultImage, setDefaultImage] = useState({});
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
       ...prev,
@@ -57,50 +24,39 @@ function Fa (props) {
 
   useEffect(() => {
     console.log(props, " favProp")
-    axios.get(`https://api.rawg.io/api/games/${props.fa.game_id}`, {
-        params: {
-          key: '61f56f92cd35421a90a7b9ff9f3a1583'
-        }
-      })
+    axios.get(`/games/slug/${props.fa.game_id}`)
         .then((response) => {
-
+          console.log(response.data)
           setFavorite(response.data)
         })
         .catch(error => {
           console.log(error);
-        });}, [props.fa])
+        });}, [props])
 
-if(favorite.length > 0) {
+if(Object.keys(favorite).length > 0) {
 return (
-
-  <Slider {...settings}>
-
-  {favorite.map((item) => (
-    <div key={item.id} gameid={item.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
-      {console.log('favorite', item)}
-      <div gameid={item.slug} className="card-top">
-        <img gameid={item.slug}
+    <div key={favorite.id} gameid={favorite.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+      <div gameid={favorite.slug} className="card-top">
+        <img gameid={favorite.slug}
           src={
-            defaultImage[item.name] === item.name
+            defaultImage[favorite.name] === favorite.name
               ? defaultImage.linkDefault
-              : item.background_image
+              : favorite.background_image
           }
-          alt={item.title}
+          alt={favorite.title}
           onError={handleErrorImage}
         />
-        <h1 gameid={item.slug}>{item.name}</h1>
+        <h1 gameid={favorite.slug}>{favorite.name}</h1>
       </div>
-      <div gameid={item.slug} className="card-bottom">
+      <div gameid={favorite.slug} className="card-bottom">
         {/* <h3>{item.name}</h3> */}
-        <span gameid={item.slug}className="category">{}</span>
+        <span gameid={favorite.slug}className="category">{}</span>
       </div>
     </div>
-  ))}
-</Slider>
 
 )
         } else {
-          return <div>Loading...</div>
+          return
         }
 
 

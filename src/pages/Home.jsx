@@ -11,7 +11,7 @@ export default function Home(props) {
     <>
       <Navigation />
       {props['types']?.map((t) => (
-        <Carousel type={t} />
+        <Carousel type={t} fav={props.data} />
       ))}
     </>
   );

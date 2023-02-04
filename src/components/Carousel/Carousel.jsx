@@ -95,7 +95,7 @@ function Carousel(props) {
       console.log(props, " CFAVE")
       setFav(props.fav.fav_games)
     }
-  }, [props.type]);
+  }, [props]);
 
 
   const handleClick = (input) => {
@@ -158,10 +158,9 @@ function Carousel(props) {
                 )
               }else if (props.type === 'Fav' && fav.length > 0) {
                 return (
-                 <div className='Car'>Favorites
+                 <div className='fCar'>Favorites
                  <Slider {...settings}>
                     {fav.map((fa) => (
-                      // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
                       <Fa  clickFun={handleClick} fa={fa} />
                     ))}
                     </Slider>
