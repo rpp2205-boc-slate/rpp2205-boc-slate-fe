@@ -9,15 +9,21 @@ import { getProfile } from './helperFunctions.js';
 
 
 export default function Profile(props) {
+  console.log(props.isAuthenticated, 'profileauth')
   const [onlineStatus, setOnlineStatus] = useState(true);
   const [id, setId] = useState('');
   const [website, setWebsite] = useState(undefined);
   const [friendRequest, setFriendRequest] = useState('');
   const [profileObj, setProfileObj] = useState({});
   const [img, setImg] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const changeImage = (url) => {
     setImg(url);
   }
+  useEffect(() => {
+    setIsAuthenticated(props.isAuthenticated);
+  }, [props.isAuthenticated]);
+
   useEffect(() => {
     setImg(props.selfProfile.photos ? props.selfProfile.photos[0].photo_url : null);
   }, [props.selfProfile]);
@@ -48,9 +54,9 @@ export default function Profile(props) {
               <a href={profileObj.website}>
                 <img src={profileObj.background_image} class="profilePhoto" />
               </a>
-              <div class="likeGame">
-                <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} /></div>
-              </div>
+              {isAuthenticated ? (<div class="likeGame">
+                <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated}/></div>
+              </div>) : null}
             </div>
             <a href={profileObj.website}><div class="profile-name">{profileObj.name}</div></a>
           </div>
