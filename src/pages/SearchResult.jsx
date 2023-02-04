@@ -111,7 +111,8 @@ export default function SearchResult(props) {
         <h3 >Results</h3>
         <div>
           <div className='holder'>
-            {result.map((item) => (
+            {console.log(dataDigitalBestSeller)}
+            {dataDigitalBestSeller.map((item) => (
             <div key={item.id} gameid={item.id}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
             <div gameid={item.id} className="card-top">
               <img gameid={item.id}
