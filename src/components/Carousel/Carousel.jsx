@@ -5,7 +5,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './C.css';
 import './F.css';
-import './F.css';
 import { dataDigitalBestSeller } from './data';
 import imgTest from './Testing/1.png';
 import axios from 'axios'
@@ -16,7 +15,8 @@ function Carousel(props) {
   const [defaultImage, setDefaultImage] = useState({});
   const [data, setData] = useState({});
   const [friends, setFriends] = useState([])
-  const [friends, setFriends] = useState([])
+  const [fav, setFav] = useState([])
+  const [game, setGame] = useState([])
   const settings = {
     dots: true,
     infinite: false,
@@ -72,22 +72,18 @@ function Carousel(props) {
       })
         .then((response) => {
           console.log(response.data.results)
-          console.log(response.data.results)
           setData(response.data.results)
         })
         .catch(error => {
           console.log(error);
         });
+    // } else if (props.type === 'Fri') {
+    //   console.log('TESSSSTING')
+    //   axios.get('/user/:user_id/profile', {params: { user_id: 2}})
     } else if (props.type === 'Fri') {
       console.log('TESSSSTING')
-      axios.get('/user/:user_id/profile', {params: { user_id: 2}})
-    } else if (props.type === 'Fri') {
-      console.log('TESSSSTING')
-      axios.get('/user/:user_id/profile', {params: { user_id: 2}})
+      axios.get(`/user/2/profile`)
       .then((response) => {
-        console.log(response.data.friends, " CarFriend")
-        setFriends(response.data.friends)
-
         console.log(response.data.friends, " CarFriend")
         setFriends(response.data.friends)
 
@@ -147,30 +143,19 @@ function Carousel(props) {
                     </div>
                   )
               }
-              else if (props.type === 'Gam' && friends.length > 0) {
+              else if (props.type === 'Gam' && game.length > 0) {
                 return (
                  <div className='Car'>Friends
                  <Slider {...settings}>
-                    {friends.map((dlc) => (
+                    {game.map((dlc) => (
                       // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
-                      <Gam clickFun={handleClick} f={friend} />
+                      <Gam clickFun={handleClick} g={game} />
                     ))}
                     </Slider>
                   </div>
                 )
-              } else if (props.type === 'Fri' && friends.length > 0) {
-                  return (
-                   <div className='fCar'>Friends
-                   <Slider {...settings}>
-                      {friends.map((friend) => (
-                        // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
-                        <Fri clickFun={handleClick} f={friend} />
-                      ))}
-                      </Slider>
-                    </div>
-                  )
-             } else {
-                return <div onClick={(e) => handleClick('Testing')}>NOT</div>
+              } else {
+                return <div onClick={(e) => handleClick('Testing')}>{console.log(props)}NOT</div>
               }
             }
 //testing

@@ -11,7 +11,8 @@ function Fri (props) {
 
   useEffect(() => {
     // console.log(props.f.userid, " HURURURURU")
-    axios.get('/user/:user_id/profile', {params: { user_id: props.f.userid }})
+    console.log(props, " Fprops")
+    axios.get(`/user/${props.f.userid }/profile`)
       .then((response) => {
         console.log(response.data)
         setFr(response.data)

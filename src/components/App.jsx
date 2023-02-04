@@ -68,7 +68,7 @@ export default function App(props) {
   return(
     <>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Pop', 'Not']}/>} />
+          <Route path='/' element={<Home types={['Pop','Fri','Not']}/>} />
             <Route path='/gameprofile/:slug' element={<GameProfile/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
