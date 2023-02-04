@@ -38,6 +38,7 @@ app.post('/user/addinfo', (req, res) => {
 
 //Returns User profiles
 app.get('/user/:user_id/profile', (req, res) => {
+  console.log(req.params.user_id)
   axios.get(`${apiPath}/user/${req.params.user_id}/profile`)
     .then((response) => {
       res.status(200).send(response.data);
