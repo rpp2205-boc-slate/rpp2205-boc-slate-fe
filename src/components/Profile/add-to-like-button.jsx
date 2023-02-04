@@ -6,14 +6,21 @@ import axios from "axios";
 export default function AddToLikeButton(props) {
   var selfId = props.selfId;
   var slug = props.slug;
-  var favGames = profileObj.fav_games;
+  var favGames = props.selfProfile?.fav_games;
+  const [liked, setLiked] = useState(favGames.find(element => element.game_id === slug) !== undefined);
   var handleClick = () => {
-
-
+    axios.post(`/game/${selfId}/${slug}`, {"liked": !liked})
+      .then(response => {
+        console.log(response.data);
+        setLiked(!liked);
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
   return (
     <div>
-      <button>{favGames.includes(slug) ? "Unlike this Game" : "Click to Like this Game!"}</button>
+      <button onClick={handleClick}>{liked ? "Unlike this Game" : "Click to Like this Game!"}</button>
     </div>
   )
 
