@@ -25,7 +25,7 @@ function Navigation(props) {
   });
   return (
     <>
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+    <Navbar bg="primary" variant="dark" expand="lg" fixed="top">
       <Container>
           <Navbar.Brand href="/">Home</Navbar.Brand>
           {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}
@@ -39,8 +39,8 @@ function Navigation(props) {
             )}
             {isAuthenticated && (
               <>
-                <Navbar.Brand><LogoutButton /></Navbar.Brand>
                 <Navbar.Brand><ChatButton setChatOpen={props.setChatOpen} chatOpen={props.chatOpen} /></Navbar.Brand>
+                <Navbar.Brand><LogoutButton /></Navbar.Brand>
               </>
             )}
           </div>
