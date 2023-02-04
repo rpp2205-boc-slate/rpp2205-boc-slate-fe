@@ -92,7 +92,7 @@
   width: 50%
 }
 
-#profilePhoto {
+.profilePhoto {
   margin-top: 50px;
   width: 300px;
   height: auto;

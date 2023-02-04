@@ -4,25 +4,25 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import Profile from '../components/Profile/Profile.jsx';
-import Carousel from '../components/Carousel/Carousel.jsx';
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-export default function MyProfile(props) {
-
-  const defaultData = {"fav_games": [
-    {
-      "game_id": "halo"
-    }]}
-  const types = ['Fav', 'Fri']
-
+function MyProfile(props) {
+  var selfId = props.selfId;
+  var selfProfile = props.selfProfile;
   return(
     <div className="profile">
       <Navigation />
-      <Profile />
-      {console.log("CHANGES")}
-      {types.map((t) => (
-        <Carousel type={t} fav={defaultData}/>
-      ))}
+      <Profile selfId={selfId} selfProfile={selfProfile}/>
     </div>
   );
-
 }
+
+const AuthMyProfile = withAuthenticationRequired(MyProfile, {
+  onRedirecting: () => (
+    <div className="page-layout">
+      loading...
+    </div>
+  ),
+});
+
+export default AuthMyProfile;
