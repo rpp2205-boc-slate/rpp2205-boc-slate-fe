@@ -12,6 +12,7 @@ import AuthUserProfile from '../pages/UserProfile.jsx';
 import AuthMyProfile from '../pages/MyProfile.jsx';
 import Profile from './Profile/Profile.jsx';
 import Chat from '../pages/Chat.jsx';
+import FriendRequest from '../pages/FriendRequest.jsx';
 import { createBrowserHistory } from "history";
 import { Auth0Provider } from '@auth0/auth0-react';
 import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
@@ -66,6 +67,7 @@ export default function App(props) {
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
+            <Route path='/results/' element={<SearchResult/>} />
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthUserProfile selfId={userId} selfProfile={userProfile}/>} />
             <Route path='/myprofile' element={<AuthMyProfile selfId={userId} selfProfile={userProfile}/>} />
@@ -75,7 +77,8 @@ export default function App(props) {
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
         <div className="chat">
-          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen}/>
+          <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile}/>
+          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile}/>
         </div>
     </>
   );
