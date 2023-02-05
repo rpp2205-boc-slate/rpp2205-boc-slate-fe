@@ -8,6 +8,7 @@ require('dotenv').config();
 //mock api path
 //const apiPath = 'https://6l9qj.wiremockapi.cloud';
 const gameApiPath = 'https://api.rawg.io/api/games';
+const genreApiPath = 'https://api.rawg.io/api/genres';
 const gameApiKey = process.env.API_KEY;
 const apiPath = 'http://54.159.164.8';
 //const apiPath = 'http://localhost:3001';
@@ -138,8 +139,10 @@ app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
 app.get('/games/orderBy/:orderBy', (req, res) => {
   const orderBy = req.params.orderBy;
   axios.get(`${gameApiPath}?key=${gameApiKey}&ordering=-${orderBy}`)
-    .then((response) => {
-      res.status(200).send(response.results.slice(0, 100));
+  .then((response) => {
+      // console.log(orderBy, response.data)
+      // for some reason response.data.slice(0, 100) didnt work. Only response.data)
+      res.status(200).send(response.data.results.slice(0, 100));
     })
     .catch(err => {
       res.status(400).send(err);
@@ -157,6 +160,32 @@ app.get('/games/slug/:slugname', (req, res) => {
     })
 });
 
+// return list of genres
+app.get('/genre', (req, res) => {
+  axios.get(`${genreApiPath}?key=${gameApiKey}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// get related games based off of genre
+app.get('/games/:genre', (req, res) => {
+  let q = req.params.genre.toLowerCase();
+  if (q === "rpg") {
+    q = 4;
+  }
+  axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}`)
+    .then((response) => {
+      // console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));

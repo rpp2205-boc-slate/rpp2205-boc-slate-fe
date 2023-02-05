@@ -5,6 +5,10 @@
   left: 42%;
 }
 
+.list {
+  position: relative;
+}
+
 .searchBackground {
   background-color: beige;
   top: 20%;

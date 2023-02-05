@@ -21,18 +21,50 @@ export default function SearchResult(props) {
   const [defaultImage, setDefaultImage] = useState({});
   const query = useParams();
   const [result, setResult] = useState([]);
+  const [genre, setGenre] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState('');
+  const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
 
   useEffect(() => {
-    console.log(query.params, 'hel')
-    axios.get(`/games/keyword/${query.params}/0`)
-    .then((response) => {
-      console.log(response, 'response')
-      setResult(response.data)
-    })
-    .catch((err)=> {
-      console.log(err, 'error in getting results')
-    })
+    // get list of genres
+    axios.get(`/genre`)
+      .then((response) => {
+        setGenre(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting genre')
+      })
+
+
+      // if theres a query being searched, then search that query
+    if (query.params) {
+      if (clickUser) {
+        axios.get(`/users`)
+        .then((response) => {
+          console.log(response.data.users)
+        })
+        .catch((err)=> {
+          console.log(err, 'error in getting genre')
+        })
+      }
+      axios.get(`/games/keyword/${query.params}/0`)
+      .then((response) => {
+        setResult(response.data)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting results')
+      })
+    } else {
+      // if no query is being searched, search most popular
+      axios.get(`/games/orderBy/${'rating'}`)
+      .then((response) => {
+        setResult(response.data)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting results')
+      })
+    }
   }, [query.params])
 
   const handleErrorImage = (data) => {
@@ -51,25 +83,35 @@ export default function SearchResult(props) {
     }
   }
 
+  const genreClick = (e) => {
+    setSelectedGenre(e.target.value)
+    axios.get(`/games/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error genreClick')
+      })
+  }
+
 
   return(
     <div className="main">
       <div className="filterList"> {/*Filters List*/}
-        <button type="button" >Users</button> <button type="button">Platform</button><br/>
+        <button type="button" onClick={setClickUser}>Users</button> <button type="button">Platform</button><br/>
        <label for="cars">Choose a Genre:</label>
-      <select name="cars" id="cars">
-        <option value="volvo">RPG</option>
-        <option value="saab">MMORPG</option>
-        <option value="mercedes">Adventure</option>
-        <option value="audi">Strategy</option>
-      </select>
+        <select className="list" value={selectedGenre} onChange={genreClick}>
+          {genre.map((item) => (
+            <option value={item.name} key={item.id}>{item.name}</option>
+          ))}
+        </select>
       </div>
       <div className="searchBackground"> {/*Search Results */}
         <h3 >Results</h3>
         <div>
           <div className='holder'>
             {result.map((item) => (
-            <div key={item.id} gameid={item.id}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+            <div key={item.id} gameid={item.ids}className="card" onClick={(e) => handleClick(item.slug)}>
             <div gameid={item.id} className="card-top">
               <img gameid={item.id}
                 src={
