@@ -6,11 +6,16 @@ import Profile from '../components/Profile/Profile.jsx';
 import {useParams} from 'react-router-dom';
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 function UserProfile(props) {
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   let { userId } = useParams();
+  // if (selfId === Number(userId)) {
+  //   const navigate = useNavigate();
+  //   navigate("/myprofile");
+  // }
   return(
     <div>
     <Navigation />
@@ -26,6 +31,4 @@ const AuthUserProfile = withAuthenticationRequired(UserProfile, {
     </div>
   ),
 });
-
-// console.log('aa', AuthenticationGuard(UserProfile), UserProfile);
 export default AuthUserProfile;
