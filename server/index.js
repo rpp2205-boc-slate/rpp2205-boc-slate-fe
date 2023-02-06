@@ -8,6 +8,7 @@ require('dotenv').config();
 //mock api path
 //const apiPath = 'https://6l9qj.wiremockapi.cloud';
 const gameApiPath = 'https://api.rawg.io/api/games';
+const genreApiPath = 'https://api.rawg.io/api/genres';
 const gameApiKey = process.env.API_KEY;
 const apiPath = 'http://54.159.164.8';
 //const apiPath = 'http://localhost:3001';
@@ -62,8 +63,8 @@ app.post('/user/:user_id/profile', (req, res) => {
 
 
 //Returns username, userID and profile photo of all users
-app.get('/users', (req, res) => {
-  axios.get(`${apiPath}/users`)
+app.get('/users/:keyword', (req, res) => {
+  axios.get(`${apiPath}/users/${req.params.keyword}`)
     .then((response) => {
       res.status(200).send(response.data);
     })
@@ -85,7 +86,7 @@ app.post('/:user1_id/request/:user2_id', (req, res) => {
 
 //user1 responds to friend request from user2; response is APPROVED or REJECTED
 app.post('/:user1_id/respond/:user2_id', (req, res) => {
-  axios.post(`${apiPath}/${req.params.user1_id}/${req.body.respond}/${req.params.user2_id}`)
+  axios.post(`${apiPath}/friends/${req.params.user1_id}/respond/${req.params.user2_id}`, req.body)
     .then((response) => {
       res.status(201).send('CREATED');
     })
@@ -123,10 +124,11 @@ app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
   const keyword = req.params.keyword;
   // console.log('keyword', keyword);
   // console.log('pagenumber', req.params.pagenumber);
-  var path = `${gameApiPath}?key=${gameApiKey}&search=${keyword}`
+  var path = `${gameApiPath}?search=${keyword}&key=${gameApiKey}&page=${req.params.pagenumber}`
   // console.log('path', path)
-  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
+  axios.get(`${gameApiPath}?search=${keyword}&key=${gameApiKey}&page=${req.params.pagenumber}`)
     .then((response) => {
+      // console.log(response.data, 'ken')
       res.status(200).send(response.data.results.slice(0,100));
     })
     .catch((err) => {
@@ -138,8 +140,10 @@ app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
 app.get('/games/orderBy/:orderBy', (req, res) => {
   const orderBy = req.params.orderBy;
   axios.get(`${gameApiPath}?key=${gameApiKey}&ordering=-${orderBy}`)
-    .then((response) => {
-      res.status(200).send(response.results.slice(0, 100));
+  .then((response) => {
+      // console.log(orderBy, response.data)
+      // for some reason response.data.slice(0, 100) didnt work. Only response.data)
+      res.status(200).send(response.data.results.slice(0, 100));
     })
     .catch(err => {
       res.status(400).send(err);
@@ -157,10 +161,41 @@ app.get('/games/slug/:slugname', (req, res) => {
     })
 });
 
+// return list of genres
+app.get('/genre', (req, res) => {
+  axios.get(`${genreApiPath}?key=${gameApiKey}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// get related games based off of genre
+app.get('/games/:genre', (req, res) => {
+  let q = req.params.genre.toLowerCase();
+  if (q === "rpg") {
+    q = 5;
+  } else if (q === "massively multiplayer") {
+    q = 59;
+  } else if (q === "board games") {
+    q= 28;
+  }
+  axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}`)
+    .then((response) => {
+      // console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });
+
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

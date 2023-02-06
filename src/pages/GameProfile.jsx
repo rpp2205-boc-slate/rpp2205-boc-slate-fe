@@ -8,7 +8,6 @@ import {useParams} from 'react-router-dom';
 
 
 export default function GameProfile(props) {
-  console.log(props.isAuthenticated, 'gameprofile is auth')
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   let { slug } = useParams();
