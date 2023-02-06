@@ -4,7 +4,9 @@ import "./SearchBar.css";
  import {FaSearch} from "react-icons/fa";
  import { Link, useNavigate } from "react-router-dom";
  import axios from "axios";
- import { Autocomplete, Stack, TextField, Box} from "@mui/material";
+ import { Autocomplete, Stack, TextField, Box, InputAdornment} from "@mui/material";
+//  import { makeStyles, Theme } from "@material-ui/core/styles";
+//  import SearchIcon from '@material-ui/icons/Search';
 
 
 export default function Search(props) {
@@ -69,7 +71,9 @@ export default function Search(props) {
         renderInput={(params) => (
           <TextField  {...params} label="Search" variant="outlined" onKeyDown={(e) => {
             console.log(`Pressed keyCode ${e.key}`)
-            keyPress(e)}} />
+            keyPress(e)}} 
+          
+            />
         )}
       />
          < FaSearch className="searchIcon" onClick={ searchClick}/>
