@@ -61,13 +61,29 @@ export default function SearchResult(props) {
           console.log(err, 'error in getting genre')
         })
       // }
-      axios.get(`/games/keyword/${query.params}/0`)
-      .then((response) => {
-        setGameResult(response.data)
-      })
-      .catch((err)=> {
-        console.log(err, 'error in getting results')
-      })
+        axios.get(`/games/keyword/${query.params}/1`)
+        .then((response0) => {
+          axios.get(`/games/keyword/${query.params}/2`)
+          .then((response1) => {
+            axios.get(`/games/keyword/${query.params}/3`)
+            .then((response2) => {
+              let firstArr = response0.data;
+              let secondArr = firstArr.concat(response1.data);
+              let thirdArr = secondArr.concat(response2.data)
+              setGameResult(thirdArr)
+              console.log(thirdArr,'ken')
+            })
+            .catch((err)=> {
+              console.log(err, 'error in getting games response 2')
+            })
+          })
+          .catch((err)=> {
+            console.log(err, 'error in getting games response 1')
+          })
+        })
+        .catch((err)=> {
+          console.log(err, 'error in getting games response 0')
+        })
     } else {
       // if no query is being searched, search most popular
       axios.get(`/games/orderBy/${'rating'}`)
@@ -137,6 +153,7 @@ export default function SearchResult(props) {
   }
 
   const userClick = (e) => {
+    console.log('here')
     setResult(userResult)
   }
 

@@ -124,10 +124,11 @@ app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
   const keyword = req.params.keyword;
   // console.log('keyword', keyword);
   // console.log('pagenumber', req.params.pagenumber);
-  var path = `${gameApiPath}?key=${gameApiKey}&search=${keyword}`
+  var path = `${gameApiPath}?search=${keyword}&key=${gameApiKey}&page=${req.params.pagenumber}`
   // console.log('path', path)
-  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
+  axios.get(`${gameApiPath}?search=${keyword}&key=${gameApiKey}&page=${req.params.pagenumber}`)
     .then((response) => {
+      // console.log(response.data, 'ken')
       res.status(200).send(response.data.results.slice(0,100));
     })
     .catch((err) => {
