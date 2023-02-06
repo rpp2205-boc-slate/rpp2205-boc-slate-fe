@@ -49,6 +49,13 @@ export default function Search(props) {
   const searchClick = (e) => {
     navigate(`/results/${query}`, {state: {query : query}})
   }
+  const keyPress = (e) => {
+    if(e.key === "Enter") {
+      e.preventDefault();
+      navigate(`/results/${query}`, {state: {query : query}})
+    }
+   
+  }
 
 
     return (
@@ -60,10 +67,12 @@ export default function Search(props) {
         getOptionLabel={(option) => option.name}
         style={{ width: 300 }}
         renderInput={(params) => (
-          <TextField {...params} label="Search" variant="outlined" />
+          <TextField  {...params} label="Search" variant="outlined" onKeyDown={(e) => {
+            console.log(`Pressed keyCode ${e.key}`)
+            keyPress(e)}} />
         )}
       />
-         < FaSearch className="searchIcon" onClick={searchClick}/>
+         < FaSearch className="searchIcon" onClick={ searchClick}/>
 
          </>
     )

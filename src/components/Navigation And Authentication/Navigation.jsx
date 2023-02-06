@@ -9,6 +9,7 @@ import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
 
 
+
 function Navigation(props) {
   console.log("useAuth0 obj", useAuth0());
   var { isAuthenticated, user } = useAuth0();
@@ -24,7 +25,7 @@ function Navigation(props) {
   });
   return (
     <>
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+    <Navbar bg="primary" variant="dark" expand="lg" fixed="top">
       <Container>
           <Navbar.Brand href="/">Home</Navbar.Brand>
           {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}
@@ -38,13 +39,11 @@ function Navigation(props) {
             )}
             {isAuthenticated && (
               <>
-                <Navbar.Brand><LogoutButton /></Navbar.Brand>
                 <Navbar.Brand><ChatButton setChatOpen={props.setChatOpen} chatOpen={props.chatOpen} /></Navbar.Brand>
+                <Navbar.Brand><LogoutButton /></Navbar.Brand>
               </>
             )}
           </div>
-          {/* <Navbar.Brand href="/login">Sign In</Navbar.Brand>
-          <Navbar.Brand href="/signup">Sign Up</Navbar.Brand> */}
       </Container>
     </Navbar>
     </>
