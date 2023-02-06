@@ -63,8 +63,8 @@ app.post('/user/:user_id/profile', (req, res) => {
 
 
 //Returns username, userID and profile photo of all users
-app.get('/users', (req, res) => {
-  axios.get(`${apiPath}/users`)
+app.get('/users/:keyword', (req, res) => {
+  axios.get(`${apiPath}/users/${req.params.keyword}`)
     .then((response) => {
       res.status(200).send(response.data);
     })
