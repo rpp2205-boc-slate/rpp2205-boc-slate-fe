@@ -63,8 +63,8 @@ app.post('/user/:user_id/profile', (req, res) => {
 
 
 //Returns username, userID and profile photo of all users
-app.get('/users', (req, res) => {
-  axios.get(`${apiPath}/users`)
+app.get('/users/:keyword', (req, res) => {
+  axios.get(`${apiPath}/users/${req.params.keyword}`)
     .then((response) => {
       res.status(200).send(response.data);
     })
@@ -124,10 +124,11 @@ app.get('/games/keyword/:keyword/:pagenumber', (req, res) => {
   const keyword = req.params.keyword;
   // console.log('keyword', keyword);
   // console.log('pagenumber', req.params.pagenumber);
-  var path = `${gameApiPath}?key=${gameApiKey}&search=${keyword}`
+  var path = `${gameApiPath}?search=${keyword}&key=${gameApiKey}&page=${req.params.pagenumber}`
   // console.log('path', path)
-  axios.get(`${gameApiPath}?key=${gameApiKey}&search=${keyword}`)
+  axios.get(`${gameApiPath}?search=${keyword}&key=${gameApiKey}&page=${req.params.pagenumber}`)
     .then((response) => {
+      // console.log(response.data, 'ken')
       res.status(200).send(response.data.results.slice(0,100));
     })
     .catch((err) => {
@@ -175,7 +176,11 @@ app.get('/genre', (req, res) => {
 app.get('/games/:genre', (req, res) => {
   let q = req.params.genre.toLowerCase();
   if (q === "rpg") {
-    q = 4;
+    q = 5;
+  } else if (q === "massively multiplayer") {
+    q = 59;
+  } else if (q === "board games") {
+    q= 28;
   }
   axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}`)
     .then((response) => {
