@@ -176,7 +176,11 @@ app.get('/genre', (req, res) => {
 app.get('/games/:genre', (req, res) => {
   let q = req.params.genre.toLowerCase();
   if (q === "rpg") {
-    q = 4;
+    q = 5;
+  } else if (q === "massively multiplayer") {
+    q = 59;
+  } else if (q === "board games") {
+    q= 28;
   }
   axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}`)
     .then((response) => {
