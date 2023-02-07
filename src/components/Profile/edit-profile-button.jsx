@@ -7,7 +7,7 @@ import ModalComponent from './modal.jsx';
 export default function EditProfileButton(props) {
   return (
     <div>
-      <ModalComponent selfProfile={props.selfProfile} changeImage={props.changeImage}/>
+      <ModalComponent selfProfile={props.selfProfile} changeImage={props.changeImage} changeFirstName={props.changeFirstName} changeLastName={props.changeLastName} changeName={props.changeName}/>
     </div>
   )
 }

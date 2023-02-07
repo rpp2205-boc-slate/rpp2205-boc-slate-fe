@@ -131,7 +131,7 @@
 }
 
 .profilePhoto {
-  margin-top: 50px;
+  margin: 10px;
   width: 300px;
   height: auto;
 }
@@ -147,4 +147,9 @@
 
 #like, #add-to-favourite {
   margin: 5px;
+}
+
+.profile-name, .profile-firstName, .profile-lastName, .profile-email {
+  width: 100%;
+  text-align: left;
 }
