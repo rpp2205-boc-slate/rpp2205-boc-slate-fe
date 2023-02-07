@@ -13,10 +13,12 @@ export default function GameProfile(props) {
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   let { slug } = useParams();
+  const [gameProfile, setGameProfile] = useState(undefined);
+  console.log(gameProfile, "game profile");
   return(
     <div className="profile">{console.log(props, " props")}
       <Navigation />
-      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated}/>
+      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated} setGameProfile={setGameProfile}/>
       {props['types']?.map((t) => (
 
         <Carousel type={t} fav={testgame}  />
