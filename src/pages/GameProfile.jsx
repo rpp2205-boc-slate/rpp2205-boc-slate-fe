@@ -7,7 +7,7 @@ import Profile from '../components/Profile/Profile.jsx';
 import {useParams} from 'react-router-dom';
 import Carousel from '../components/Carousel/Carousel.jsx'
 
-const testgame = 'the-witcher-3-wild-hunt-blood-and-wine'
+const testgame = '887'
 
 export default function GameProfile(props) {
   console.log(props.isAuthenticated, 'gameprofile is auth')
@@ -15,10 +15,11 @@ export default function GameProfile(props) {
   var selfProfile = props.selfProfile;
   let { slug } = useParams();
   return(
-    <div className="profile">
+    <div className="profile">{console.log(props, " props")}
       <Navigation />
       <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated}/>
       {props['types']?.map((t) => (
+
         <Carousel type={t} fav={testgame}  />
       ))}
     </div>

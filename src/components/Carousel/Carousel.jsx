@@ -71,7 +71,7 @@ function Carousel(props) {
       })
         .then((response) => {
           console.log(response.data.results)
-          setData(response.data.results)
+          setGames(response.data.results)
         })
         .catch(error => {
           console.log(error);
@@ -88,13 +88,13 @@ function Carousel(props) {
     } else if (props.type === "Fav") {
       setFav(props.fav.fav_games)
     } else if (props.type ==='Gam') {
-      axios.get(`https://api.rawg.io/api/games/${props.fav}/additions`, {
+      axios.get(`https://api.rawg.io/api/games/${props.fav}/game-series`, {
         params: {
           key: '61f56f92cd35421a90a7b9ff9f3a1583'
         }
       })
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data, " HEEEEREEEE")
         setGames(response.data.results)
       })
       .catch(error => {
@@ -113,11 +113,16 @@ function Carousel(props) {
   }
 
 
-  if(props.type === "Pop" && Object.keys(data).length !== 0) {
+  if(props.type === "Pop" && Object.keys(games).length !== 0) {
   return (
-    <div className="Car"> Popular
+    <div className="Car"> Popular{console.log(games)}
       <Slider {...settings}>
-        {data.map((item) => (
+      {games.map((game) => (
+        <div key={game.id} gameid={game.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+                      <Gam clickFun={handleClick} g={game} error={handleErrorImage}/>
+                      </div>
+                    ))}
+        {/* {data.map((item) => (
           <div key={item.id} gameid={item.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
             <div gameid={item.slug} className="card-top">
               <img gameid={item.slug}
@@ -132,11 +137,10 @@ function Carousel(props) {
               <h1 gameid={item.slug}>{item.name}</h1>
             </div>
             <div gameid={item.slug} className="card-bottom">
-              {/* <h3>{item.name}</h3> */}
               <span gameid={item.slug}className="category">{}</span>
             </div>
           </div>
-        ))}
+        ))} */}
       </Slider>
     </div>
   );
