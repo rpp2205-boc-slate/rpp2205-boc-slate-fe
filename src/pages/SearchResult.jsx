@@ -30,6 +30,9 @@ export default function SearchResult(props) {
 
   useEffect(() => {
     // get list of genres
+    setGameResult([]);
+    setUserResult([]);
+
     axios.get(`/genre`)
       .then((response) => {
         setGenre(response.data.results)
@@ -71,6 +74,7 @@ export default function SearchResult(props) {
               let secondArr = firstArr.concat(response1.data);
               let thirdArr = secondArr.concat(response2.data)
               setGameResult(thirdArr)
+              // console.log(thirdArr, 'ken')
             })
             .catch((err)=> {
               console.log(err, 'error in getting games response 2')
@@ -132,11 +136,11 @@ export default function SearchResult(props) {
     }));
   };
 
-  const handleClick = (input) => {
-    if (props.type !== "Friend") {
-    window.location.href = `/gameprofile/${input}`;
+  const handleClick = (input, input2) => {
+    if (input2) {
+    window.location.href = `/userprofile/${input}`;
     } else {
-      window.location.href = `/userprofile/${input}`
+      window.location.href = `/gameprofile/${input}`
     }
   }
 
@@ -152,7 +156,6 @@ export default function SearchResult(props) {
   }
 
   const userClick = (e) => {
-    console.log('here')
     setResult(userResult)
   }
 
@@ -178,7 +181,7 @@ export default function SearchResult(props) {
         <div>
           <div className='holder'>
             {result.map((item) => (
-            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug)}>
+            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug, item.person)}>
             <div className="card-top">
               <img
                 src={

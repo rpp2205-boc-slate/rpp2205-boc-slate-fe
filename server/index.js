@@ -66,6 +66,7 @@ app.post('/user/:user_id/profile', (req, res) => {
 app.get('/users/:keyword', (req, res) => {
   axios.get(`${apiPath}/users/${req.params.keyword}`)
     .then((response) => {
+      // console.log(response, 'inside getting users')
       res.status(200).send(response.data);
     })
     .catch((err) => {
