@@ -36,13 +36,15 @@ function FriendRequestList(props) {
     if (testData.length) {
       return (
         <div>
-          <p className="friend-request-list">{testData.length} Friends Requests Pending</p>
           <ul className="friend-request-list">
+          <p><b>{testData.length} Pending Friend Requests</b></p>
             {testData.map(request => (
               <li key={request.userId} >
-                {request.username} wants to be your friend
-                <button onClick={() => {request.display = false; acceptReq(request.userId)}}>Accept</button>
-                <button onClick={() => {request.display = false; rejectReq(request.userId)}}>Reject</button>
+                <div className='request'>
+                  {request.username} wants to be your friend
+                  <button onClick={() => {request.display = false; acceptReq(request.userId)}}>Accept</button>
+                  <button onClick={() => {request.display = false; rejectReq(request.userId)}}>Reject</button>
+                </div>
               </li>
             ))}
             <h4 id='accept-reject'>{message}</h4>
