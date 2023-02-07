@@ -1,12 +1,10 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Project Gamer City CI
+name: Project Gamer City CI/CD
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 env:
@@ -16,7 +14,7 @@ env:
   API_KEY: ${{ secrets.API_KEY }}
 
 jobs:
-  build:
+  build-and-deploy:
 
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -35,4 +33,11 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
+    - name: Deploy to Server on EC2
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${ { secrets.EC2_SSH_KEY }}
+        REMOTE_HOST: ${ { secrets.HOST_DNS }}
+        REMOTE_USER: ${ { secrets.USERNAME }}
+        TARGET: ${ { secrets.TARGET_DIR }}
 
