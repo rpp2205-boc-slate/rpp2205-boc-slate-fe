@@ -30,6 +30,7 @@ const getProfile = function (type, identifier, cb) {
       axios.get(`/user/${identifier}/profile`)
         .then(response => {
           //cb(null, response.data);
+          console.log('3333heloer', response.data)
           cb(null, response.data);
         })
         .catch(err => {

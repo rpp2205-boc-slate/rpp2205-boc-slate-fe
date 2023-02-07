@@ -151,6 +151,7 @@ app.get('/games/orderBy/:orderBy', (req, res) => {
 
 //return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
 app.get('/games/slug/:slugname', (req, res) => {
+  console.log(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`);
   axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
     .then((response) => {
       res.status(200).send(response.data)
