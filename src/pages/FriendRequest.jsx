@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 function FriendRequestList(props) {
   const [friendRequests, setFriendRequests] = useState([]);
   const [message, setMessage] = useState('');
-  const [acceptDisplay, setAcceptDisplay] = useState(true);
-  const [rejectDisplay, setRejectDisplay] = useState(true);
+  const [showDisplay, setShowDisplay] = useState(true);
+  // const [rejectDisplay, setRejectDisplay] = useState(true);
   let testData = [
     { userId: 7, username: 'Joaquin' },
     { userId: 8, username: 'Emmanuel' },
@@ -15,20 +15,18 @@ function FriendRequestList(props) {
 
   const acceptReq = (id) => {
     console.log('accepted');
-    const updatedRequests = testData.filter(request => request.userId !== id);
-    setFriendRequests(updatedRequests);
+    setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let friend = testData.filter(request => request.userId === id)[0].username;
     setMessage(`${friend} is now your friend`);
-    setAcceptDisplay(false);
+    setShowDisplay(false);
   };
 
   const rejectReq = (id) => {
     console.log('rejected');
-    const updatedRequests = testData.filter(request => request.userId !== id);
-    setFriendRequests(updatedRequests);
+    setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let reject = testData.filter(request => request.userId === id)[0].username;
     setMessage(`Rejected ${reject}'s request`);
-    setRejectDisplay(false);
+    setShowDisplay(false);
   };
 
 
@@ -38,15 +36,15 @@ function FriendRequestList(props) {
         <div>
           <ul className="friend-request-list">
           <p><b>{testData.length} Pending Friend Requests</b></p>
-            {testData.map(request => (
-              <li key={request.userId} >
-                <div className='request'>
+          {testData.map(request => (
+            <li key={request.userId} >
+               { showDisplay && <div className='request'>
                   {request.username} wants to be your friend
-                  <button onClick={() => {request.display = false; acceptReq(request.userId)}}>Accept</button>
-                  <button onClick={() => {request.display = false; rejectReq(request.userId)}}>Reject</button>
-                </div>
-              </li>
-            ))}
+                  <button onClick={() => acceptReq(request.userId)}>Accept</button>
+                  <button onClick={() => rejectReq(request.userId)}>Reject</button>
+                </div> }
+            </li>
+          ))}
             <h4 id='accept-reject'>{message}</h4>
           </ul>
         </div>
