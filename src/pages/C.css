@@ -3,6 +3,11 @@
   position: absolute;
   top: 10%;
   left: 42%;
+  z-index: 1;
+}
+
+.list {
+  position: relative;
 }
 
 .searchBackground {

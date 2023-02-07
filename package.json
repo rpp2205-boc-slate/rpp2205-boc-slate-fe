@@ -40,7 +40,9 @@
     "@auth0/auth0-react": "^2.0.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.7",
+    "@mui/styled-engine-sc": "^5.11.0",
     "@restart/ui": "^1.5.2",
     "@rgrove/parse-xml": "^4.0.1",
     "axios": "^1.2.4",
@@ -68,6 +70,7 @@
     "stream-chat": "^8.3.0",
     "stream-chat-react": "^10.5.0",
     "style-loader": "^3.3.1",
+    "styled-components": "^5.3.6",
     "utf-8-validate": "^5.0.10"
   }
 }

@@ -21,19 +21,108 @@ export default function SearchResult(props) {
   const [defaultImage, setDefaultImage] = useState({});
   const query = useParams();
   const [result, setResult] = useState([]);
+  const [gameResult, setGameResult] = useState([]);
+  const [userResult, setUserResult] = useState([])
+  const [genre, setGenre] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState('');
+  const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
 
   useEffect(() => {
-    console.log(query.params, 'hel')
-    axios.get(`/games/keyword/${query.params}/0`)
-    .then((response) => {
-      console.log(response, 'response')
-      setResult(response.data)
-    })
-    .catch((err)=> {
-      console.log(err, 'error in getting results')
-    })
+    // get list of genres
+    axios.get(`/genre`)
+      .then((response) => {
+        setGenre(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting genre')
+      })
+
+
+      // if theres a query being searched, then search that query
+    if (query.params) {
+      // if (clickUser) {
+        axios.get(`/users/${query.params}`)
+        .then((response) => {
+          let formatResult = [];
+          response.data.users.forEach((item) => {
+            let x = {
+              id: item.user_id,
+              name: item.username,
+              slug: item.username,
+              person: true,
+              background_image: item.photos[0].photo_url
+            }
+            formatResult.push(x)
+          })
+          setUserResult(formatResult)
+        })
+        .catch((err)=> {
+          console.log(err, 'error in getting genre')
+        })
+      // }
+        axios.get(`/games/keyword/${query.params}/1`)
+        .then((response0) => {
+          axios.get(`/games/keyword/${query.params}/2`)
+          .then((response1) => {
+            axios.get(`/games/keyword/${query.params}/3`)
+            .then((response2) => {
+              let firstArr = response0.data;
+              let secondArr = firstArr.concat(response1.data);
+              let thirdArr = secondArr.concat(response2.data)
+              setGameResult(thirdArr)
+            })
+            .catch((err)=> {
+              console.log(err, 'error in getting games response 2')
+            })
+          })
+          .catch((err)=> {
+            console.log(err, 'error in getting games response 1')
+          })
+        })
+        .catch((err)=> {
+          console.log(err, 'error in getting games response 0')
+        })
+    } else {
+      // if no query is being searched, search most popular
+      axios.get(`/games/orderBy/${'rating'}`)
+      .then((response) => {
+        setResult(response.data)
+      })
+      .catch((err)=> {
+        console.log(err, 'error in getting results')
+      })
+    }
   }, [query.params])
+
+  useEffect(() => {
+    let internalResult = [];
+    if (gameResult.length > userResult.length && gameResult.length > 0 && userResult.length > 0) {
+      for (var i = 0; i < gameResult.length; i++) {
+        if (gameResult[i]) {
+          internalResult.push(gameResult[i]);
+        }
+        if (userResult[i]) {
+          internalResult.push(userResult[i])
+        }
+      }
+    } else {
+      for (var i = 0; i < userResult.length; i++) {
+        if (gameResult[i]) {
+          internalResult.push(gameResult[i]);
+        }
+        if (userResult[i]) {
+          internalResult.push(userResult[i])
+        }
+      }
+    }
+    if (gameResult.length === 0) {
+      internalResult = userResult;
+    } else if (userResult.length == 0) {
+      internalResult = gameResult;
+    }
+    setResult(internalResult)
+  }, [gameResult])
 
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
@@ -51,40 +140,57 @@ export default function SearchResult(props) {
     }
   }
 
+  const genreClick = (e) => {
+    setSelectedGenre(e.target.value)
+    axios.get(`/games/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error genreClick')
+      })
+  }
+
+  const userClick = (e) => {
+    console.log('here')
+    setResult(userResult)
+  }
+
+  const gameClick = (e) => {
+    setResult(gameResult)
+  }
+
+
 
   return(
     <div className="main">
       <div className="filterList"> {/*Filters List*/}
-        <button type="button" >Users</button> <button type="button">Platform</button><br/>
+        <button type="button" onClick={userClick}>Users</button> <button type="button" onClick={gameClick}>Games</button><br/>
        <label for="cars">Choose a Genre:</label>
-      <select name="cars" id="cars">
-        <option value="volvo">RPG</option>
-        <option value="saab">MMORPG</option>
-        <option value="mercedes">Adventure</option>
-        <option value="audi">Strategy</option>
-      </select>
+        <select className="list" value={selectedGenre} onChange={genreClick}>
+          {genre.map((item) => (
+            <option value={item.name} key={item.id}>{item.name}</option>
+          ))}
+        </select>
       </div>
       <div className="searchBackground"> {/*Search Results */}
         <h3 >Results</h3>
         <div>
           <div className='holder'>
             {result.map((item) => (
-            <div key={item.id} gameid={item.id}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
-            <div gameid={item.id} className="card-top">
-              <img gameid={item.id}
+            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug)}>
+            <div className="card-top">
+              <img
                 src={
                   defaultImage[item.name] === item.name
                     ? defaultImage.linkDefault
                     : item.background_image
                 }
-                alt={item.title}
                 onError={handleErrorImage}
               />
               <h1 gameid={item.id}>{item.name}</h1>
             </div>
             <div gameid={item.id} className="card-bottom">
-              {/* <h3>{item.name}</h3> */}
-              <span gameid={item.id}className="category">{}</span>
             </div>
           </div>
           ))}

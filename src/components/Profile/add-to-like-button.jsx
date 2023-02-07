@@ -18,7 +18,6 @@ export default function AddToLikeButton(props) {
         console.error(err);
       })
   }
-
   return (
     <div>
       <button onClick={handleClick}>{liked ? "Unlike this Game" : "Click to Like this Game!"}</button>

@@ -14,7 +14,7 @@ export default function GameProfile(props) {
   return(
     <div className="profile">
       <Navigation />
-      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile}/>
+      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated}/>
     </div>
   );
 
