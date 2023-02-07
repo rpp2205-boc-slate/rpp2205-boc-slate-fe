@@ -10,7 +10,7 @@ function Fri (props) {
 
 
   useEffect(() => {
-    axios.get(`/user/${props.f.userid }/profile`)
+    axios.get(`/user/${props.f.user_id}/profile`)
       .then((response) => {
         setFr(response.data)
       })

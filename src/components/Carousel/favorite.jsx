@@ -23,10 +23,8 @@ function Fa (props) {
 
 
   useEffect(() => {
-    console.log(props, " favProp")
     axios.get(`/games/slug/${props.fa.game_id}`)
         .then((response) => {
-          console.log(response.data)
           setFavorite(response.data)
         })
         .catch(error => {
