@@ -32,19 +32,21 @@ const ModalComponent = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     var files = document.getElementById('image-file').files;
-    var name = document.getElementById('textfield-username').value;
     var first_name = document.getElementById('textfield-firstname').value;
     var last_name = document.getElementById('textfield-lastname').value;
-    var email = document.getElementById('textfield-email').value;
-    console.log(files[0], name, first_name, last_name, email);
-    var bio = 'Hi my name is Tim! Nice to meet you.';
+    var name = props.selfProfile.username;
+    var email = props.selfProfile.email;
+    var bio = props.selfProfile.bio;
     const formData = new FormData();
     formData.append("file", files[0]);
     formData.append("upload_preset", `${config.cloudinary_preset}`);
+    console.log(files[0]);
     axios.post("https://api.cloudinary.com/v1_1/dwcubhwiw/image/upload", formData)
     .then(response => {
       var picture = response.data.url;
       props.changeImage(picture);
+      props.changeFirstName(first_name);
+      props.changeLastName(last_name);
       axios.post(`/user/${props.selfProfile.user_id}/profile`, {picture, name, first_name, last_name, email, bio})
         .then(response => {
           handleClose();

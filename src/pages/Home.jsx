@@ -13,7 +13,7 @@ export default function Home(props) {
       <Navigation />
       <muiNav />
       {props['types']?.map((t) => (
-        <Carousel type={t} />
+        <Carousel type={t} fav={props.data} />
       ))}
     </>
   );
