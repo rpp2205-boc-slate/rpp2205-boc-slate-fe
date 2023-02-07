@@ -24,7 +24,9 @@ export default function SearchResult(props) {
   const [gameResult, setGameResult] = useState([]);
   const [userResult, setUserResult] = useState([])
   const [genre, setGenre] = useState([]);
+  const [cons, setCons] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedConsole, setSelectedConsole] = useState('');
   const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
 
@@ -34,12 +36,20 @@ export default function SearchResult(props) {
     setUserResult([]);
 
     axios.get(`/genre`)
-      .then((response) => {
-        setGenre(response.data.results)
-      })
-      .catch((err)=> {
-        console.log(err, 'error in getting genre')
-      })
+    .then((response) => {
+      setGenre(response.data.results)
+    })
+    .catch((err)=> {
+      console.log(err, 'error in getting genre')
+    })
+    axios.get(`/platforms`)
+    .then((response) => {
+      console.log(response.data.results)
+      setCons(response.data.results)
+    })
+    .catch((err)=> {
+      console.log(err, 'error in getting genre')
+    })
 
 
       // if theres a query being searched, then search that query
@@ -138,7 +148,7 @@ export default function SearchResult(props) {
 
   const handleClick = (input, input2) => {
     if (input2) {
-    window.location.href = `/userprofile/${input}`;
+      window.location.href = `/userprofile/${input}`;
     } else {
       window.location.href = `/gameprofile/${input}`
     }
@@ -146,12 +156,24 @@ export default function SearchResult(props) {
 
   const genreClick = (e) => {
     setSelectedGenre(e.target.value)
-    axios.get(`/games/${e.target.value}`)
+    axios.get(`/games/genre/${e.target.value}`)
       .then((response) => {
         setResult(response.data.results)
       })
       .catch((err)=> {
         console.log(err, 'error genreClick')
+      })
+  }
+
+  const consoleClick = (e) => {
+    setSelectedConsole(e.target.value)
+    // console.log(e.target.value, 'ken')
+    axios.get(`/games/platform/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
       })
   }
 
@@ -173,6 +195,12 @@ export default function SearchResult(props) {
         <select className="list" value={selectedGenre} onChange={genreClick}>
           {genre.map((item) => (
             <option value={item.name} key={item.id}>{item.name}</option>
+          ))}
+        </select>
+        <label>Choose a Console:</label>
+        <select className="list" value={selectedConsole} onChange={consoleClick}>
+          {cons.map((item) => (
+            <option value={item.id} key={item.id}>{item.name}</option>
           ))}
         </select>
       </div>

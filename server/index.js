@@ -9,6 +9,7 @@ require('dotenv').config();
 //const apiPath = 'https://6l9qj.wiremockapi.cloud';
 const gameApiPath = 'https://api.rawg.io/api/games';
 const genreApiPath = 'https://api.rawg.io/api/genres';
+const platformApiPath = 'https://api.rawg.io/api/platforms';
 const gameApiKey = process.env.API_KEY;
 const apiPath = 'http://54.159.164.8';
 //const apiPath = 'http://localhost:3001';
@@ -174,7 +175,7 @@ app.get('/genre', (req, res) => {
 });
 
 // get related games based off of genre
-app.get('/games/:genre', (req, res) => {
+app.get('/games/genre/:genre', (req, res) => {
   let q = req.params.genre.toLowerCase();
   if (q === "rpg") {
     q = 5;
@@ -184,6 +185,31 @@ app.get('/games/:genre', (req, res) => {
     q= 28;
   }
   axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}`)
+    .then((response) => {
+      // console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+//get platforms
+app.get('/platforms', (req, res) => {
+  axios.get(`${platformApiPath}?key=${gameApiKey}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// get related games based off of platform
+app.get('/games/platform/:platform', (req, res) => {
+  let q = req.params.platform;
+  // console.log(q, 'here')
+  axios.get(`${gameApiPath}?platforms=${q}&key=${gameApiKey}`)
     .then((response) => {
       // console.log(response.data)
       res.status(200).send(response.data)
