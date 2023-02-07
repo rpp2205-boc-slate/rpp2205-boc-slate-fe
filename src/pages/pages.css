@@ -155,3 +155,7 @@
   width: 100%;
   text-align: left;
 }
+
+.profile {
+  z-index: 9;
+}

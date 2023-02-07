@@ -12,6 +12,9 @@ function UserProfile(props) {
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   let { userId } = useParams();
+  const [userProfile, setUserProfile] = useState(undefined);
+  console.log(userProfile, "user profile");
+
   // if (selfId === Number(userId)) {
   //   const navigate = useNavigate();
   //   navigate("/myprofile");
@@ -19,7 +22,7 @@ function UserProfile(props) {
   return(
     <div>
     <Navigation />
-    <Profile userId={userId} selfId={selfId} selfProfile={selfProfile}/>
+    <Profile userId={userId} selfId={selfId} selfProfile={selfProfile} setUserProfile={setUserProfile}/>
     </div>
   );
 }
