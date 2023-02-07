@@ -10,13 +10,14 @@ import Carousel from '../components/Carousel/Carousel.jsx'
 const testgame = 'the-witcher-3-wild-hunt-blood-and-wine'
 
 export default function GameProfile(props) {
+  console.log(props.isAuthenticated, 'gameprofile is auth')
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   let { slug } = useParams();
   return(
     <div className="profile">
       <Navigation />
-      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile}/>
+      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated}/>
       {props['types']?.map((t) => (
         <Carousel type={t} fav={testgame}  />
       ))}
