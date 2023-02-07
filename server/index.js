@@ -219,6 +219,28 @@ app.get('/games/platform/:platform', (req, res) => {
     })
 });
 
+// get all games for both genre and platform
+app.get('/games/genre/:genre/platform/:platform', (req, res) => {
+  let p = req.params.platform;
+  let q = req.params.genre.toLowerCase();
+  if (q === "rpg") {
+    q = 5;
+  } else if (q === "massively multiplayer") {
+    q = 59;
+  } else if (q === "board games") {
+    q= 28;
+  }
+  // console.log(q, 'here')
+  axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}`)
+    .then((response) => {
+      console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });

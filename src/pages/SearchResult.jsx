@@ -156,25 +156,45 @@ export default function SearchResult(props) {
 
   const genreClick = (e) => {
     setSelectedGenre(e.target.value)
-    axios.get(`/games/genre/${e.target.value}`)
-      .then((response) => {
-        setResult(response.data.results)
-      })
-      .catch((err)=> {
-        console.log(err, 'error genreClick')
-      })
-  }
-
-  const consoleClick = (e) => {
-    setSelectedConsole(e.target.value)
-    // console.log(e.target.value, 'ken')
-    axios.get(`/games/platform/${e.target.value}`)
+    if (selectedConsole) {
+      axios.get(`/games/genre/${e.target.value}/platform/${selectedConsole}`)
       .then((response) => {
         setResult(response.data.results)
       })
       .catch((err)=> {
         console.log(err, 'error inside consoleClick')
       })
+    } else {
+      axios.get(`/games/genre/${e.target.value}`)
+        .then((response) => {
+          setResult(response.data.results)
+        })
+        .catch((err)=> {
+          console.log(err, 'error genreClick')
+        })
+    }
+  }
+
+  const consoleClick = (e) => {
+    setSelectedConsole(e.target.value)
+    // console.log(e.target.value, 'ken')
+    if (selectedGenre) {
+      axios.get(`/games/genre/${selectedGenre}/platform/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
+      })
+    } else {
+      axios.get(`/games/platform/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
+      })
+    }
   }
 
   const userClick = (e) => {
