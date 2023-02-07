@@ -24,19 +24,32 @@ export default function SearchResult(props) {
   const [gameResult, setGameResult] = useState([]);
   const [userResult, setUserResult] = useState([])
   const [genre, setGenre] = useState([]);
+  const [cons, setCons] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedConsole, setSelectedConsole] = useState('');
   const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
 
   useEffect(() => {
     // get list of genres
+    setGameResult([]);
+    setUserResult([]);
+
     axios.get(`/genre`)
-      .then((response) => {
-        setGenre(response.data.results)
-      })
-      .catch((err)=> {
-        console.log(err, 'error in getting genre')
-      })
+    .then((response) => {
+      setGenre(response.data.results)
+    })
+    .catch((err)=> {
+      console.log(err, 'error in getting genre')
+    })
+    axios.get(`/platforms`)
+    .then((response) => {
+      console.log(response.data.results)
+      setCons(response.data.results)
+    })
+    .catch((err)=> {
+      console.log(err, 'error in getting genre')
+    })
 
 
       // if theres a query being searched, then search that query
@@ -71,6 +84,7 @@ export default function SearchResult(props) {
               let secondArr = firstArr.concat(response1.data);
               let thirdArr = secondArr.concat(response2.data)
               setGameResult(thirdArr)
+              // console.log(thirdArr, 'ken')
             })
             .catch((err)=> {
               console.log(err, 'error in getting games response 2')
@@ -132,27 +146,58 @@ export default function SearchResult(props) {
     }));
   };
 
-  const handleClick = (input) => {
-    if (props.type !== "Friend") {
-    window.location.href = `/gameprofile/${input}`;
+  const handleClick = (input, input2) => {
+    if (input2) {
+      window.location.href = `/userprofile/${input}`;
     } else {
-      window.location.href = `/userprofile/${input}`
+      window.location.href = `/gameprofile/${input}`
     }
   }
 
   const genreClick = (e) => {
     setSelectedGenre(e.target.value)
-    axios.get(`/games/${e.target.value}`)
+    if (selectedConsole) {
+      axios.get(`/games/genre/${e.target.value}/platform/${selectedConsole}`)
       .then((response) => {
         setResult(response.data.results)
       })
       .catch((err)=> {
-        console.log(err, 'error genreClick')
+        console.log(err, 'error inside consoleClick')
       })
+    } else {
+      axios.get(`/games/genre/${e.target.value}`)
+        .then((response) => {
+          setResult(response.data.results)
+        })
+        .catch((err)=> {
+          console.log(err, 'error genreClick')
+        })
+    }
+  }
+
+  const consoleClick = (e) => {
+    setSelectedConsole(e.target.value)
+    // console.log(e.target.value, 'ken')
+    if (selectedGenre) {
+      axios.get(`/games/genre/${selectedGenre}/platform/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
+      })
+    } else {
+      axios.get(`/games/platform/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
+      })
+    }
   }
 
   const userClick = (e) => {
-    console.log('here')
     setResult(userResult)
   }
 
@@ -172,13 +217,19 @@ export default function SearchResult(props) {
             <option value={item.name} key={item.id}>{item.name}</option>
           ))}
         </select>
+        <label>Choose a Console:</label>
+        <select className="list" value={selectedConsole} onChange={consoleClick}>
+          {cons.map((item) => (
+            <option value={item.id} key={item.id}>{item.name}</option>
+          ))}
+        </select>
       </div>
       <div className="searchBackground"> {/*Search Results */}
         <h3 >Results</h3>
         <div>
           <div className='holder'>
             {result.map((item) => (
-            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug)}>
+            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug, item.person)}>
             <div className="card-top">
               <img
                 src={
