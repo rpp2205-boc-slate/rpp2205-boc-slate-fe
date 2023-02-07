@@ -17,7 +17,7 @@ function Carousel(props) {
   const [data, setData] = useState({});
   const [friends, setFriends] = useState([])
   const [fav, setFav] = useState([])
-  const [game, setGame] = useState([])
+  const [games, setGames] = useState([])
   const settings = {
     dots: true,
     infinite: false,
@@ -53,7 +53,6 @@ function Carousel(props) {
     ],
   };
 
-
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
       ...prev,
@@ -71,20 +70,15 @@ function Carousel(props) {
         }
       })
         .then((response) => {
-          // console.log(response.data.results)
-          setData(response.data.results)
+          console.log(response.data.results)
+          setGames(response.data.results)
         })
         .catch(error => {
           console.log(error);
         });
-    // } else if (props.type === 'Fri') {
-    //   console.log('TESSSSTING')
-    //   axios.get('/user/:user_id/profile', {params: { user_id: 2}})
     } else if (props.type === 'Fri') {
-      // console.log('TESSSSTING')
       axios.get(`/user/2/profile`)
       .then((response) => {
-        // console.log(response.data.friends, " CarFriend")
         setFriends(response.data.friends)
 
       })
@@ -92,8 +86,20 @@ function Carousel(props) {
         console.log('Error ', error)
       })
     } else if (props.type === "Fav") {
-      console.log(props, " CFAVE")
       setFav(props.fav.fav_games)
+    } else if (props.type ==='Gam') {
+      axios.get(`https://api.rawg.io/api/games/${props.fav}/game-series`, {
+        params: {
+          key: '61f56f92cd35421a90a7b9ff9f3a1583'
+        }
+      })
+      .then((response) => {
+        console.log(response.data, " HEEEEREEEE")
+        setGames(response.data.results)
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
   }, [props]);
 
@@ -107,11 +113,16 @@ function Carousel(props) {
   }
 
 
-  if(props.type === "Pop" && Object.keys(data).length !== 0) {
+  if(props.type === "Pop" && Object.keys(games).length !== 0) {
   return (
-    <div className="Car"> Popular
+    <div className="Car"> Popular{console.log(games)}
       <Slider {...settings}>
-        {data.map((item) => (
+      {games.map((game) => (
+        <div key={game.id} gameid={game.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+                      <Gam clickFun={handleClick} g={game} error={handleErrorImage}/>
+                      </div>
+                    ))}
+        {/* {data.map((item) => (
           <div key={item.id} gameid={item.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
             <div gameid={item.slug} className="card-top">
               <img gameid={item.slug}
@@ -126,11 +137,10 @@ function Carousel(props) {
               <h1 gameid={item.slug}>{item.name}</h1>
             </div>
             <div gameid={item.slug} className="card-bottom">
-              {/* <h3>{item.name}</h3> */}
               <span gameid={item.slug}className="category">{}</span>
             </div>
           </div>
-        ))}
+        ))} */}
       </Slider>
     </div>
   );
@@ -145,11 +155,11 @@ function Carousel(props) {
                       </Slider>
                     </div>
                   )
-              } else if (props.type === 'Gam' && game.length > 0) {
+              } else if (props.type === 'Gam' && games.length > 0) {
                 return (
                  <div className='Car'>
                  <Slider {...settings}>
-                    {game.map((dlc) => (
+                    {games.map((game) => (
                       // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
                       <Gam clickFun={handleClick} g={game} />
                     ))}
@@ -158,7 +168,7 @@ function Carousel(props) {
                 )
               }else if (props.type === 'Fav' && fav.length > 0) {
                 return (
-                 <div className='fCar'>Favorites
+                 <div className='Car'>Favorites
                  <Slider {...settings}>
                     {fav.map((fa) => (
                       <Fa  clickFun={handleClick} fa={fa} />

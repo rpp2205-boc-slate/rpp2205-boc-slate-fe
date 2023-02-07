@@ -73,7 +73,7 @@ export default function App(props) {
     <>
         <Routes history={appHistory}>
           <Route path='/' element={<Home types={['Pop', 'Fri', 'Fav', 'Not']} data={defaultData}/>} />
-            <Route path='/gameprofile/:slug' element={<GameProfile selfId={userId} selfProfile={userProfile}/>} />
+            <Route path='/gameprofile/:slug' element={<GameProfile types={['Gam']} selfId={userId} selfProfile={userProfile}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
