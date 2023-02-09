@@ -9,10 +9,14 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 function MyProfile(props) {
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
+  const types = ["Friends", "Favorite"]
   return(
     <div className="profile">
       <Navigation />
       <Profile selfId={selfId} selfProfile={selfProfile}/>
+      {types.map((t) => (
+        <Carousel type={t} fav={userProfile} fri={selfProfile}/>
+      ))}
     </div>
   );
 }

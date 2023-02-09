@@ -21,7 +21,7 @@ export default function GameProfile(props) {
       <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated} setGameProfile={setGameProfile}/>
       {props['types']?.map((t) => (
 
-        <Carousel type={t} fav={testgame}  />
+        <Carousel type={t} fav={gameProfile}  />
       ))}
     </div>
   );
