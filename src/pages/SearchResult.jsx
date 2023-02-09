@@ -86,7 +86,7 @@ export default function SearchResult(props) {
               let thirdArr = secondArr.concat(response2.data)
               setGameResult(thirdArr)
               setResult(thirdArr)
-              // console.log(thirdArr, 'ken')
+              console.log(thirdArr, 'ken')
             })
             .catch((err)=> {
               console.log(err, 'error in getting games response 2')
