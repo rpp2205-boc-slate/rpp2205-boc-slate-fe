@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 
 // testData will be replaced with props.user.received_req_from once the api is functional
 
@@ -17,6 +18,15 @@ function FriendRequestList(props) {
     console.log('accepted');
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
+    axios.post(`/${props.userId}/respond/${id}`, {
+      "respond": "approved";
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
     setMessage(`${friend} is now your friend`);
     setShowDisplay(false);
   };
@@ -25,6 +35,15 @@ function FriendRequestList(props) {
     console.log('rejected');
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let reject = props.user.received_req_from.filter(request => request.userId === id)[0].username;
+    axios.post(`/${props.userId}/respond/${id}`, {
+      "respond": "rejected";
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
     setMessage(`Rejected ${reject}'s request`);
     setShowDisplay(false);
   };
