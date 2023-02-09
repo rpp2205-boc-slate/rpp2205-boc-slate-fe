@@ -9,6 +9,7 @@ import { getProfile } from './helperFunctions.js';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
+import Tag from "./Tag.jsx";
 
 export default function Profile(props) {
   const [onlineStatus, setOnlineStatus] = useState(true);
@@ -84,13 +85,18 @@ export default function Profile(props) {
                 <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated}/></div>
               </div>) : null}
             </div>
-            <Stack justifyContent="left" alignItems="left" id="game-intro-stack">
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack">
               <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
               <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Rating: " + profileObj.rating}</Typography>
               {profileObj.released ? <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Release Date: " + profileObj.released}</Typography> : null}
-              <div id="reddit">
-                <a href={profileObj.reddit_url}><img id="reddit-img" src='./reddit-logo.png' /></a>
-              </div>
+              <Stack direction="row" spacing={2} sx={{"flexWrap": "wrap"}}>
+              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{profileObj.tags.length > 0 ? "Tags: " : null}</Typography>
+              {profileObj.tags.map((tag, index) => {
+                return (
+                  <div key={index} style={{"padding":"5px"}}><Tag tag={tag} /></div>
+                )
+              })}
+              </Stack>
             </Stack>
 
           </div>
@@ -98,6 +104,13 @@ export default function Profile(props) {
             <div class="aboutMe">
               <div class="aboutTitle"><h3>{"About " + (profileObj.name)}</h3></div>
               <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.description }}></div>
+              {profileObj.reddit_url ? (<div id="reddit-container">
+                <div id="reddit">
+                  <a href={profileObj.reddit_url}><img id="reddit-img" src='./reddit-logo.png' /></a>
+                </div>
+              </div>) : null}
+
+
             </div>
           </div>
         </div>
