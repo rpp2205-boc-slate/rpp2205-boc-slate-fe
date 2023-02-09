@@ -5,6 +5,7 @@ import axios from "axios";
 import Navigation from "../components/Navigation And Authentication/Navigation.jsx";
 import Profile from '../components/Profile/Profile.jsx';
 import { withAuthenticationRequired } from "@auth0/auth0-react";
+import Carousel from "../components/Carousel/Carousel.jsx"
 
 function MyProfile(props) {
   var selfId = props.selfId;
@@ -15,7 +16,7 @@ function MyProfile(props) {
       <Navigation />
       <Profile selfId={selfId} selfProfile={selfProfile}/>
       {types.map((t) => (
-        <Carousel type={t} fav={userProfile} fri={selfProfile}/>
+        <Carousel type={t} fav={selfProfile} fri={selfProfile}/>
       ))}
     </div>
   );
