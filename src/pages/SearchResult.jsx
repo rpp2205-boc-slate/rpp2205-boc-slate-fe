@@ -29,6 +29,8 @@ export default function SearchResult(props) {
   const [selectedConsole, setSelectedConsole] = useState('');
   const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
+  const state = useLocation();
+  // console.log('state', state);
 
   useEffect(() => {
     // get list of genres
@@ -51,10 +53,8 @@ export default function SearchResult(props) {
       console.log(err, 'error in getting genre')
     })
 
-
-      // if theres a query being searched, then search that query
-    if (query.params) {
-      // if (clickUser) {
+    // if theres a query being searched, then search that query
+    if (query.params && state.state.value == 'user') {
         axios.get(`/users/${query.params}`)
         .then((response) => {
           let formatResult = [];
@@ -69,11 +69,12 @@ export default function SearchResult(props) {
             formatResult.push(x)
           })
           setUserResult(formatResult)
+          setResult(formatResult)
         })
         .catch((err)=> {
-          console.log(err, 'error in getting genre')
+          console.log(err, 'error in use effect users')
         })
-      // }
+     } else if (query.params && state.state.value === "game") {
         axios.get(`/games/keyword/${query.params}/1`)
         .then((response0) => {
           axios.get(`/games/keyword/${query.params}/2`)
@@ -84,6 +85,7 @@ export default function SearchResult(props) {
               let secondArr = firstArr.concat(response1.data);
               let thirdArr = secondArr.concat(response2.data)
               setGameResult(thirdArr)
+              setResult(thirdArr)
               // console.log(thirdArr, 'ken')
             })
             .catch((err)=> {
@@ -109,34 +111,35 @@ export default function SearchResult(props) {
     }
   }, [query.params])
 
-  useEffect(() => {
-    let internalResult = [];
-    if (gameResult.length > userResult.length && gameResult.length > 0 && userResult.length > 0) {
-      for (var i = 0; i < gameResult.length; i++) {
-        if (gameResult[i]) {
-          internalResult.push(gameResult[i]);
-        }
-        if (userResult[i]) {
-          internalResult.push(userResult[i])
-        }
-      }
-    } else {
-      for (var i = 0; i < userResult.length; i++) {
-        if (gameResult[i]) {
-          internalResult.push(gameResult[i]);
-        }
-        if (userResult[i]) {
-          internalResult.push(userResult[i])
-        }
-      }
-    }
-    if (gameResult.length === 0) {
-      internalResult = userResult;
-    } else if (userResult.length == 0) {
-      internalResult = gameResult;
-    }
-    setResult(internalResult)
-  }, [gameResult])
+  // useEffect(() => {
+  //   let internalResult = [];
+  //   if (gameResult.length > userResult.length && gameResult.length > 0 && userResult.length > 0) {
+  //     for (var i = 0; i < gameResult.length; i++) {
+  //       if (gameResult[i]) {
+  //         internalResult.push(gameResult[i]);
+  //       }
+  //       if (userResult[i]) {
+  //         internalResult.push(userResult[i])
+  //       }
+  //     }
+  //   } else {
+  //     for (var i = 0; i < userResult.length; i++) {
+  //       if (gameResult[i]) {
+  //         internalResult.push(gameResult[i]);
+  //       }
+  //       if (userResult[i]) {
+  //         internalResult.push(userResult[i])
+  //       }
+  //     }
+  //   }
+  //   if (gameResult.length === 0) {
+  //     internalResult = userResult;
+  //   } else if (userResult.length == 0) {
+  //     internalResult = gameResult;
+  //   }
+
+  //   setResult(internalResult)
+  // }, [gameResult])
 
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
@@ -210,7 +213,7 @@ export default function SearchResult(props) {
   return(
     <div className="main">
       <div className="filterList"> {/*Filters List*/}
-        <button type="button" onClick={userClick}>Users</button> <button type="button" onClick={gameClick}>Games</button><br/>
+        {/* <button type="button" onClick={userClick}>Users</button> <button type="button" onClick={gameClick}>Games</button><br/> */}
        <label for="cars">Choose a Genre:</label>
         <select className="list" value={selectedGenre} onChange={genreClick}>
           {genre.map((item) => (

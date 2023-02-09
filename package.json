@@ -72,6 +72,7 @@
     "stream-chat-react": "^10.5.0",
     "style-loader": "^3.3.1",
     "styled-components": "^5.3.6",
+    "url": "^0.11.0",
     "utf-8-validate": "^5.0.10"
   }
 }

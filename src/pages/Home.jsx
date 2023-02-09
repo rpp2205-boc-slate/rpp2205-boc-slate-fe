@@ -7,7 +7,6 @@ import Navigation from "../components/Navigation And Authentication/Navigation.j
 import Carousel from "../components/Carousel/Carousel.jsx"
 // import muiNav from "../components/Navigation And Authentication/muiNav.jsx";
 export default function Home(props) {
-  console.log(props)
   return(
     <>
       <Navigation />
