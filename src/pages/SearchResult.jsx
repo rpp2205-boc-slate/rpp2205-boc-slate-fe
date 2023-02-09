@@ -149,9 +149,9 @@ export default function SearchResult(props) {
     }));
   };
 
-  const handleClick = (input, input2) => {
+  const handleClick = (input, input2, input3) => {
     if (input2) {
-      window.location.href = `/userprofile/${input}`;
+      window.location.href = `/userprofile/${input3}`;
     } else {
       window.location.href = `/gameprofile/${input}`
     }
@@ -232,7 +232,7 @@ export default function SearchResult(props) {
         <div>
           <div className='holder'>
             {result.map((item) => (
-            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug, item.person)}>
+            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug, item.person, item.id)}>
             <div className="card-top">
               <img
                 src={
