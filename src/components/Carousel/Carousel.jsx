@@ -121,29 +121,11 @@ function Carousel(props) {
                       <Gam clickFun={handleClick} g={game} error={handleErrorImage}/>
                       </div>
                     ))}
-        {/* {data.map((item) => (
-          <div key={item.id} gameid={item.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
-            <div gameid={item.slug} className="card-top">
-              <img gameid={item.slug}
-                src={
-                  defaultImage[item.name] === item.name
-                    ? defaultImage.linkDefault
-                    : item.background_image
-                }
-                alt={item.title}
-                onError={handleErrorImage}
-              />
-              <h1 gameid={item.slug}>{item.name}</h1>
-            </div>
-            <div gameid={item.slug} className="card-bottom">
-              <span gameid={item.slug}className="category">{}</span>
-            </div>
-          </div>
-        ))} */}
+
       </Slider>
     </div>
   );
-              } else if (props.type === 'Friends' && friends.length > 0) {
+              } else if (props.type === 'Friends' && friends && friends.length > 0) {
                   return (
                    <div className='fCar'>Friends
                    <Slider {...settings}>
@@ -154,7 +136,7 @@ function Carousel(props) {
                       </Slider>
                     </div>
                   )
-              } else if (props.type === 'Favorite' && fav.length > 0) {
+              } else if (props.type === 'Favorite' && fav && fav.length > 0) {
                 return (
                  <div className='Car'>Favorites
                  <Slider {...settings}>
