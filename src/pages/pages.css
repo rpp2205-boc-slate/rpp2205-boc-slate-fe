@@ -157,4 +157,6 @@
 
 .profile {
   z-index: 9;
+  display: flex;
+  flex-direction: column;
 }
