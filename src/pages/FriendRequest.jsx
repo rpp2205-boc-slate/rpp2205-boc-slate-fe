@@ -19,14 +19,14 @@ function FriendRequestList(props) {
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "approved";
+      "respond": "approved"
     })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     setMessage(`${friend} is now your friend`);
     setShowDisplay(false);
   };
@@ -36,14 +36,14 @@ function FriendRequestList(props) {
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let reject = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "rejected";
+      "respond": "rejected"
     })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     setMessage(`Rejected ${reject}'s request`);
     setShowDisplay(false);
   };
