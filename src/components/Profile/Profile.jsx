@@ -39,7 +39,7 @@ export default function Profile(props) {
   }, [props.isAuthenticated]);
 
   useEffect(() => {
-    setImg(props.selfProfile.photos ? props.selfProfile.photos[0].photo_url : null);
+    setImg((props.selfProfile.photos && props.selfProfile.photos.length >= 1)? props.selfProfile.photos[0].photo_url : null);
     setFirstName(props.selfProfile.first_name);
     setLastName(props.selfProfile.last_name);
     setBio(props.selfProfile.bio);
@@ -55,6 +55,12 @@ export default function Profile(props) {
           console.error(err);
         } else {
           setProfileObj(result);
+          if (type === "user") {
+            props.setUserProfile(result);
+          } else {
+            props.setGameProfile(result);
+          }
+
         }
       })
     }
@@ -96,7 +102,7 @@ export default function Profile(props) {
         <div class="profile-for-all">
           <div class="leftColumn">
             <div class="profilePhoto">
-              <img src={profileObj.photos ? profileObj.photos[0].photo_url : "./img_avatar2.png"} class="profilePhoto" />
+              <img src={(profileObj.photos && profileObj.photos.length >= 1) ? profileObj.photos[0].photo_url : "./img_avatar2.png"} class="profilePhoto" />
             </div>
             <div class="profile-name">{"Username: " + profileObj.username}</div>
             <div class="profile-firstName">{"First Name: " + (profileObj.first_Name || ' ')}</div>
