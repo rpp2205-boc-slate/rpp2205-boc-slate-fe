@@ -62,39 +62,38 @@ function Carousel(props) {
   };
 
   useEffect(() => {
-    if (props.type === "Pop") {
-      axios.get('https://api.rawg.io/api/games', {
-        params: {
-          ordering: '-rating',
-          key: '61f56f92cd35421a90a7b9ff9f3a1583'
-        }
-      })
+    if (props.type === "Popular") {
+      axios.get('games/orderBy/rating')
         .then((response) => {
-          console.log(response.data.results)
-          setGames(response.data.results)
+          setGames(response.data)
         })
         .catch(error => {
           console.log(error);
         });
-    } else if (props.type === 'Fri') {
-      axios.get(`/user/2/profile`)
-      .then((response) => {
-        setFriends(response.data.friends)
-
-      })
-      .catch((error) => {
-        console.log('Error ', error)
-      })
-    } else if (props.type === "Fav") {
+    } else if (props.type === 'Friends' && props.fav) {
+        setFriends(props.fav.friends)
+    } else if (props.type === "Favorite" && props.fav) {
       setFav(props.fav.fav_games)
-    } else if (props.type ==='Gam') {
-      axios.get(`https://api.rawg.io/api/games/${props.fav}/game-series`, {
+    } else if (props.type ==='Games' && props.fav) {
+      axios.get(`https://api.rawg.io/api/games/${props.fav.id}/game-series`, {
         params: {
           key: '61f56f92cd35421a90a7b9ff9f3a1583'
         }
       })
       .then((response) => {
-        console.log(response.data, " HEEEEREEEE")
+        setGames(response.data.results)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    } else if (props.type ==='DLC' && props.fav) {
+      axios.get(`https://api.rawg.io/api/games/${props.fav.id}/additions`, {
+        params: {
+          key: '61f56f92cd35421a90a7b9ff9f3a1583'
+        }
+      })
+      .then((response) => {
+        console.log(response.data.results, " HEEREE")
         setGames(response.data.results)
       })
       .catch(error => {
@@ -105,46 +104,28 @@ function Carousel(props) {
 
 
   const handleClick = (input) => {
-    if (props.type !== "Friend") {
+    console.log(props.type)
+    if (props.type !== "Friends") {
     window.location.href = `/gameprofile/${input}`;
     } else {
       window.location.href = `/userprofile/${input}`
     }
   }
 
-
-  if(props.type === "Pop" && Object.keys(games).length !== 0) {
+  if(games && games.length > 0) {
   return (
-    <div className="Car"> Popular{console.log(games)}
+    <div className="Car"> {props.type}
       <Slider {...settings}>
       {games.map((game) => (
         <div key={game.id} gameid={game.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
                       <Gam clickFun={handleClick} g={game} error={handleErrorImage}/>
                       </div>
                     ))}
-        {/* {data.map((item) => (
-          <div key={item.id} gameid={item.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
-            <div gameid={item.slug} className="card-top">
-              <img gameid={item.slug}
-                src={
-                  defaultImage[item.name] === item.name
-                    ? defaultImage.linkDefault
-                    : item.background_image
-                }
-                alt={item.title}
-                onError={handleErrorImage}
-              />
-              <h1 gameid={item.slug}>{item.name}</h1>
-            </div>
-            <div gameid={item.slug} className="card-bottom">
-              <span gameid={item.slug}className="category">{}</span>
-            </div>
-          </div>
-        ))} */}
+
       </Slider>
     </div>
   );
-              } else if (props.type === 'Fri' && friends.length > 0) {
+              } else if (props.type === 'Friends' && friends && friends.length > 0) {
                   return (
                    <div className='fCar'>Friends
                    <Slider {...settings}>
@@ -155,18 +136,7 @@ function Carousel(props) {
                       </Slider>
                     </div>
                   )
-              } else if (props.type === 'Gam' && games.length > 0) {
-                return (
-                 <div className='Car'>
-                 <Slider {...settings}>
-                    {games.map((game) => (
-                      // <div onClick={(e) => handleClick(`/user/${friend.userid}/profile`)}>{friend.userid}</div>
-                      <Gam clickFun={handleClick} g={game} />
-                    ))}
-                    </Slider>
-                  </div>
-                )
-              }else if (props.type === 'Fav' && fav.length > 0) {
+              } else if (props.type === 'Favorite' && fav && fav.length > 0) {
                 return (
                  <div className='Car'>Favorites
                  <Slider {...settings}>

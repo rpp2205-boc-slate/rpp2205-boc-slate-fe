@@ -59,22 +59,12 @@ export default function App(props) {
       </div>
     );
   }
-  const defaultData= {
-    "fav_games": [
-      {
-          "game_id": "halo"
-      },
-      {
-        "game_id": "victoria-2-heart-of-darkness"
-      }
-  ]
-  }
 
   return(
     <>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Pop', 'Fri', 'Fav', 'Not']} data={defaultData}/>} />
-            <Route path='/gameprofile/:slug' element={<GameProfile types={['Gam']} selfId={userId} selfProfile={userProfile}/>} />
+          <Route path='/' element={<Home types={['Popular']} />} />
+            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />

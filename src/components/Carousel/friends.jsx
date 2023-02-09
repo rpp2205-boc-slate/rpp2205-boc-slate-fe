@@ -21,7 +21,7 @@ function Fri (props) {
 
 return (
 
-    <div onClick={(e) => props.clickFun(`/user/${fr.user_id}/profile`)} className='fcard'>
+    <div onClick={(e) => props.clickFun(`${fr.user_id}`)} className='fcard'>
       <div className='fcard-top'>
       <img src={fr.photos && fr.photos.length > 0 ? fr.photos[0].photo_url : imgTest} alt='img' />
       </div>
