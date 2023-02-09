@@ -11,7 +11,7 @@ function FriendRequestList(props) {
   let testData = [
     { userId: 7, username: 'Joaquin' },
     { userId: 8, username: 'Emmanuel' },
-    { userId: 9, username: 'Diego' },
+    { userId: 9, username: 'Diego' }
   ];
 
   const acceptReq = (id) => {
@@ -19,7 +19,7 @@ function FriendRequestList(props) {
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "approved";
+      "respond": "approved"
     })
     .then(function (response) {
       console.log(response);
@@ -36,7 +36,7 @@ function FriendRequestList(props) {
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let reject = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "rejected";
+      "respond": "rejected"
     })
     .then(function (response) {
       console.log(response);
