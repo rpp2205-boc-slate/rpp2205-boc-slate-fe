@@ -16,7 +16,7 @@ function FriendRequestList(props) {
   const acceptReq = (id) => {
     console.log('accepted');
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
-    let friend = testData.filter(request => request.userId === id)[0].username;
+    let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     setMessage(`${friend} is now your friend`);
     setShowDisplay(false);
   };
@@ -24,19 +24,19 @@ function FriendRequestList(props) {
   const rejectReq = (id) => {
     console.log('rejected');
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
-    let reject = testData.filter(request => request.userId === id)[0].username;
+    let reject = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     setMessage(`Rejected ${reject}'s request`);
     setShowDisplay(false);
   };
 
 
   if (props.chatOpen) {
-    if (testData.length) {
+    if (props.user.received_req_from.length) {
       return (
         <div>
           <ul className="friend-request-list">
-          <p><b>{testData.length} Pending Friend Requests</b></p>
-          {testData.map(request => (
+          <p><b>{props.user.received_req_from.length} Pending Friend Requests</b></p>
+          {props.user.received_req_from.map(request => (
             <li key={request.userId} >
                { showDisplay && <div className='request'>
                   {request.username} wants to be your friend
@@ -50,7 +50,7 @@ function FriendRequestList(props) {
         </div>
       );
     } else {
-      return <p>You have no pending friend requests...</p>;
+      return <p className="friend-request-list">You have no pending friend requests...</p>;
     }
   } else {
     return null;
