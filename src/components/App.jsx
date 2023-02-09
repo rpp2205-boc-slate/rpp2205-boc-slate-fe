@@ -31,6 +31,8 @@ export default function App(props) {
   const [userId, setUserId] = useState('667'); //667 is for tesing purpose only. userid will be passed after the login which sends a post request to server and return back an id for the current user.
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
+  const [chatOpen, setChatOpen] = useState(false);
+
   console.log(userProfile, '33')
   useEffect(() => {
     if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
@@ -44,7 +46,6 @@ export default function App(props) {
         })
     }
   }, [user, isAuthenticated]);
-  const [chatOpen, setChatOpen] = useState(false);
 
   // const handleChatClick = (bool) => {
   //   console.log('clicked', bool);
@@ -58,22 +59,12 @@ export default function App(props) {
       </div>
     );
   }
-  const defaultData= {
-    "fav_games": [
-      {
-          "game_id": "halo"
-      },
-      {
-        "game_id": "victoria-2-heart-of-darkness"
-      }
-  ]
-  }
 
   return(
     <>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Pop', 'Fri', 'Fav', 'Not']} data={defaultData}/>} />
-            <Route path='/gameprofile/:slug' element={<GameProfile types={['Gam']} selfId={userId} selfProfile={userProfile}/>} />
+          <Route path='/' element={<Home types={['Popular']} />} />
+            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
@@ -86,10 +77,12 @@ export default function App(props) {
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
-        <div className="chat">
+
+        {chatOpen && (<div className="chat">
           <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile}/>
           <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile}/>
-        </div>
+        </div>)}
+
     </>
   );
 }

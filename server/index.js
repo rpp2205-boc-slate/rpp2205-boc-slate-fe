@@ -154,7 +154,6 @@ app.get('/games/orderBy/:orderBy', (req, res) => {
 
 //return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
 app.get('/games/slug/:slugname', (req, res) => {
-  console.log(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`);
   axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
     .then((response) => {
       res.status(200).send(response.data)
@@ -163,7 +162,16 @@ app.get('/games/slug/:slugname', (req, res) => {
       res.status(400).send(err);
     })
 });
-
+app.get('games/:gameid/game-series', (req, res) => {
+  console.log(`${gameApiPath}/games/${req.params.gameid}/game-series`)
+  axios.get(`${gameApiPath}/games/${req.params.gameid}/game-series?key=${gameApiKey}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
 // return list of genres
 app.get('/genre', (req, res) => {
   axios.get(`${genreApiPath}?key=${gameApiKey}`)
@@ -234,7 +242,7 @@ app.get('/games/genre/:genre/platform/:platform', (req, res) => {
   // console.log(q, 'here')
   axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}`)
     .then((response) => {
-      console.log(response.data)
+      // console.log(response.data)
       res.status(200).send(response.data)
     })
     .catch(err => {
