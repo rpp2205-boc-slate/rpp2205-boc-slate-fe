@@ -15,6 +15,7 @@ const ModalComponentBio = (props) => {
     setOpen(false);
   }
   const handleOpen = () => {
+    console.log("clicked")
     setOpen(true);
   }
   const style = {
@@ -35,7 +36,7 @@ const ModalComponentBio = (props) => {
     var last_name = props.selfProfile.last_name;
     var name = props.selfProfile.username;
     var email = props.selfProfile.email;
-    var picture = props.selfProfile.photos[0].photo_url;
+    var picture = (props.selfProfile.photos.length === 0 ? null : props.photos[0].photo_url);
     var bio = document.getElementById("textfield-bio").value;
     axios.post(`/user/${props.selfProfile.user_id}/profile`, {name, first_name, last_name, email, bio, picture})
       .then(response => {
@@ -50,7 +51,7 @@ const ModalComponentBio = (props) => {
 
   return (
     <>
-      <Button onClick={handleOpen}>
+      <Button onClick={handleOpen} id="editAbout">
         Edit About
       </Button>
       <Modal

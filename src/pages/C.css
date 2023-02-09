@@ -4,6 +4,7 @@
   top: 10%;
   left: 42%;
   z-index: 1;
+  width: 325px;
 }
 
 .list {
@@ -14,6 +15,7 @@
   background-color: beige;
   top: 20%;
   position: absolute;
+  z-index: 1;
 }
 
 .searchResult {

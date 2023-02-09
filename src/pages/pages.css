@@ -53,6 +53,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 }
 
 .profile-for-all {
@@ -71,29 +72,40 @@
   justify-content:flex-end;
   position:sticky;
   height:480px;
-  padding-top: 50px;
+  padding-top: 150px;
   width: 800px;
   box-shadow: rgba(0, 0, 0, 0.1);
 }
 
+
 .friend-request-list {
-  background-color: white;
+  background-color: rgb(12, 12, 12);
+  color: rgb(243, 243, 243);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  border-radius: 5px;
+  padding: 5px;
+  /* border-radius: 8px; */
   list-style-type: none;
   text-align: center;
+  align-items: center;
 }
 
 .friend-request-list li {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .friend-request-list button {
   margin-left: 10px;
   border-radius: 10px;
+}
+
+.request {
+  background-color: rgb(42, 43, 45);
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
 }
 
 #accept-reject {
@@ -141,4 +153,8 @@
 .profile-name, .profile-firstName, .profile-lastName, .profile-email {
   width: 100%;
   text-align: left;
+}
+
+.profile {
+  z-index: 9;
 }

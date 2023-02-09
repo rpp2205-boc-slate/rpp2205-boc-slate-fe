@@ -9,6 +9,7 @@ require('dotenv').config();
 //const apiPath = 'https://6l9qj.wiremockapi.cloud';
 const gameApiPath = 'https://api.rawg.io/api/games';
 const genreApiPath = 'https://api.rawg.io/api/genres';
+const platformApiPath = 'https://api.rawg.io/api/platforms';
 const gameApiKey = process.env.API_KEY;
 const apiPath = 'http://54.159.164.8';
 //const apiPath = 'http://localhost:3001';
@@ -40,7 +41,7 @@ app.post('/user/addinfo', (req, res) => {
 
 //Returns User profiles
 app.get('/user/:user_id/profile', (req, res) => {
-  console.log(req.params.user_id)
+
   axios.get(`${apiPath}/user/${req.params.user_id}/profile`)
     .then((response) => {
       res.status(200).send(response.data);
@@ -66,6 +67,7 @@ app.post('/user/:user_id/profile', (req, res) => {
 app.get('/users/:keyword', (req, res) => {
   axios.get(`${apiPath}/users/${req.params.keyword}`)
     .then((response) => {
+      // console.log(response, 'inside getting users')
       res.status(200).send(response.data);
     })
     .catch((err) => {
@@ -152,6 +154,7 @@ app.get('/games/orderBy/:orderBy', (req, res) => {
 
 //return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
 app.get('/games/slug/:slugname', (req, res) => {
+  console.log(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`);
   axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
     .then((response) => {
       res.status(200).send(response.data)
@@ -173,7 +176,7 @@ app.get('/genre', (req, res) => {
 });
 
 // get related games based off of genre
-app.get('/games/:genre', (req, res) => {
+app.get('/games/genre/:genre', (req, res) => {
   let q = req.params.genre.toLowerCase();
   if (q === "rpg") {
     q = 5;
@@ -185,6 +188,53 @@ app.get('/games/:genre', (req, res) => {
   axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}`)
     .then((response) => {
       // console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+//get platforms
+app.get('/platforms', (req, res) => {
+  axios.get(`${platformApiPath}?key=${gameApiKey}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// get related games based off of platform
+app.get('/games/platform/:platform', (req, res) => {
+  let q = req.params.platform;
+  // console.log(q, 'here')
+  axios.get(`${gameApiPath}?platforms=${q}&key=${gameApiKey}`)
+    .then((response) => {
+      // console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// get all games for both genre and platform
+app.get('/games/genre/:genre/platform/:platform', (req, res) => {
+  let p = req.params.platform;
+  let q = req.params.genre.toLowerCase();
+  if (q === "rpg") {
+    q = 5;
+  } else if (q === "massively multiplayer") {
+    q = 59;
+  } else if (q === "board games") {
+    q= 28;
+  }
+  // console.log(q, 'here')
+  axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}`)
+    .then((response) => {
+      console.log(response.data)
       res.status(200).send(response.data)
     })
     .catch(err => {
