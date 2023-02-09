@@ -21,9 +21,9 @@ export default function GameProfile(props) {
       <Navigation />
       <GameNav gameProfile={gameProfile}/>
       <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated} setGameProfile={setGameProfile}/>
-      {props['types']?.map((t) => (
-      <div className="car-div"> <Carousel type={t} fav={gameProfile}  /></div>
-      ))}
+      <div className="car-div">{props['types']?.map((t) => (
+       <Carousel type={t} fav={gameProfile}  />
+      ))}</div>
     </div>
   );
 
