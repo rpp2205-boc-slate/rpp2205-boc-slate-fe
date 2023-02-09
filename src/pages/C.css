@@ -1,9 +1,8 @@
 .filterList {
   background-color: gray;
   position: absolute;
-  top: 10%;
+  top: 15%;
   left: 42%;
-  z-index: 1;
   width: 325px;
 }
 
@@ -15,7 +14,6 @@
   background-color: beige;
   top: 20%;
   position: absolute;
-  z-index: 1;
 }
 
 .searchResult {
