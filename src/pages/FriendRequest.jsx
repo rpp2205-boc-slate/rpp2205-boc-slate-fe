@@ -20,7 +20,6 @@ function FriendRequestList(props) {
     let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     axios.post(`/${props.userId}/respond/${id}`, {
       "respond": "approved"
-      "respond": "approved"
     })
       .then(function (response) {
         console.log(response);
