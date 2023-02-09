@@ -23,7 +23,6 @@ export default function Search(props) {
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState('game');
   const handleValueChange = (event) => {
-    
     setValue(event.target.value);
     console.log('value', value);
   }
