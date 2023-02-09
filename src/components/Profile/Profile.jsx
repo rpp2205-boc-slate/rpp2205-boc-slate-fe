@@ -6,7 +6,9 @@ import AddToLikeButton from './add-to-like-button.jsx';
 import EditAboutButton from './edit-about-button.jsx';
 import EditProfileButton from './edit-profile-button.jsx';
 import { getProfile } from './helperFunctions.js';
-
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
 
 export default function Profile(props) {
   const [onlineStatus, setOnlineStatus] = useState(true);
@@ -82,7 +84,15 @@ export default function Profile(props) {
                 <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated}/></div>
               </div>) : null}
             </div>
-            <a href={profileObj.website}><div class="profile-name">{profileObj.name}</div></a>
+            <Stack justifyContent="left" alignItems="left" id="game-intro-stack">
+              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
+              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Rating: " + profileObj.rating}</Typography>
+              {profileObj.released ? <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Release Date: " + profileObj.released}</Typography> : null}
+              <div id="reddit">
+                <a href={profileObj.reddit_url}><img id="reddit-img" src='./reddit-logo.png' /></a>
+              </div>
+            </Stack>
+
           </div>
           <div class="rightColumn">
             <div class="aboutMe">
@@ -128,7 +138,7 @@ export default function Profile(props) {
     }
     return (
       <>
-        <div class="profile-for-all">
+        <div class="profile-for-all" >
           <div class="leftColumn">
             <div class="editProfileButton">
               <EditProfileButton selfId={props.selfId} selfProfile={props.selfProfile} changeImage={changeImage} changeFirstName={changeFirstName} changeLastName={changeLastName} />
