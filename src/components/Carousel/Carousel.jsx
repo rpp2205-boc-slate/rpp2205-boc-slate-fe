@@ -7,10 +7,10 @@ import './C.css';
 import './F.css';
 import { dataDigitalBestSeller } from './data';
 import imgTest from './Testing/1.png';
-import axios from 'axios'
-import Fri from './friends.jsx'
-import Gam from './game.jsx'
-import Fa from './favorite.jsx'
+import axios from 'axios';
+import Fri from './friends.jsx';
+import Gam from './game.jsx';
+import Fa from './favorite.jsx';
 
 function Carousel(props) {
   const [defaultImage, setDefaultImage] = useState({});

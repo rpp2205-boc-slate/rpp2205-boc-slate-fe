@@ -242,7 +242,7 @@ app.get('/games/genre/:genre/platform/:platform', (req, res) => {
   // console.log(q, 'here')
   axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}`)
     .then((response) => {
-      console.log(response.data)
+      // console.log(response.data)
       res.status(200).send(response.data)
     })
     .catch(err => {
