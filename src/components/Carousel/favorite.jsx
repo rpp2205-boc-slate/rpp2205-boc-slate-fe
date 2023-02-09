@@ -23,8 +23,9 @@ function Fa (props) {
 
 
   useEffect(() => {
-    axios.get(`/games/slug/${props.fa.game_id}`)
+    axios.get(`/games/slug/${Number(props.fa.game_id)}`)
         .then((response) => {
+          console.log(response.data)
           setFavorite(response.data)
         })
         .catch(error => {
@@ -54,7 +55,7 @@ return (
 
 )
         } else {
-          return
+          return <div>404 Not Found</div>
         }
 
 

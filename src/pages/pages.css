@@ -1,4 +1,9 @@
+#root {
+  height: 1000px;
+}
+
 /* signup css */
+
 .signupContainer {
   height: 600px;
   width: 400px;
@@ -50,7 +55,7 @@
 
 /* profile css */
 .profile {
-  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -118,9 +123,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-style: solid;
-  border-color: grey;
-  border-width: 1px;
 }
 
 .leftColumn {
@@ -155,6 +157,11 @@
   text-align: left;
 }
 
-.profile {
-  z-index: 9;
+.car-div {
+  margin-top: 400px;
+}
+
+.gameNav {
+  margin-top: 80px;
+  margin-left: 250px;
 }
