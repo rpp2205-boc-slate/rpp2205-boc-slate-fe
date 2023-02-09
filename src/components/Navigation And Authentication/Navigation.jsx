@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 
 
 
+
 function Navigation(props) {
   console.log("useAuth0 obj", useAuth0());
   var { isAuthenticated, user } = useAuth0();
@@ -23,6 +24,7 @@ function Navigation(props) {
       props.setUser(user);
     }
   });
+
   return (
     <>
     <Navbar bg="primary" variant="dark" expand="lg" fixed="top">
@@ -50,6 +52,7 @@ function Navigation(props) {
 
   );
 
+  
 }
 
 export default Navigation;
