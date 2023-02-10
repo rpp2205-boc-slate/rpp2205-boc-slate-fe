@@ -99,6 +99,22 @@ function Carousel(props) {
       .catch(error => {
         console.log(error);
       });
+    } else if (props.type === "New") {
+      axios.get('games/orderBy/released')
+        .then((response) => {
+          setGames(response.data)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else if (props.type === "Top Rated") {
+      axios.get('games/orderBy/metacritic')
+        .then((response) => {
+          setGames(response.data)
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }, [props]);
 
@@ -116,11 +132,17 @@ function Carousel(props) {
   return (
     <div className="Car"> {props.type}
       <Slider {...settings}>
-      {games.map((game) => (
-        <div key={game.id} gameid={game.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
-                      <Gam clickFun={handleClick} g={game} error={handleErrorImage}/>
-                      </div>
-                    ))}
+      {games.map((game) => {
+  if (game.background_image) {
+    return (
+      <div key={game.id} gameid={game.slug} className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+        <Gam clickFun={handleClick} g={game} error={handleErrorImage} />
+      </div>
+    );
+  }
+  return null;
+})}
+
 
       </Slider>
     </div>
