@@ -119,7 +119,7 @@ function Carousel(props) {
           console.log(error);
         });
     }
-  }, []);
+  }, [props.type, props.fav]);
 
 
   const handleClick = (input) => {

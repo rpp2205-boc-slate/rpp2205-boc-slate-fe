@@ -21,7 +21,8 @@ import Navigation from './Navigation And Authentication/Navigation.jsx';
 //import ProfileButton from './Profile/profile-button.jsx';
 import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
-import logo from '../../dist/gamercity_logo.png';
+//import logo from '../../dist/gamercity_logo.png';
+import logo from './Carousel/Testing/4.png';
 import "./logo.css";
 
 
