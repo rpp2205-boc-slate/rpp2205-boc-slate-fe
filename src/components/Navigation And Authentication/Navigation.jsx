@@ -8,7 +8,7 @@ import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
 
-import mainlogo from './gamerCity.png';
+import mainlogo from '../Carousel/Testing/2.png';
 import { height } from '@mui/system';
 import './navBar.css';
 

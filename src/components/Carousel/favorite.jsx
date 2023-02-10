@@ -32,7 +32,6 @@ function Fa (props) {
 
     axios.get(`/games/slug/${id}`)
         .then((response) => {
-          console.log(response.data)
           setFavorite(response.data)
         })
         .catch(error => {
