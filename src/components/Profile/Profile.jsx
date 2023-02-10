@@ -6,7 +6,10 @@ import AddToLikeButton from './add-to-like-button.jsx';
 import EditAboutButton from './edit-about-button.jsx';
 import EditProfileButton from './edit-profile-button.jsx';
 import { getProfile } from './helperFunctions.js';
-
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
+import Tag from "./Tag.jsx";
 
 export default function Profile(props) {
   const [onlineStatus, setOnlineStatus] = useState(true);
@@ -82,12 +85,32 @@ export default function Profile(props) {
                 <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated}/></div>
               </div>) : null}
             </div>
-            <a href={profileObj.website}><div class="profile-name">{profileObj.name}</div></a>
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack">
+              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
+              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Rating: " + profileObj.rating}</Typography>
+              {profileObj.released ? <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Release Date: " + profileObj.released}</Typography> : null}
+              <Stack direction="row" spacing={2} sx={{"flexWrap": "wrap"}}>
+              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{profileObj.tags.length > 0 ? "Tags: " : null}</Typography>
+              {profileObj.tags.map((tag, index) => {
+                return (
+                  <div key={index} style={{"padding":"5px"}}><Tag tag={tag} /></div>
+                )
+              })}
+              </Stack>
+            </Stack>
+
           </div>
           <div class="rightColumn">
             <div class="aboutMe">
               <div class="aboutTitle"><h3>{"About " + (profileObj.name)}</h3></div>
               <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.description }}></div>
+              {profileObj.reddit_url ? (<div id="reddit-container">
+                <div id="reddit">
+                  <a href={profileObj.reddit_url}><img id="reddit-img" src='./reddit-logo.png' /></a>
+                </div>
+              </div>) : null}
+
+
             </div>
           </div>
         </div>
@@ -128,7 +151,7 @@ export default function Profile(props) {
     }
     return (
       <>
-        <div class="profile-for-all">
+        <div class="profile-for-all" >
           <div class="leftColumn">
             <div class="editProfileButton">
               <EditProfileButton selfId={props.selfId} selfProfile={props.selfProfile} changeImage={changeImage} changeFirstName={changeFirstName} changeLastName={changeLastName} />

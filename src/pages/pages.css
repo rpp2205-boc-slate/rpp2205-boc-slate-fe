@@ -1,6 +1,3 @@
-#root {
-  height: 1000px;
-}
 
 /* signup css */
 
@@ -59,11 +56,10 @@
   display: flex;
   flex-direction: column;
   z-index: 1;
+  background-size: cover !important;
 }
 
 .profile-for-all {
-  position: absolute;
-  margin-top: 50px;
   width: 100%;
   display: flex;
   flex-direction:row;
@@ -77,8 +73,9 @@
   justify-content:flex-end;
   position:sticky;
   height:480px;
-  padding-top: 150px;
-  width: 800px;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  width: 850px;
   box-shadow: rgba(0, 0, 0, 0.1);
 }
 
@@ -117,25 +114,34 @@
 
 }
 
+
+.profile-nav {
+  height: 160px;
+}
+
 .leftColumn, .rightColumn {
-  margin-top: 50px;
+  margin-top:10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgba(100,149,237, 0.5);
 }
 
 .leftColumn {
-  width: 28%
+  width: 35%;
+  padding: 30px;
 }
 
 .rightColumn {
-  width: 50%
+  width: 50%;
+  padding: 30px;
 }
 
 .profilePhoto {
-  margin: 10px;
-  width: 300px;
+  margin: 30px;
+  margin-bottom: 10px;
+  width: 550px;
   height: auto;
 }
 
@@ -157,11 +163,31 @@
   text-align: left;
 }
 
-.car-div {
-  margin-top: 400px;
-}
-
 .gameNav {
-  margin-top: 80px;
   margin-left: 250px;
 }
+
+.game-intro-stack {
+  margin-left: 30px;
+}
+
+#reddit-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#reddit {
+  margin-top: 20px;
+  margin-left: 50px;
+  width: 40px;
+  height: auto;
+  object-fit: cover;
+}
+
+#reddit-img {
+  width:100%
+}
+
