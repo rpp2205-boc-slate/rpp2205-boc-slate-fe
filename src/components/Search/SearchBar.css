@@ -8,3 +8,19 @@
   margin-left: 10px;
 }
 
+
+.search-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.upper-search, .lower-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.lower-search {
+  margin-left: -50px;
+}

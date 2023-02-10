@@ -34,8 +34,12 @@ function Navigation(props) {
     <>
     <Navbar style={{ background: '#1b2838' }} variant="dark" expand="lg" fixed="top">
       <Container>
-        <a className="navbar-brand">GamerCity</a>
-        <img src={mainlogo} style={{height: 80}}/>
+        <div id="logo-gc">
+          <img src={mainlogo} style={{height: 80}}/>
+          <a className="navbar-brand">GAMERCITY</a>
+        </div>
+
+
 
           <Navbar.Brand href="/">Home</Navbar.Brand>
           {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}

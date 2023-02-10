@@ -36,7 +36,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
-  
+
 
   useEffect(() => {
     if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
@@ -55,7 +55,7 @@ export default function App(props) {
   //   console.log('clicked', bool);
   //   setChatOpen(bool);
   // }
- 
+
 
   if (isLoading) {
     return (
@@ -81,8 +81,8 @@ export default function App(props) {
             {/* <Route path='/chat' element={<AuthenticationGuard component={Chat} />} /> */}
         </Routes>
 
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
-        <img src={logo} alt="Logo" className="logo"/>
+        {/* <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
+        <img src={logo} alt="Logo" className="logo"/> */}
 
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
