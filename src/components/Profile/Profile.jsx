@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
 import Tag from "./Tag.jsx";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 export default function Profile(props) {
   const [onlineStatus, setOnlineStatus] = useState(true);

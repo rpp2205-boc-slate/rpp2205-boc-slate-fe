@@ -63,7 +63,7 @@ const ModalComponent = (props) => {
 
   return (
     <>
-      <Button onClick={handleOpen}>
+      <Button onClick={handleOpen} variant="contained">
         Edit Profile
       </Button>
       <Modal

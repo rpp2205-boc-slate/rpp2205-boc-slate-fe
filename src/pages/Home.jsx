@@ -10,7 +10,7 @@ export default function Home(props) {
   return(
     <>
       {/* <Navigation /> */}
-      <muiNav />
+      {/* <muiNav /> */}
       <div>
       {props['types']?.map((t) => (
         <Carousel type={t} fav={props.data} />

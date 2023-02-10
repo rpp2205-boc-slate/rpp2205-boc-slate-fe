@@ -1,6 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Typography from '@mui/material/Typography';
 
 
 export default function AddToLikeButton(props) {
@@ -19,8 +22,19 @@ export default function AddToLikeButton(props) {
       })
   }
   return (
-    <div>
-      <button onClick={handleClick}>{liked ? "Unlike this Game" : "Click to Like this Game!"}</button>
+    <div id="heart-div">
+      {liked ? (
+        <div class="click-to-like">
+          <Typography spacing={2}>Click to Unlike the Game </Typography>
+          <FavoriteIcon onClick={handleClick}/>
+        </div>
+      ) : (
+        <div class="click-to-like">
+          <Typography spacing={2}>Click to like the Game </Typography>
+          <FavoriteBorderIcon onClick={handleClick}/>
+        </div>
+
+      )}
     </div>
   )
 

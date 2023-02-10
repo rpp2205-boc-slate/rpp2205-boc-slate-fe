@@ -10,14 +10,21 @@ import Form from 'react-bootstrap/Form';
 import config from './config_profile.js';
 
 const ModalComponentBio = (props) => {
+  console.log(props.selfProfile)
   const [open, setOpen] = useState(false);
+  const [url, setURL] = useState('');
+
   const handleClose = () => {
     setOpen(false);
   }
   const handleOpen = () => {
-    console.log("clicked")
     setOpen(true);
   }
+
+  useEffect(() => {
+    setURL(props.selfProfile.photos ? null : props.photos[0].photo_url)
+  }, [props.selfProfile]);
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -31,13 +38,15 @@ const ModalComponentBio = (props) => {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(props.selfProfile.photos, "34");
+    console.log(props.selfProfile.photos, '42');
     var first_name = props.selfProfile.first_name;
     var last_name = props.selfProfile.last_name;
     var name = props.selfProfile.username;
     var email = props.selfProfile.email;
-    var picture = (props.selfProfile.photos.length === 0 ? null : props.photos[0].photo_url);
+    var picture = props.selfProfile.photos[0].photo_url;
     var bio = document.getElementById("textfield-bio").value;
+    console.log("picture", picture)
     axios.post(`/user/${props.selfProfile.user_id}/profile`, {name, first_name, last_name, email, bio, picture})
       .then(response => {
         handleClose();
@@ -51,7 +60,7 @@ const ModalComponentBio = (props) => {
 
   return (
     <>
-      <Button onClick={handleOpen} id="editAbout">
+      <Button sx={{m: 2}} onClick={handleOpen} id="editAbout" variant="contained">
         Edit About
       </Button>
       <Modal
@@ -68,7 +77,7 @@ const ModalComponentBio = (props) => {
               <TextField id="textfield-bio" defaultValue={props.selfProfile.bio} variant="outlined" multiline rows={4} maxRows={10} readOnly={true}/>
           </div>
           <div class="submit-button">
-            <Button onClick={onSubmit}>Submit</Button>
+            <Button sx={{m: 2}} onClick={onSubmit} variant="contained">Submit</Button>
           </div>
 
         </Box>
