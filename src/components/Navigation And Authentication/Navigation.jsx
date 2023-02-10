@@ -8,7 +8,7 @@ import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
 
-import mainlogo from './gamerCity.png';
+import mainlogo from '../Carousel/Testing/2.png';
 import { height } from '@mui/system';
 import './navBar.css';
 
@@ -32,11 +32,10 @@ function Navigation(props) {
 
   return (
     <>
-    <Navbar bg="primary" variant="dark" expand="lg" fixed="top">
+    <Navbar style={{ background: '#1b2838' }} variant="dark" expand="lg" fixed="top">
       <Container>
-        <a className="navbar-brand">GamerCity</a>
         <img src={mainlogo} style={{height: 80}}/>
-      
+
           <Navbar.Brand href="/">Home</Navbar.Brand>
           {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}
           <Search />
@@ -59,10 +58,10 @@ function Navigation(props) {
     </>
 
   );
-  
- 
 
-  
+
+
+
 }
 
 export default Navigation;

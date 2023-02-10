@@ -21,7 +21,7 @@ import Navigation from './Navigation And Authentication/Navigation.jsx';
 //import ProfileButton from './Profile/profile-button.jsx';
 import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
-import logo from '../../dist/gamercity_logo.png';
+import logo from './Carousel/Testing/4.png';
 import "./logo.css";
 
 
@@ -38,7 +38,6 @@ export default function App(props) {
   const [chatOpen, setChatOpen] = useState(false);
 
 
-  console.log(userProfile, '33')
   useEffect(() => {
     if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
       axios.post('/user/addinfo', user)
@@ -70,8 +69,8 @@ export default function App(props) {
     <>
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Popular']} />} />
-            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile}/>} />
+          <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} />} />
+            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile} isAuthenticated={isAuthenticated}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
@@ -83,14 +82,14 @@ export default function App(props) {
         </Routes>
 
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
-        <img src={logo} alt="Logo" className="logo"/>
+        {/* <img src={logo} alt="logo" className="logo"/> */}
 
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/>
 
         {chatOpen && (<div className="chat">
-          <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile} setChatOpen={setChatOpen} selfId={userId} selfProfile={userProfile}/>
-          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} setChatOpen={setChatOpen}/>
+          <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile}/>
+          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} />
         </div>)}
 
     </>

@@ -10,10 +10,8 @@ import Carousel from "../components/Carousel/Carousel.jsx"
 export default function Home(props) {
   return(
     <>
-      {/* <Navigation />
-      <muiNav /> */}
       {/* <Navigation /> */}
-      <muiNav />
+      {/* <muiNav /> */}
       <div>
       <div className="car-div">{props['types']?.map((t) => (
         <Carousel type={t} fav={props.data} />
