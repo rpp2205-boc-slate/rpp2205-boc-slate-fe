@@ -56,14 +56,14 @@ function FriendRequestList(props) {
           <ul className="friend-request-list">
           <p><b>{props.user.received_req_from.length} Pending Friend Requests</b></p>
           {props.user.received_req_from.map(request => (
-            <li key={request.userId} >
+              <li key={request.userId} >
                { showDisplay && <div className='request'>
                   {request.username} wants to be your friend
                   <button onClick={() => acceptReq(request.userId)}>Accept</button>
                   <button onClick={() => rejectReq(request.userId)}>Reject</button>
                 </div> }
-            </li>
-          ))}
+              </li>
+            ))}
             <h4 id='accept-reject'>{message}</h4>
           </ul>
         </div>

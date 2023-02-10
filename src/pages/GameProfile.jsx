@@ -16,17 +16,17 @@ export default function GameProfile(props) {
   var selfProfile = props.selfProfile;
   let { slug } = useParams();
   const [gameProfile, setGameProfile] = useState(undefined);
-  console.log(gameProfile, "yeuye")
+  console.log(gameProfile, "game profile");
   return(
     <div className="profile" style={{"background": "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url(" + (gameProfile ? (gameProfile.background_image_additional || gameProfile.background_image) : null) + ")"}}>
       <div class="profile-nav"><Navigation /></div>
       <div class="profile-main">
-        <GameNav gameProfile={gameProfile}/>
-        <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated} setGameProfile={setGameProfile}/>
+      <GameNav gameProfile={gameProfile}/>
+      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated} setGameProfile={setGameProfile}/>
         <Divider style={{"textColor":"gray"}}/>
-        <div className="car-div">{props['types']?.map((t) => (
-        <Carousel type={t} fav={gameProfile}  />
-        ))}</div>
+      <div className="car-div">{props['types']?.map((t) => (
+       <Carousel type={t} fav={gameProfile}  />
+      ))}</div>
         </div>
     </div>
   );
