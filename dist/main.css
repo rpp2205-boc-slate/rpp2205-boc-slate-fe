@@ -24,3 +24,12 @@
 .item:hover {
   transform: scale(1.5) !important;
 }
+
+.dark {
+  background-color: #333;
+  color: #fff;
+  }
+  .light {
+  background-color: #fff;
+  color: #333;
+  }

@@ -21,6 +21,7 @@ import Navigation from './Navigation And Authentication/Navigation.jsx';
 //import ProfileButton from './Profile/profile-button.jsx';
 import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
+import './darkMode.css';
 
 
 
@@ -32,6 +33,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
+  const [dark, setDark] = useState(true);
 
   console.log(userProfile, '33')
   useEffect(() => {
@@ -51,6 +53,7 @@ export default function App(props) {
   //   console.log('clicked', bool);
   //   setChatOpen(bool);
   // }
+ 
 
   if (isLoading) {
     return (
@@ -84,7 +87,7 @@ export default function App(props) {
             <Route path='/myprofile' element={<AuthMyProfile selfId={userId} selfProfile={userProfile}/>} />
             {/* <Route path='/chat' element={<AuthenticationGuard component={Chat} />} /> */}
         </Routes>
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} setDark={setDark} dark={dark}/>
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
 
