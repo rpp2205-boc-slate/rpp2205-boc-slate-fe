@@ -137,8 +137,8 @@ export default function Search(props) {
          control={<Radio />}
          onChange={handleValueChange}
        >
-        <FormControlLabel  control={<Radio/> } value="game"  style={{color: "white"}} label="Games"  labelPlacement="start" />
-        <FormControlLabel value="user" control={<Radio />} style={{color: "white"}} label="Users"  labelPlacement="start"/>
+        <FormControlLabel  control={<Radio style={{color: 'white'}}/> } value="game"  style={{color: "white"}} label="Games"  labelPlacement="start" />
+        <FormControlLabel value="user" control={<Radio style={{color: 'white'}}/>} style={{color: "white"}} label="Users"  labelPlacement="start"/>
         </RadioGroup>
       </FormControl>
      <Autocomplete
