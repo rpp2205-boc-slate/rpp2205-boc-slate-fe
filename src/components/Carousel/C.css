@@ -56,3 +56,12 @@
 .slick-next:before {
   color: black;
 }
+.slick-next:before{
+  content: '➡️';
+}
+.slick-prev:before {
+  content: '⬅️'
+}
+.slick-dots li button:before {
+  font-size: 20px;
+}

@@ -21,7 +21,7 @@ import Navigation from './Navigation And Authentication/Navigation.jsx';
 //import ProfileButton from './Profile/profile-button.jsx';
 import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
-import logo from '../../dist/gamercity_logo.png';
+import logo from './Carousel/Testing/4.png';
 import "./logo.css";
 
 
@@ -36,7 +36,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
-  
+
 
   console.log(userProfile, '33')
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function App(props) {
   //   console.log('clicked', bool);
   //   setChatOpen(bool);
   // }
- 
+
 
   if (isLoading) {
     return (
@@ -70,7 +70,7 @@ export default function App(props) {
     <>
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Popular']} />} />
+          <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} />} />
             <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
@@ -83,7 +83,7 @@ export default function App(props) {
         </Routes>
 
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
-        <img src={logo} alt="Logo" className="logo"/>
+        {/* <img src={logo} alt="logo" className="logo"/> */}
 
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
         {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
