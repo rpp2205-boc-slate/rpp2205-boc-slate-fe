@@ -8,7 +8,7 @@ import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
 
-import mainlogo from '../Carousel/Testing/2.png';
+import logo from '../Carousel/Testing/2.png';
 import { height } from '@mui/system';
 import './navBar.css';
 
@@ -23,8 +23,7 @@ function Navigation(props) {
   useEffect(() => {
     if (props.setIsAuthenticated) {
       props.setIsAuthenticated(isAuthenticated);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
-
+    }
     if (props.setUser) {
       props.setUser(user);
     }
@@ -33,8 +32,8 @@ function Navigation(props) {
   return (
     <>
     <Navbar style={{ background: '#1b2838' }} variant="dark" expand="lg" fixed="top">
-      <Container>
-        <img src={mainlogo} style={{height: 80}}/>
+      <Container>{console.log(logo)}
+        <img src={logo} />
 
           <Navbar.Brand href="/">Home</Navbar.Brand>
           {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}

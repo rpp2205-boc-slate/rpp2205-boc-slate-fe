@@ -19,7 +19,14 @@ function Fa (props) {
       linkDefault: imgTest,
     }));
   };
-
+  const handleClick = (input) => {
+    console.log(props.type)
+    if (props.type !== "Friends") {
+    window.location.href = `/gameprofile/${input}`;
+    } else {
+      window.location.href = `/userprofile/${input}`
+    }
+  }
 
 
   useEffect(() => {
@@ -37,6 +44,8 @@ function Fa (props) {
         .catch(error => {
           console.log(error);
         });}, [props])
+
+
 
 if(Object.keys(favorite).length > 0) {
 return (

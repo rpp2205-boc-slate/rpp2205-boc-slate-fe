@@ -93,7 +93,6 @@ function Carousel(props) {
         }
       })
       .then((response) => {
-        console.log(response.data.results, " HEEREE")
         setGames(response.data.results)
       })
       .catch(error => {
@@ -120,7 +119,6 @@ function Carousel(props) {
 
 
   const handleClick = (input) => {
-    console.log(props.type)
     if (props.type !== "Friends") {
     window.location.href = `/gameprofile/${input}`;
     } else {
