@@ -65,6 +65,7 @@ export default function App(props) {
 
   return(
     <>
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <Routes history={appHistory}>
           <Route path='/' element={<Home types={['Popular']} />} />
             <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile}/>} />
@@ -77,6 +78,7 @@ export default function App(props) {
             <Route path='/myprofile' element={<AuthMyProfile selfId={userId} selfProfile={userProfile}/>} />
             {/* <Route path='/chat' element={<AuthenticationGuard component={Chat} />} /> */}
         </Routes>
+
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <img src={logo} alt="Logo" className="logo"/>
 

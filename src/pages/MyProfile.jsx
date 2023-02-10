@@ -12,12 +12,14 @@ function MyProfile(props) {
   var selfProfile = props.selfProfile;
   const types = ["Friends", "Favorite"]
   return(
-    <div className="profile">
-      <Navigation />
-      <Profile selfId={selfId} selfProfile={selfProfile}/>
-      {types.map((t) => (
-        <Carousel type={t} fav={selfProfile} fri={selfProfile}/>
-      ))}
+    <div className="profile" style={{"background": "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url(" + (selfProfile.photos ? selfProfile.photos[0].photo_url : null) + ")"}}>
+       <div class="profile-nav"><Navigation /></div>
+       <div class="profile-main">
+        <Profile selfId={selfId} selfProfile={selfProfile}/>
+        {types.map((t) => (
+          <Carousel type={t} fav={selfProfile} fri={selfProfile}/>
+        ))}
+       </div>
     </div>
   );
 }
