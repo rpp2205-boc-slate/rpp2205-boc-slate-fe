@@ -152,6 +152,20 @@ app.get('/games/orderBy/:orderBy', (req, res) => {
     })
 });
 
+// duplicate as above but adding page to search page of popularity
+app.get('/games/orderBy/:orderBy/page/:page', (req, res) => {
+  const orderBy = req.params.orderBy;
+  axios.get(`${gameApiPath}?key=${gameApiKey}&ordering=-${orderBy}&page=${req.params.page}`)
+  .then((response) => {
+      // console.log(orderBy, response.data)
+      // for some reason response.data.slice(0, 100) didnt work. Only response.data)
+      res.status(200).send(response.data.results.slice(0, 100));
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
 //return one game based on slug name, it might not be 100% accurate, but there is no way to search one game based on id
 app.get('/games/slug/:slugname', (req, res) => {
   axios.get(`${gameApiPath}/${req.params.slugname}?key=${gameApiKey}`)
