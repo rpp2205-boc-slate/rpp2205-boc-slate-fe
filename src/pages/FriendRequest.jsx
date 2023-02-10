@@ -7,6 +7,7 @@ function FriendRequestList(props) {
   const [friendRequests, setFriendRequests] = useState([]);
   const [message, setMessage] = useState('');
   const [showDisplay, setShowDisplay] = useState(true);
+
   // const [rejectDisplay, setRejectDisplay] = useState(true);
   let testData = [
     { userId: 7, username: 'Joaquin' },
@@ -18,9 +19,7 @@ function FriendRequestList(props) {
     console.log('accepted');
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
-    axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "approved"
-    })
+    axios.post(`/${props.userId}/respond/${id}`, {respond: "approved"})
       .then(function (response) {
         console.log(response);
       })
@@ -36,7 +35,7 @@ function FriendRequestList(props) {
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
     let reject = props.user.received_req_from.filter(request => request.userId === id)[0].username;
     axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "rejected"
+      respond: "rejected"
     })
     .then(function (response) {
       console.log(response);

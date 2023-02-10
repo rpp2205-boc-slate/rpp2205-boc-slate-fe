@@ -36,7 +36,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
-  
+
 
   console.log(userProfile, '33')
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function App(props) {
   //   console.log('clicked', bool);
   //   setChatOpen(bool);
   // }
- 
+
 
   if (isLoading) {
     return (
@@ -89,7 +89,7 @@ export default function App(props) {
         <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/>
 
         {chatOpen && (<div className="chat">
-          <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile} setChatOpen={setChatOpen}/>
+          <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile} setChatOpen={setChatOpen} selfId={userId} selfProfile={userProfile}/>
           <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} setChatOpen={setChatOpen}/>
         </div>)}
 
