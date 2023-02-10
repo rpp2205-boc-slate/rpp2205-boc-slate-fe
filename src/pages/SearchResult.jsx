@@ -86,7 +86,7 @@ export default function SearchResult(props) {
               let thirdArr = secondArr.concat(response2.data)
               setGameResult(thirdArr)
               setResult(thirdArr)
-              // console.log(thirdArr, 'ken')
+              console.log(thirdArr, 'ken')
             })
             .catch((err)=> {
               console.log(err, 'error in getting games response 2')
@@ -101,13 +101,36 @@ export default function SearchResult(props) {
         })
     } else {
       // if no query is being searched, search most popular
-      axios.get(`/games/orderBy/${'rating'}`)
-      .then((response) => {
-        setResult(response.data)
-      })
-      .catch((err)=> {
-        console.log(err, 'error in getting results')
-      })
+      // axios.get(`/games/orderBy/${'rating'}`)
+      // .then((response) => {
+      //   setResult(response.data)
+      // })
+      // .catch((err)=> {
+      //   console.log(err, 'error in getting results')
+      // })
+      axios.get(`/games/orderBy/${'rating'}/page/1`)
+        .then((response0) => {
+          axios.get(`/games/orderBy/${'rating'}/page/2`)
+          .then((response1) => {
+            axios.get(`/games/orderBy/${'rating'}/page/3`)
+            .then((response2) => {
+              let firstArr = response0.data;
+              let secondArr = firstArr.concat(response1.data);
+              let thirdArr = secondArr.concat(response2.data)
+              setGameResult(thirdArr)
+              setResult(thirdArr)
+            })
+            .catch((err)=> {
+              console.log(err, 'error in getting popular response 2')
+            })
+          })
+          .catch((err)=> {
+            console.log(err, 'error in getting popular response 1')
+          })
+        })
+        .catch((err)=> {
+          console.log(err, 'error in getting popular response 0')
+        })
     }
   }, [query.params])
 
@@ -149,9 +172,9 @@ export default function SearchResult(props) {
     }));
   };
 
-  const handleClick = (input, input2) => {
+  const handleClick = (input, input2, input3) => {
     if (input2) {
-      window.location.href = `/userprofile/${input}`;
+      window.location.href = `/userprofile/${input3}`;
     } else {
       window.location.href = `/gameprofile/${input}`
     }
@@ -232,7 +255,7 @@ export default function SearchResult(props) {
         <div>
           <div className='holder'>
             {result.map((item) => (
-            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug, item.person)}>
+            <div key={item.id} className="card" onClick={(e) => handleClick(item.slug, item.person, item.id)}>
             <div className="card-top">
               <img
                 src={
