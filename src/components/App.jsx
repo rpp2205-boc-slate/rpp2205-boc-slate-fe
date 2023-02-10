@@ -21,10 +21,9 @@ import Navigation from './Navigation And Authentication/Navigation.jsx';
 //import ProfileButton from './Profile/profile-button.jsx';
 import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
-import logo from '../../dist/gamercity_logo.png';
+//import logo from '../../dist/gamercity_logo.png';
+import logo from './Carousel/Testing/4.png';
 import "./logo.css";
-
-
 
 
 
@@ -36,7 +35,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
-
+  const [mode, setMode] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
@@ -66,10 +65,10 @@ export default function App(props) {
   }
 
   return(
-    <>
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
+    <div id="app">
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} switchMode={setMode}/>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} />} />
+          <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} mode={mode}/>} />
             <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile} isAuthenticated={isAuthenticated}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
@@ -92,6 +91,6 @@ export default function App(props) {
           <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} />
         </div>)}
 
-    </>
+    </div>
   );
 }

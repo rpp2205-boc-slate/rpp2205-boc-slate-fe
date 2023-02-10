@@ -51,6 +51,14 @@
 
 
 /* profile css */
+.homepage {
+  background-size: cover !important;
+}
+
+#mode-switch {
+  height: 100%;
+}
+
 .profile {
   margin-top:125px;
   height: 100%;

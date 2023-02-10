@@ -62,10 +62,13 @@ function Carousel(props) {
   };
 
   useEffect(() => {
+    console.log("hererere");
     if (props.type === "Popular") {
       axios.get('games/orderBy/rating')
         .then((response) => {
           setGames(response.data)
+          var imgs = response.data.map(game => game.background_image);
+          props.setImgs(imgs);
         })
         .catch(error => {
           console.log(error);
@@ -116,7 +119,7 @@ function Carousel(props) {
           console.log(error);
         });
     }
-  }, [props]);
+  }, [props.type, props.fav]);
 
 
   const handleClick = (input) => {
