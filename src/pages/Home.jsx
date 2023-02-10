@@ -8,13 +8,24 @@ import Navigation from "../components/Navigation And Authentication/Navigation.j
 import Carousel from "../components/Carousel/Carousel.jsx"
 // import muiNav from "../components/Navigation And Authentication/muiNav.jsx";
 export default function Home(props) {
+  const [imgs, setImgs] = useState([]);
+
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setValue(v => (v + 1) % 19);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return(
     <>
       {/* <Navigation /> */}
       {/* <muiNav /> */}
-      <div>
+      <div class="homepage" style={{"background": "linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8)), url(" + (imgs.length === 0 ? null : imgs[value]) + ")"}}>
       <div className="car-div">{props['types']?.map((t) => (
-        <Carousel type={t} fav={props.data} />
+        <Carousel type={t} fav={props.data} setImgs={setImgs}/>
       ))}</div>
       </div>
     </>

@@ -26,8 +26,6 @@ import "./logo.css";
 
 
 
-
-
 export const appHistory = createBrowserHistory();
 export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -66,7 +64,7 @@ export default function App(props) {
   }
 
   return(
-    <>
+    <div id="app">
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <Routes history={appHistory}>
           <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} />} />
@@ -92,6 +90,6 @@ export default function App(props) {
           <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} />
         </div>)}
 
-    </>
+    </div>
   );
 }
