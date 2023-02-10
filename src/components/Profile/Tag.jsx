@@ -16,11 +16,11 @@ String.prototype.hashCode = function() {
   return hash;
 };
 
-const colors = {0: "bisque", 1: "lightblue", 2: "mistyrose", 3: "coral", 4: "plum", 5: "honeydew", 6: "palegreen", 8: "ivory", 9: "khaki", 10: "sandybrown", 11: "lemonchiffon", 12: "peachpuff", 13: "violet", 14: "aqua", 15: "thistle", 16: "gold"};
+const colors = {0: "light-blue", 1: "#FFFFFF", 2: "#C9F0FF", 3: "#ABD4FF", 4: "#8DB8FF", 5: "#6E9EFF", 6: "#4D84EB", 7: "#0053B2", 8: "#003D97"};
 
 const selectColorForString = (str) => {
-  var hashed = str.hashCode();
-  return colors[hashed % 17];
+  var hashed = Math.abs(str.hashCode());
+  return colors[hashed % (Object.keys(colors).length)];
 }
 
 export default function Tag(props) {

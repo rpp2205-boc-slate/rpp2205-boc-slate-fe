@@ -24,9 +24,9 @@ function UserProfile(props) {
     <div>
     <Navigation />
     <Profile userId={userId} selfId={selfId} selfProfile={selfProfile} setUserProfile={setUserProfile}/>{console.log(userProfile)}
-    {types.map((t) => (
+    <div className="car-div">{types.map((t) => (
         <Carousel type={t} fav={userProfile} fri={userProfile}/>
-      ))}
+      ))}</div>
     </div>
   );
 }

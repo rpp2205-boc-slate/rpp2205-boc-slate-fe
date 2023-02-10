@@ -254,7 +254,6 @@ app.get('/games/genre/:genre/platform/:platform/query/:query', (req, res) => {
   } else if (q === "board games") {
     q= 28;
   }
-  // console.log(q, 'here')
   if (req.params.query) {
     axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}&search=${req.params.query}`)
     .then((response) => {
@@ -287,8 +286,20 @@ app.get('/games/genre/:genre/query/:query', (req, res) => {
   } else if (q === "board games") {
     q= 28;
   }
-  // console.log(q, 'here')
   axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}&search=${req.params.query}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// if only console and query
+app.get('/games/platform/:platform/query/:query', (req, res) => {
+  let q = req.params.platform;
+  // console.log(q, 'here')
+  axios.get(`${gameApiPath}?platforms=${q}&key=${gameApiKey}`)
     .then((response) => {
       // console.log(response.data)
       res.status(200).send(response.data)
@@ -297,6 +308,8 @@ app.get('/games/genre/:genre/query/:query', (req, res) => {
       res.status(400).send(err);
     })
 });
+
+
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));

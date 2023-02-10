@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
 export default function GameNav(props) {
-  console.log(props, "8")
   if (!props.gameProfile) {
     return null;
   }

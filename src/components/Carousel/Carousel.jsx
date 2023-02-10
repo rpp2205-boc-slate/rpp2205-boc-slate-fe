@@ -62,10 +62,13 @@ function Carousel(props) {
   };
 
   useEffect(() => {
+    console.log("hererere");
     if (props.type === "Popular") {
       axios.get('games/orderBy/rating')
         .then((response) => {
           setGames(response.data)
+          var imgs = response.data.map(game => game.background_image);
+          props.setImgs(imgs);
         })
         .catch(error => {
           console.log(error);
@@ -99,8 +102,24 @@ function Carousel(props) {
       .catch(error => {
         console.log(error);
       });
+    } else if (props.type === "New") {
+      axios.get('games/orderBy/released')
+        .then((response) => {
+          setGames(response.data)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else if (props.type === "Top Rated") {
+      axios.get('games/orderBy/metacritic')
+        .then((response) => {
+          setGames(response.data)
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-  }, [props]);
+  }, [props.type, props.fav]);
 
 
   const handleClick = (input) => {
@@ -116,11 +135,17 @@ function Carousel(props) {
   return (
     <div className="Car"> {props.type}
       <Slider {...settings}>
-      {games.map((game) => (
-        <div key={game.id} gameid={game.slug}className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
-                      <Gam clickFun={handleClick} g={game} error={handleErrorImage}/>
-                      </div>
-                    ))}
+      {games.map((game) => {
+  if (game.background_image) {
+    return (
+      <div key={game.id} gameid={game.slug} className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+        <Gam clickFun={handleClick} g={game} error={handleErrorImage} />
+      </div>
+    );
+  }
+  return null;
+})}
+
 
       </Slider>
     </div>
@@ -147,7 +172,7 @@ function Carousel(props) {
                   </div>
                 )
               } else {
-                return <div onClick={(e) => handleClick('Testing')}>NOT</div>
+                return
               }
             }
 //testing

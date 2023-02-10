@@ -1,4 +1,17 @@
 .navbar-brand {
-  font-style: italic;
   font-size: large;
+  font-family: 'Prompt', sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#logo-gc{
+  margin-left: -200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
