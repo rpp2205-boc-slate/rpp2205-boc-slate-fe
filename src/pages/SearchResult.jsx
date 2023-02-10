@@ -46,7 +46,6 @@ export default function SearchResult(props) {
     })
     axios.get(`/platforms`)
     .then((response) => {
-      console.log(response.data.results)
       setCons(response.data.results)
     })
     .catch((err)=> {
@@ -67,13 +66,10 @@ export default function SearchResult(props) {
               background_image: item.photos[0].photo_url
             }
             formatResult.push(x)
-            console.log('formatResult', formatResult);
+            // console.log('formatResult', formatResult);
           })
-          console.log('formatResult', formatResult);
           setUserResult(formatResult);
-          console.log('useResult', userResult);
           setResult(formatResult);
-          console.log('user', result)
         })
         .catch((err)=> {
           console.log(err, 'error in use effect users')
@@ -90,7 +86,6 @@ export default function SearchResult(props) {
               let thirdArr = secondArr.concat(response2.data)
               setGameResult(thirdArr)
               setResult(thirdArr)
-              console.log(thirdArr, 'ken')
             })
             .catch((err)=> {
               console.log(err, 'error in getting games response 2')
@@ -138,36 +133,6 @@ export default function SearchResult(props) {
     }
   }, [query.params])
 
-  // useEffect(() => {
-  //   let internalResult = [];
-  //   if (gameResult.length > userResult.length && gameResult.length > 0 && userResult.length > 0) {
-  //     for (var i = 0; i < gameResult.length; i++) {
-  //       if (gameResult[i]) {
-  //         internalResult.push(gameResult[i]);
-  //       }
-  //       if (userResult[i]) {
-  //         internalResult.push(userResult[i])
-  //       }
-  //     }
-  //   } else {
-  //     for (var i = 0; i < userResult.length; i++) {
-  //       if (gameResult[i]) {
-  //         internalResult.push(gameResult[i]);
-  //       }
-  //       if (userResult[i]) {
-  //         internalResult.push(userResult[i])
-  //       }
-  //     }
-  //   }
-  //   if (gameResult.length === 0) {
-  //     internalResult = userResult;
-  //   } else if (userResult.length == 0) {
-  //     internalResult = gameResult;
-  //   }
-
-  //   setResult(internalResult)
-  // }, [gameResult])
-
   const handleErrorImage = (data) => {
     setDefaultImage((prev) => ({
       ...prev,
@@ -187,7 +152,15 @@ export default function SearchResult(props) {
 
   const genreClick = (e) => {
     setSelectedGenre(e.target.value)
-    if (selectedConsole) {
+    if (selectedConsole && query.params) {
+      axios.get(`/games/genre/${e.target.value}/platform/${selectedConsole}/query/${query.params}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
+      })
+    } else if (selectedConsole) {
       axios.get(`/games/genre/${e.target.value}/platform/${selectedConsole}`)
       .then((response) => {
         setResult(response.data.results)
@@ -195,6 +168,14 @@ export default function SearchResult(props) {
       .catch((err)=> {
         console.log(err, 'error inside consoleClick')
       })
+    } else if (query.params){
+      axios.get(`/games/genre/${e.target.value}/query/${query.params}`)
+        .then((response) => {
+          setResult(response.data.results)
+        })
+        .catch((err)=> {
+          console.log(err, 'error genreClick')
+        })
     } else {
       axios.get(`/games/genre/${e.target.value}`)
         .then((response) => {
@@ -208,9 +189,25 @@ export default function SearchResult(props) {
 
   const consoleClick = (e) => {
     setSelectedConsole(e.target.value)
-    // console.log(e.target.value, 'ken')
-    if (selectedGenre) {
+    console.log(e.target.value, 'ken')
+    if (selectedGenre && query.params) {
+      axios.get(`/games/genre/${selectedGenre}/platform/${e.target.value}/query/${query.params}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
+      })
+    } else if (selectedGenre) {
       axios.get(`/games/genre/${selectedGenre}/platform/${e.target.value}`)
+      .then((response) => {
+        setResult(response.data.results)
+      })
+      .catch((err)=> {
+        console.log(err, 'error inside consoleClick')
+      })
+    } else if (query.params) {
+      axios.get(`/games/platform/${e.target.value}/query/${query.params}`)
       .then((response) => {
         setResult(response.data.results)
       })
