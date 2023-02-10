@@ -11,7 +11,6 @@ function Gam (props) {
   // const [, set] = useState({});
 
 
-  console.log(props, " game Props")
   return (
     <div>
         <div gameid={props.g.slug} className="card-top">
