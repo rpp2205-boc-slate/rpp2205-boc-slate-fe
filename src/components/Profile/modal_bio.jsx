@@ -38,7 +38,7 @@ const ModalComponentBio = (props) => {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault(props.selfProfile.photos, "34");
+    e.preventDefault();
     console.log(props.selfProfile.photos, '42');
     var first_name = props.selfProfile.first_name;
     var last_name = props.selfProfile.last_name;
@@ -46,7 +46,6 @@ const ModalComponentBio = (props) => {
     var email = props.selfProfile.email;
     var picture = props.selfProfile.photos[0].photo_url;
     var bio = document.getElementById("textfield-bio").value;
-    console.log("picture", picture)
     axios.post(`/user/${props.selfProfile.user_id}/profile`, {name, first_name, last_name, email, bio, picture})
       .then(response => {
         handleClose();

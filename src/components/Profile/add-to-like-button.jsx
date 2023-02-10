@@ -4,6 +4,8 @@ import axios from "axios";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+
 
 
 export default function AddToLikeButton(props) {
@@ -25,13 +27,16 @@ export default function AddToLikeButton(props) {
     <div id="heart-div">
       {liked ? (
         <div class="click-to-like">
-          <Typography spacing={2}>Click to Unlike the Game </Typography>
-          <FavoriteIcon onClick={handleClick}/>
+          <Tooltip title="Unlike this game">
+            <FavoriteIcon onClick={handleClick} fontSize="large" sx={{ color: '#1b2838'}}/>
+          </Tooltip>
+
         </div>
       ) : (
         <div class="click-to-like">
-          <Typography spacing={2}>Click to like the Game </Typography>
-          <FavoriteBorderIcon onClick={handleClick}/>
+          <Tooltip title="Click to like this game!">
+            <FavoriteBorderIcon onClick={handleClick} fontSize="large" sx={{ color: '1b2838'}}/>
+          </Tooltip>
         </div>
 
       )}

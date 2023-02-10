@@ -31,35 +31,51 @@ const ModalComponent = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    var files = document.getElementById('image-file').files;
     var first_name = document.getElementById('textfield-firstname').value;
     var last_name = document.getElementById('textfield-lastname').value;
     var name = props.selfProfile.username;
     var email = props.selfProfile.email;
     var bio = props.selfProfile.bio;
-    const formData = new FormData();
-    formData.append("file", files[0]);
-    formData.append("upload_preset", `${config.cloudinary_preset}`);
-    console.log(files[0]);
-    axios.post("https://api.cloudinary.com/v1_1/dwcubhwiw/image/upload", formData)
-    .then(response => {
-      var picture = response.data.url;
-      props.changeImage(picture);
-      props.changeFirstName(first_name);
-      props.changeLastName(last_name);
-      axios.post(`/user/${props.selfProfile.user_id}/profile`, {picture, name, first_name, last_name, email, bio})
+    var files = document.getElementById('image-file').files;
+    if (files.length === 0) {
+      var picture = props.selfProfile.photos[0].photo_url;
+      axios.post(`/user/${props.selfProfile.user_id}/profile`, {picture, name, first_name, last_name, email, bio, picture})
         .then(response => {
+          props.changeImage(picture);
+          props.changeFirstName(first_name);
+          props.changeLastName(last_name);
           handleClose();
           console.log("uploaded")
         })
         .catch(err => {
           console.error(err);
         })
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }
+    } else {
+      const formData = new FormData();
+      formData.append("file", files[0]);
+      formData.append("upload_preset", `${config.cloudinary_preset}`);
+      axios.post("https://api.cloudinary.com/v1_1/dwcubhwiw/image/upload", formData)
+      .then(response => {
+        var picture = response.data.url;
+        props.changeImage(picture);
+        props.changeFirstName(first_name);
+        props.changeLastName(last_name);
+        axios.post(`/user/${props.selfProfile.user_id}/profile`, {picture, name, first_name, last_name, email, bio})
+          .then(response => {
+            handleClose();
+            console.log("uploaded")
+          })
+          .catch(err => {
+            console.error(err);
+          })
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }
+    }
+
+
 
   return (
     <>
@@ -81,7 +97,7 @@ const ModalComponent = (props) => {
             </Form.Group>
           <div class="profile-editusername">
               Username:
-              <TextField id="textfield-username" defaultValue={props.selfProfile.username} variant="outlined" />
+              <TextField disabled id="textfield-username" defaultValue={props.selfProfile.username} variant="outlined" />
           </div>
           <div class="profile-editfirstname">
               First Name:
@@ -93,7 +109,7 @@ const ModalComponent = (props) => {
           </div>
           <div class="profile-email">
               Email:
-              <TextField id="textfield-email" defaultValue={props.selfProfile.email} variant="outlined" readOnly={true}/>
+              <TextField disabled id="textfield-email" defaultValue={props.selfProfile.email} variant="outlined" readOnly={true}/>
           </div>
           <div class="submit-button">
             <Button onClick={onSubmit}>Submit</Button>
