@@ -27,6 +27,7 @@ import "./logo.css";
 
 
 
+
 export const appHistory = createBrowserHistory();
 export default function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -35,6 +36,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
+  
 
   console.log(userProfile, '33')
   useEffect(() => {
@@ -54,6 +56,7 @@ export default function App(props) {
   //   console.log('clicked', bool);
   //   setChatOpen(bool);
   // }
+ 
 
   if (isLoading) {
     return (

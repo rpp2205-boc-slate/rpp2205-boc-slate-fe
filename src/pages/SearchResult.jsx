@@ -22,7 +22,7 @@ export default function SearchResult(props) {
   const query = useParams();
   const [result, setResult] = useState([]);
   const [gameResult, setGameResult] = useState([]);
-  const [userResult, setUserResult] = useState([])
+  const [userResult, setUserResult] = useState([]);
   const [genre, setGenre] = useState([]);
   const [cons, setCons] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -67,9 +67,13 @@ export default function SearchResult(props) {
               background_image: item.photos[0].photo_url
             }
             formatResult.push(x)
+            console.log('formatResult', formatResult);
           })
-          setUserResult(formatResult)
-          setResult(formatResult)
+          console.log('formatResult', formatResult);
+          setUserResult(formatResult);
+          console.log('useResult', userResult);
+          setResult(formatResult);
+          console.log('user', result)
         })
         .catch((err)=> {
           console.log(err, 'error in use effect users')
@@ -172,6 +176,7 @@ export default function SearchResult(props) {
     }));
   };
 
+
   const handleClick = (input, input2, input3) => {
     if (input2) {
       window.location.href = `/userprofile/${input3}`;
@@ -255,7 +260,9 @@ export default function SearchResult(props) {
         <div>
           <div className='holder'>
             {result.map((item) => (
+
             <div key={item.id} className="card" onClick={(e) => handleClick(item.slug, item.person, item.id)}>
+
             <div className="card-top">
               <img
                 src={
