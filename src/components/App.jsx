@@ -69,7 +69,7 @@ export default function App(props) {
     <>
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Popular']} />} />
+          <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} />} />
             <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile} isAuthenticated={isAuthenticated}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
