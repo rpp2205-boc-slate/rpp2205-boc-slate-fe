@@ -33,7 +33,6 @@ export default function App(props) {
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
 
-  console.log(userProfile, '33')
   useEffect(() => {
     if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
       axios.post('/user/addinfo', user)
@@ -65,7 +64,7 @@ export default function App(props) {
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
         <Routes history={appHistory}>
           <Route path='/' element={<Home types={['Popular']} />} />
-            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile}/>} />
+            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile} isAuthenticated={isAuthenticated}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
@@ -81,7 +80,7 @@ export default function App(props) {
 
         {chatOpen && (<div className="chat">
           <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile}/>
-          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile}/>
+          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} />
         </div>)}
 
     </>

@@ -9,7 +9,7 @@ import Carousel from "../components/Carousel/Carousel.jsx"
 export default function Home(props) {
   return(
     <>
-      <Navigation />
+      {/* <Navigation /> */}
       <muiNav />
       <div>
       {props['types']?.map((t) => (

@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
 import Tag from "./Tag.jsx";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function Profile(props) {
   const [onlineStatus, setOnlineStatus] = useState(true);
@@ -20,7 +21,7 @@ export default function Profile(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [bio, setBio] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const changeImage = (url) => {
     setImg(url);
   }
@@ -37,9 +38,9 @@ export default function Profile(props) {
     setLastName(last);
   }
 
-  useEffect(() => {
-    setIsAuthenticated(props.isAuthenticated);
-  }, [props.isAuthenticated]);
+  // useEffect(() => {
+  //   setIsAuthenticated(props.isAuthenticated);
+  // }, [props.isAuthenticated]);
 
   useEffect(() => {
     setImg((props.selfProfile.photos && props.selfProfile.photos.length >= 1)? props.selfProfile.photos[0].photo_url : null);
@@ -81,7 +82,7 @@ export default function Profile(props) {
               <a href={profileObj.website}>
                 <img src={profileObj.background_image} class="profilePhoto" />
               </a>
-              {isAuthenticated ? (<div class="likeGame">
+              {props.isAuthenticated ? (<div class="likeGame">
                 <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated}/></div>
               </div>) : null}
             </div>
