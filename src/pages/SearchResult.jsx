@@ -30,7 +30,7 @@ export default function SearchResult(props) {
   const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
   const state = useLocation();
-  // console.log('state', state);
+  console.log('state', state);
 
   useEffect(() => {
     // get list of genres

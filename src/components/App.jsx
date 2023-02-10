@@ -35,7 +35,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
-
+  const [mode, setMode] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
@@ -66,9 +66,9 @@ export default function App(props) {
 
   return(
     <div id="app">
-        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} />
+        <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} switchMode={setMode}/>
         <Routes history={appHistory}>
-          <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} />} />
+          <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} mode={mode}/>} />
             <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile} isAuthenticated={isAuthenticated}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />

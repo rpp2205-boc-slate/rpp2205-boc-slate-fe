@@ -7,6 +7,9 @@ import { LogoutButton } from './logout-button.jsx';
 import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 import mainlogo from '../Carousel/Testing/2.png';
 import { height } from '@mui/system';
@@ -17,8 +20,14 @@ import './navBar.css';
 
 
 function Navigation(props) {
-  console.log("useAuth0 obj", useAuth0());
   var { isAuthenticated, user } = useAuth0();
+  const [checked, setChecked] = useState(true);
+
+  const switchBackgroundMode = (event) => {
+    setChecked(event.target.checked);
+    props.switchMode(v => !v)
+  };
+
 
   useEffect(() => {
     if (props.setIsAuthenticated) {
@@ -57,6 +66,8 @@ function Navigation(props) {
                 <Navbar.Brand><LogoutButton /></Navbar.Brand>
               </>
             )}
+            <FormControlLabel sx={{color: "white", marginLeft: "50px", marginRight: "-50px"}} control={<Switch color="default" checked={checked} onChange={switchBackgroundMode} />} label={!checked ? "Dark Mode" : "Light Mode"} />
+
           </div>
       </Container>
     </Navbar>
