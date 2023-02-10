@@ -23,7 +23,14 @@ function Fa (props) {
 
 
   useEffect(() => {
-    axios.get(`/games/slug/${Number(props.fa.game_id)}`)
+    var id;
+    if(Number(props.fa.game_id) > 0) {
+      id = Number(props.fa.game_id)
+    } else {
+      id=props.fa.game_id
+    }
+
+    axios.get(`/games/slug/${id}`)
         .then((response) => {
           console.log(response.data)
           setFavorite(response.data)
