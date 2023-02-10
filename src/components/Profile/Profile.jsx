@@ -83,18 +83,18 @@ export default function Profile(props) {
                 <img src={profileObj.background_image} class="profilePhoto" />
               </a>
               {props.isAuthenticated ? (<div class="likeGame">
-                <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated}/></div>
+                <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated} mode={props.mode} /></div>
               </div>) : null}
             </div>
-            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack">
-              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
-              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Rating: " + profileObj.rating}</Typography>
-              {profileObj.released ? <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Release Date: " + profileObj.released}</Typography> : null}
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
+              <Typography class="game-intro-stack">{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
+              <Typography class="game-intro-stack" >{"Rating: " + profileObj.rating}</Typography>
+              {profileObj.released ? <Typography class="game-intro-stack">{"Release Date: " + profileObj.released}</Typography> : null}
               <Stack direction="row" spacing={2} sx={{"flexWrap": "wrap"}}>
-              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{profileObj.tags.length > 0 ? "Tags: " : null}</Typography>
+              <Typography class="game-intro-stack">{profileObj.tags.length > 0 ? "Tags: " : null}</Typography>
               {profileObj.tags.map((tag, index) => {
                 return (
-                  <div key={index} style={{"padding":"5px"}}><Tag tag={tag} /></div>
+                  <div key={index} style={{"padding":"5px"}}><Tag tag={tag} mode={props.mode}/></div>
                 )
               })}
               </Stack>
@@ -102,7 +102,7 @@ export default function Profile(props) {
 
           </div>
           <div class="rightColumn">
-            <div class="aboutMe">
+            <div class="aboutMe" style={{"color":(props.mode ? "white" : "black")}} >
               <div class="aboutTitle"><h3>{"About " + (profileObj.name)}</h3></div>
               <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.description }}></div>
               {profileObj.reddit_url ? (<div id="reddit-container">

@@ -9,20 +9,19 @@ import Carousel from '../components/Carousel/Carousel.jsx';
 import GameNav from "../components/Profile/GameNav.jsx";
 import Divider from '@mui/material/Divider';
 
-const testgame = '887'
-
 export default function GameProfile(props) {
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   let { slug } = useParams();
   const [gameProfile, setGameProfile] = useState(undefined);
-  console.log(gameProfile, "game profile");
+  const dark = {"background": "radial-gradient(circle closest-side, transparent 10%, black), url(" + (gameProfile ? (gameProfile.background_image_additional || gameProfile.background_image) : null) + ")"};
+  const light = {"background": "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url(" + (gameProfile ? (gameProfile.background_image_additional || gameProfile.background_image) : null) + ")"};
   return(
-    <div className="profile" style={{"background": "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url(" + (gameProfile ? (gameProfile.background_image_additional || gameProfile.background_image) : null) + ")"}}>
+    <div className="profile" style={props.mode ? dark : light}>
       {/* <div class="profile-nav"><Navigation /></div> */}
       <div class="profile-main">
-      <GameNav gameProfile={gameProfile}/>
-      <Profile slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated} setGameProfile={setGameProfile}/>
+      <GameNav gameProfile={gameProfile} mode={props.mode}/>
+      <Profile mode={props.mode} slug={slug} selfId={selfId} selfProfile={selfProfile} isAuthenticated={props.isAuthenticated} setGameProfile={setGameProfile}/>
         <Divider style={{"textColor":"gray"}}/>
       <div className="car-div">{props['types']?.map((t) => (
        <Carousel type={t} fav={gameProfile}  />
