@@ -5,7 +5,7 @@ export const ChatButton = (props) => {
   let opposite = !props.chatOpen;
   console.log('props', props.chatOpen);
   console.log('doubleProps', props.setChatOpen);
-  const handleChatClick = (e) => {
+  const handleChatClick = () => {
     console.log('clicked', opposite);
     props.setChatOpen(opposite);
   }

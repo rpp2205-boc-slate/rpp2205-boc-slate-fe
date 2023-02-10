@@ -14,10 +14,6 @@ import FormLabel from '@mui/material/FormLabel';
 
 
 
-//  import { makeStyles, Theme } from "@material-ui/core/styles";
-//  import SearchIcon from '@material-ui/icons/Search';
-
-
 export default function Search(props) {
   const [query, setQuery] = useState("");
   const [options, setOptions] = useState([]);
@@ -28,7 +24,7 @@ export default function Search(props) {
   }
  
   const previousController = useRef();
-
+  
   const handleChange = (e) => {
     e.preventDefault();
     setQuery(e.target.value);
@@ -133,7 +129,7 @@ export default function Search(props) {
     return (
       <>
       <FormControl>
-        <FormLabel id="searchBar">Search</FormLabel>
+        <FormLabel id="searchBar" style={{color: "white"}}>Search</FormLabel>
         <RadioGroup
          aria-labelledby="demo-controlled-radio-buttons-group"
          name="controlled-radio-buttons-group"
@@ -141,10 +137,9 @@ export default function Search(props) {
          control={<Radio />}
          onChange={handleValueChange}
        >
-        <FormControlLabel value="game" control={<Radio />} label="Games" />
-        <FormControlLabel value="user" control={<Radio />} label="Users" />
+        <FormControlLabel  control={<Radio/> } value="game"  style={{color: "white"}} label="Games"  labelPlacement="start" />
+        <FormControlLabel value="user" control={<Radio />} style={{color: "white"}} label="Users"  labelPlacement="start"/>
         </RadioGroup>
-
       </FormControl>
      <Autocomplete
         id="autosearch"
@@ -155,7 +150,7 @@ export default function Search(props) {
         isOptionEqualToValue={(option, value) => option.name === value.name}
         style={{ width: 300 }}
         renderInput={(params) => (
-          <TextField  {...params} label="Search" variant="outlined" onKeyDown={(e) => {
+          <TextField style={{background: "white"}}  {...params} label="Search" variant="outlined" onKeyDown={(e) => {
             console.log(`Pressed keyCode ${e.key}`)
             keyPress(e)}} 
           

@@ -21,7 +21,7 @@ import Navigation from './Navigation And Authentication/Navigation.jsx';
 //import ProfileButton from './Profile/profile-button.jsx';
 import {ChatButton} from './Navigation And Authentication/chat-button.jsx';
 import { AuthenticationGuard } from "../authentication-guard.js";
-import './darkMode.css';
+
 
 
 
@@ -33,7 +33,7 @@ export default function App(props) {
   const [userProfile, setUserProfile] = useState({});
   const { isLoading } = useAuth0();
   const [chatOpen, setChatOpen] = useState(false);
-  const [dark, setDark] = useState(true);
+  
 
   console.log(userProfile, '33')
   useEffect(() => {
