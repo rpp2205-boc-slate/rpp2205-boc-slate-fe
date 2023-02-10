@@ -147,7 +147,7 @@ function Carousel(props) {
                   </div>
                 )
               } else {
-                return <div onClick={(e) => handleClick('Testing')}>NOT</div>
+                return
               }
             }
 //testing
