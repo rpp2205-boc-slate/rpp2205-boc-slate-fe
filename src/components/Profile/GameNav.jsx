@@ -15,10 +15,10 @@ export default function GameNav(props) {
       <Stack direction="row" spacing={2}>
         <Typography id="all-games" >All Games</Typography>
         <Typography id="arrow" >></Typography>
-        <Typography id="genre">{props.gameProfile.genres[0].name}</Typography>
+        <Typography id="genre">{props.gameProfile.genres.length > 0 ? props.gameProfile.genres[0].name : null}</Typography>
+        <Typography id="arrow" >></Typography>
         <Typography id="game-name">{props.gameProfile.name}</Typography>
       </Stack>
-
     </div>
   )
 }
