@@ -2,6 +2,7 @@ import React from "react";
 import {BsFillChatQuoteFill} from 'react-icons/bs';
 
 export const ChatButton = (props) => {
+  console.log('chatbutton props', props.setChatOpen)
   let opposite = !props.chatOpen;
   const handleChatClick = () => {
     console.log('clicked', opposite);

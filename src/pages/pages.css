@@ -73,8 +73,7 @@
   justify-content:flex-end;
   position:sticky;
   height:480px;
-  padding-top: 100px;
-  padding-bottom: 50px;
+  padding-bottom: 150px;
   width: 850px;
   box-shadow: rgba(0, 0, 0, 0.1);
 }
