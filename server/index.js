@@ -242,10 +242,11 @@ app.get('/games/platform/:platform', (req, res) => {
     })
 });
 
-// get all games for both genre and platform
-app.get('/games/genre/:genre/platform/:platform', (req, res) => {
+// get all games for both genre and platform and query
+app.get('/games/genre/:genre/platform/:platform/query/:query', (req, res) => {
   let p = req.params.platform;
   let q = req.params.genre.toLowerCase();
+  console.log(req.params)
   if (q === "rpg") {
     q = 5;
   } else if (q === "massively multiplayer") {
@@ -253,8 +254,52 @@ app.get('/games/genre/:genre/platform/:platform', (req, res) => {
   } else if (q === "board games") {
     q= 28;
   }
+  if (req.params.query) {
+    axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}&search=${req.params.query}`)
+    .then((response) => {
+      console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+  } else {
+    axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}`)
+      .then((response) => {
+        // console.log(response.data)
+        res.status(200).send(response.data)
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      })
+  }
+});
+
+// if only genre and query
+app.get('/games/genre/:genre/query/:query', (req, res) => {
+  let q = req.params.genre.toLowerCase();
+  console.log(req.params)
+  if (q === "rpg") {
+    q = 5;
+  } else if (q === "massively multiplayer") {
+    q = 59;
+  } else if (q === "board games") {
+    q= 28;
+  }
+  axios.get(`${gameApiPath}?genres=${q}&key=${gameApiKey}&search=${req.params.query}`)
+    .then((response) => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+// if only console and query
+app.get('/games/platform/:platform/query/:query', (req, res) => {
+  let q = req.params.platform;
   // console.log(q, 'here')
-  axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}`)
+  axios.get(`${gameApiPath}?platforms=${q}&key=${gameApiKey}`)
     .then((response) => {
       // console.log(response.data)
       res.status(200).send(response.data)
@@ -263,6 +308,8 @@ app.get('/games/genre/:genre/platform/:platform', (req, res) => {
       res.status(400).send(err);
     })
 });
+
+
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
