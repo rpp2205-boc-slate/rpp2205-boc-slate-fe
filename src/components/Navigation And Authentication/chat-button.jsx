@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {BsFillChatQuoteFill} from 'react-icons/bs';
+import './navBar.css';
 
 export const ChatButton = (props) => {
   // console.log('chatbutton props', props.setChatOpen)
@@ -14,6 +15,9 @@ export const ChatButton = (props) => {
     // <button className="button__chat" onClick={handleChatClick}>
     //   Chat
     // </button>
-    <BsFillChatQuoteFill className="button__chat" onClick={handleChatClick}></BsFillChatQuoteFill>
+    <div className="button__chat" onClick={handleChatClick}>
+      Chat
+      {/* <BsFillChatQuoteFill></BsFillChatQuoteFill> */}
+    </div>
   );
 };
