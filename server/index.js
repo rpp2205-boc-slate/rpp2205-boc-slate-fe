@@ -7,8 +7,8 @@ const axios = require('axios');
 require('dotenv').config();
 //mock api path
 //const apiPath = 'https://6l9qj.wiremockapi.cloud';
-const 
-ApiPath = 'https://api.rawg.io/api/games';
+
+const gameApiPath = 'https://api.rawg.io/api/games';
 const genreApiPath = 'https://api.rawg.io/api/genres';
 const platformApiPath = 'https://api.rawg.io/api/platforms';
 const gameApiKey = process.env.API_KEY;
