@@ -82,9 +82,10 @@
   justify-content:flex-end;
   position:sticky;
   height:480px;
-  padding-bottom: 150px;
-  width: 850px;
+  /* padding-bottom: 150px; */
+  /* width:max-content; */
   box-shadow: rgba(0, 0, 0, 0.1);
+  background-color: rgb(227, 231, 241);
 }
 
 
