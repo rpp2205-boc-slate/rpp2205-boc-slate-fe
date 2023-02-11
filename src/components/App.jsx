@@ -76,6 +76,9 @@ export default function App(props) {
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
             <Route path='/results/' element={<SearchResult/>} />
+            <Route path='/results-for-genre/:genre' element={<SearchResult/>} />
+            <Route path='/results-for-tag/:tag' element={<SearchResult/>} />
+            <Route path='/results-for-platform/:platform' element={<SearchResult/>} />
             <Route path='/userlist' element={<UserList />} />
             <Route path='/userprofile/:userId' element={<AuthUserProfile mode={mode} selfId={userId} selfProfile={userProfile}/>} />
             <Route path='/myprofile' element={<AuthMyProfile mode={mode} selfId={userId} selfProfile={userProfile}/>} />

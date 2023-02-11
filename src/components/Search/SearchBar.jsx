@@ -20,7 +20,6 @@ export default function Search(props) {
   const [value, setValue] = useState('game');
   const handleValueChange = (event) => {
     setValue(event.target.value);
-    console.log('value', value);
   }
 
   const previousController = useRef();

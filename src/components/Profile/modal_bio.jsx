@@ -10,7 +10,6 @@ import Form from 'react-bootstrap/Form';
 import config from './config_profile.js';
 
 const ModalComponentBio = (props) => {
-  console.log(props.selfProfile)
   const [open, setOpen] = useState(false);
   const [url, setURL] = useState('');
 
@@ -73,10 +72,11 @@ const ModalComponentBio = (props) => {
           </Typography>
           <div class="profile-bio">
               Bio:
-              <TextField id="textfield-bio" defaultValue={props.selfProfile.bio} variant="outlined" multiline rows={4} maxRows={10} readOnly={true}/>
+              <TextField id="textfield-bio" fullWidth defaultValue={props.selfProfile.bio} variant="outlined" multiline rows={4} maxRows={10} readOnly={true}/>
           </div>
-          <div class="submit-button">
+          <div class="submit-button" >
             <Button sx={{m: 2}} onClick={onSubmit} variant="contained">Submit</Button>
+            <Button sx={{m: 2}} onClick={handleClose} variant="outlined">Cancel</Button>
           </div>
 
         </Box>

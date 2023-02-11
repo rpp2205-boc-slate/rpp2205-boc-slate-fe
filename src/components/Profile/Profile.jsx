@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
 import Tag from "./Tag.jsx";
+import Platform from "./Platform.jsx";
 
 
 export default function Profile(props) {
@@ -87,7 +88,11 @@ export default function Profile(props) {
               </div>) : null}
             </div>
             <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
-              <Typography class="game-intro-stack">{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
+              <Stack direction="row" spacing={2} sx={{"flexWrap": "wrap"}}>
+                <Typography class="game-intro-stack">Platforms: </Typography>
+                {profileObj.platforms.map((obj, index) => (<div key={index}><Platform mode={props.mode} platform={obj}/></div>))}
+              </Stack>
+
               <Typography class="game-intro-stack" >{"Rating: " + profileObj.rating}</Typography>
               {profileObj.released ? <Typography class="game-intro-stack">{"Release Date: " + profileObj.released}</Typography> : null}
               <Stack direction="row" spacing={2} sx={{"flexWrap": "wrap"}}>
