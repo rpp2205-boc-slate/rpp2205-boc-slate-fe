@@ -18,6 +18,14 @@ const apiPath = 'http://54.159.164.8';
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../dist')));
+//Allow cross-origin requests from any origin
+//to avoid being redirected to localhost after clicking the signup/login button
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 app.get('/test', (req, res) => {
   res.send('hello')
