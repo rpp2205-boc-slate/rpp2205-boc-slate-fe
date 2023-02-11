@@ -14,7 +14,6 @@ function UserProfile(props) {
   var selfProfile = props.selfProfile;
   let { userId } = useParams();
   const [userProfile, setUserProfile] = useState({});
-  console.log(userProfile, "178")
   const dark = { "background": "radial-gradient(circle closest-side, transparent 10%, black), url(" + (Object.keys(userProfile).length !== 0 && userProfile.photos.length > 0 ? (userProfile.photos[0].photo_url) : null) + ")" };
   const light = { "background": "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url(" + (Object.keys(userProfile).length !== 0 && userProfile.photos.length > 0 ? (userProfile.photos[0].photo_url) : null) + ")" };
 

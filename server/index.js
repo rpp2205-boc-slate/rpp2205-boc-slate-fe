@@ -264,6 +264,31 @@ app.get('/games/genre/:genre/platform/:platform', (req, res) => {
     })
 });
 
+//get all games based on a tag name
+app.get('/games/tag/:tag', (req, res) => {
+  let t = req.params.tag;
+  axios.get(`${gameApiPath}?tags=${t}&key=${API_KEY}`)
+    .then(response => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+//get all games based on a genre
+app.get('/games/oneGenre/:genre', (req, res) => {
+  let g = req.params.genre;
+  axios.get(`${gameApiPath}?genres=${g}&key=${API_KEY}`)
+    .then(response => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });
