@@ -16,7 +16,6 @@ export default function AddToLikeButton(props) {
   var handleClick = () => {
     axios.post(`/game/${selfId}/${slug}`, {"liked": !liked})
       .then(response => {
-        console.log(response.data);
         setLiked(!liked);
       })
       .catch(err => {

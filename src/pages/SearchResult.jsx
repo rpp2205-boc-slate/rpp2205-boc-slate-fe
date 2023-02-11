@@ -30,7 +30,6 @@ export default function SearchResult(props) {
   const [clickUser, setClickUser] = useState(false);
   const nav = useNavigate()
   const state = useLocation();
-  console.log('state', state);
 
   useEffect(() => {
     // get list of genres
@@ -98,7 +97,7 @@ export default function SearchResult(props) {
         .catch((err)=> {
           console.log(err, 'error in getting games response 0')
         })
-    } else {
+    } else if (state.pathname === '/results/' || state.pathname === '/results') {
       // if no query is being searched, search most popular
       // axios.get(`/games/orderBy/${'rating'}`)
       // .then((response) => {
@@ -129,6 +128,23 @@ export default function SearchResult(props) {
         })
         .catch((err)=> {
           console.log(err, 'error in getting popular response 0')
+        })
+    } else {
+      var resultBy = Object.keys(query)[0];
+      var value = query[Object.keys(query)[0]];
+      console.log("resultBy", resultBy, `/games/${resultBy}/${value}`);
+      axios.get(`/games/${resultBy}/${value}`)
+        .then(response => {
+          if (Array.isArray(response.data)) {
+            setGameResult(response.data)
+            setResult(response.data)
+          } else {
+            setGameResult(response.data.results)
+            setResult(response.data.results)
+          }
+        })
+        .catch(err => {
+          console.error(err);
         })
     }
   }, [query.params])

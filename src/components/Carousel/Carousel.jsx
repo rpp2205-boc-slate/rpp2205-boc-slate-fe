@@ -62,7 +62,6 @@ function Carousel(props) {
   };
 
   useEffect(() => {
-    console.log("hererere");
     if (props.type === "Popular") {
       axios.get('games/orderBy/rating')
         .then((response) => {

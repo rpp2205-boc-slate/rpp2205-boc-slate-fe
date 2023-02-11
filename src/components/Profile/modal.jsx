@@ -96,23 +96,26 @@ const ModalComponent = (props) => {
               <Form.Control id="image-file" type="file" />
             </Form.Group>
           <div class="profile-editusername">
-              Username:
+              <Typography>Username: </Typography>
               <TextField disabled id="textfield-username" defaultValue={props.selfProfile.username} variant="outlined" />
           </div>
           <div class="profile-editfirstname">
-              First Name:
+
+              <Typography>First Name: </Typography>
               <TextField id="textfield-firstname" defaultValue={props.selfProfile.first_name} variant="outlined" />
           </div>
           <div class="profile-editlastname">
-              Last Name:
+
+              <Typography>Last Name: </Typography>
               <TextField id="textfield-lastname" defaultValue={props.selfProfile.last_name} variant="outlined" />
           </div>
           <div class="profile-email">
-              Email:
+              <Typography>Email: </Typography>
               <TextField disabled id="textfield-email" defaultValue={props.selfProfile.email} variant="outlined" readOnly={true}/>
           </div>
-          <div class="submit-button">
-            <Button onClick={onSubmit}>Submit</Button>
+          <div class="submit-button" >
+            <Button sx={{m: 2}} onClick={onSubmit} variant="outlined">Submit</Button>
+            <Button sx={{m: 2}} onClick={handleClose} variant="outlined">Cancel</Button>
           </div>
 
         </Box>

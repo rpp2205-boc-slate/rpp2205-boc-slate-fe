@@ -186,7 +186,6 @@ app.get('/games/slug/:slugname', (req, res) => {
     })
 });
 app.get('games/:gameid/game-series', (req, res) => {
-  console.log(`${gameApiPath}/games/${req.params.gameid}/game-series`)
   axios.get(`${gameApiPath}/games/${req.params.gameid}/game-series?key=${gameApiKey}`)
     .then((response) => {
       res.status(200).send(response.data)
@@ -255,7 +254,6 @@ app.get('/games/platform/:platform', (req, res) => {
 app.get('/games/genre/:genre/platform/:platform/query/:query', (req, res) => {
   let p = req.params.platform;
   let q = req.params.genre.toLowerCase();
-  console.log(req.params)
   if (q === "rpg") {
     q = 5;
   } else if (q === "massively multiplayer") {
@@ -266,7 +264,6 @@ app.get('/games/genre/:genre/platform/:platform/query/:query', (req, res) => {
   if (req.params.query) {
     axios.get(`${gameApiPath}?platforms=${p}&genres=${q}&key=${gameApiKey}&search=${req.params.query}`)
     .then((response) => {
-      console.log(response.data)
       res.status(200).send(response.data)
     })
     .catch(err => {
@@ -321,9 +318,10 @@ app.get('/games/platform/:platform/query/:query', (req, res) => {
 //get all games based on a tag name
 app.get('/games/tag/:tag', (req, res) => {
   let t = req.params.tag;
-  axios.get(`${gameApiPath}?tags=${t}&key=${API_KEY}`)
+  console.log(`${gameApiPath}?tags=${t}&key=${gameApiKey}`)
+  axios.get(`${gameApiPath}?tags=${t}&key=${gameApiKey}`)
     .then(response => {
-      res.status(200).send(response.data)
+      res.status(200).send(response.data.results);
     })
     .catch(err => {
       res.status(400).send(err);
@@ -331,11 +329,11 @@ app.get('/games/tag/:tag', (req, res) => {
 });
 
 //get all games based on a genre
-app.get('/games/oneGenre/:genre', (req, res) => {
+app.get('/games/genre/:genre', (req, res) => {
   let g = req.params.genre;
-  axios.get(`${gameApiPath}?genres=${g}&key=${API_KEY}`)
+  axios.get(`${gameApiPath}?genres=${g}&key=${gameApiKey}`)
     .then(response => {
-      res.status(200).send(response.data)
+      res.status(200).send(response.data.results);
     })
     .catch(err => {
       res.status(400).send(err);

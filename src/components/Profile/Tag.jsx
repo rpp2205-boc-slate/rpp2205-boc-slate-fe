@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 // import { StreamChat } from 'stream-chat';
 import axios from "axios";
 import Chip from '@mui/material/Chip';
+import { useNavigate } from "react-router-dom";
+
 
 String.prototype.hashCode = function() {
   var hash = 0,
@@ -24,9 +26,14 @@ const selectColorForString = (str) => {
 }
 
 export default function Tag(props) {
+  const navigate = useNavigate();
+  const clickTag = () => {
+    navigate(`/results-for-tag/${props.tag.slug}`)
+  }
+
   return(
     <div class="chip">
-      <Chip label={props.tag.name} style={{"backgroundColor":selectColorForString(props.tag.name), "color": (props.mode ? "white" : "black")}}/>
+      <Chip onClick={clickTag} label={props.tag.name} style={{"backgroundColor":selectColorForString(props.tag.name), "color": (props.mode ? "white" : "black")}}/>
     </div>
   );
 
