@@ -7,6 +7,9 @@ import { LogoutButton } from './logout-button.jsx';
 import { SignupButton } from './signup-button.jsx';
 import { ChatButton } from './chat-button.jsx';
 import { useState, useEffect } from "react";
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 import logo from '../Carousel/Testing/2.png';
 import { height } from '@mui/system';
@@ -17,8 +20,14 @@ import './navBar.css';
 
 
 function Navigation(props) {
-  console.log("useAuth0 obj", useAuth0());
   var { isAuthenticated, user } = useAuth0();
+  const [checked, setChecked] = useState(true);
+
+  const switchBackgroundMode = (event) => {
+    setChecked(event.target.checked);
+    props.switchMode(v => !v)
+  };
+
 
   useEffect(() => {
     if (props.setIsAuthenticated) {
@@ -32,8 +41,13 @@ function Navigation(props) {
   return (
     <>
     <Navbar style={{ background: '#1b2838' }} variant="dark" expand="lg" fixed="top">
-      <Container>{console.log(logo)}
-        <img src={logo} />
+      <Container>
+        <div id="logo-gc">
+          <img src={mainlogo} style={{height: 80}}/>
+          <a className="navbar-brand">GAMERCITY</a>
+        </div>
+
+
 
           <Navbar.Brand href="/">Home</Navbar.Brand>
           {isAuthenticated ? <Navbar.Brand href="/myprofile">Profile</Navbar.Brand> : null}
@@ -51,6 +65,8 @@ function Navigation(props) {
                 <Navbar.Brand><LogoutButton /></Navbar.Brand>
               </>
             )}
+            <FormControlLabel sx={{color: "white", marginLeft: "50px", marginRight: "-50px"}} control={<Switch color="default" checked={checked} onChange={switchBackgroundMode} />} label={!checked ? "Dark Mode" : "Light Mode"} />
+
           </div>
       </Container>
     </Navbar>

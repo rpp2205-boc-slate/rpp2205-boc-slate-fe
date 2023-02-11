@@ -15,7 +15,9 @@ const chatClient = new StreamChat('npwanznmku2q');
 
 
 const ChatApp = (props) => {
-  console.log(props.user, props.userId, props.user.username)
+  // console.log(props.user, props.userId, props.user.username)
+  let theme = 'str-chat__theme-light';
+  theme = props.dark ? 'str-chat__theme-dark' : 'str-chat__theme-light';
   // now that userId is accessed we can get the user/:userId/profile data and access received_req_from to display all pending friend requests!
   // const filters = { members: [chatClient.user.id]}
   const sort = { last_message_at: -1 };
@@ -30,7 +32,15 @@ const ChatApp = (props) => {
   if (props.isAuthenticated && props.chatOpen && props.user.username) {
     let user = props.user.username;
     let firstName = user.split(" ")[0];
-    console.log('username', props.user.username)
+    function extractUsername(email) {
+      var atIndex = email.indexOf("@");
+      if (atIndex === -1) {
+        return email;
+      }
+      return email.substring(0, atIndex);
+    }
+    firstName = extractUsername(firstName);
+    // console.log('firstname', firstName)
     const userToken = chatClient.devToken(firstName)
     chatClient.connectUser(
       {
@@ -50,7 +60,9 @@ const ChatApp = (props) => {
     });
     console.log('chat user', chatClient.user.id)
     return (
-      <Chat client={chatClient} theme='str-chat__theme-dark'  >
+      <div className='chat'>
+
+      <Chat client={chatClient} theme={theme}  >
         <ChannelList  sort={sort} options={options} onClick={handleChannelClick} className="channels" />
         <Channel channel={selectedChat} >
           <Window>
@@ -61,6 +73,7 @@ const ChatApp = (props) => {
           <Thread />
         </Channel>
       </Chat>
+      </div>
     )
 
   } else {

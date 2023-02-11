@@ -51,6 +51,14 @@
 
 
 /* profile css */
+.homepage {
+  background-size: cover !important;
+}
+
+#mode-switch {
+  height: 100%;
+}
+
 .profile {
   margin-top:125px;
   height: 100%;
@@ -72,28 +80,56 @@
   display: flex;
   float: right;
   justify-content:flex-end;
-  position:sticky;
+  position:fixed;
   height:480px;
-  padding-top: 100px;
-  padding-bottom: 50px;
-  width: 850px;
+  width:max-content;
   box-shadow: rgba(0, 0, 0, 0.1);
+  left: 100;
+  right: 0;
+  bottom: 0;
+  top: 100;
+  z-index: 10;
+  padding-top: 100px;
+  /* background-color: rgb(227, 231, 241); */
 }
 
 
-.friend-request-list {
+.friend-request-dark {
   background-color: rgb(12, 12, 12);
   color: rgb(243, 243, 243);
+  margin-top: -100px;
+  /* width:max-content; */
+  position:fixed;
+  /* height: 50px; */
+  width: 500px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 5px;
   /* border-radius: 8px; */
   list-style-type: none;
   text-align: center;
   align-items: center;
+  z-index: 99;
+}
+
+.friend-request-light {
+  background-color: rgb(227, 231, 241);
+  /* color: rgb(243, 243, 243); */
+  margin-top: -100px;
+  /* width:max-content; */
+  position:fixed;
+  /* height: 50px; */
+  width: 500px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  /* border-radius: 8px; */
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+  z-index: 99;
 }
 
 .friend-request-list li {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   margin-bottom: 10px;
   border-radius: 10px;
@@ -104,15 +140,18 @@
   border-radius: 10px;
 }
 
-.request {
+.request-dark {
   background-color: rgb(42, 43, 45);
   border-radius: 10px;
   align-items: center;
   text-align: center;
 }
 
-#accept-reject {
-
+.request-light {
+  background-color: rgb(227, 231, 241);
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
 }
 
 
@@ -165,7 +204,7 @@
 }
 
 .gameNav {
-  margin-left: 250px;
+  margin-left: 150px;
 }
 
 .game-intro-stack {

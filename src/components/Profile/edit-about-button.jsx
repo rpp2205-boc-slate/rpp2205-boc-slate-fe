@@ -8,7 +8,7 @@ import ModalComponentBio from './modal_bio.jsx';
 export default function EditAboutButton(props) {
   return (
     <div>
-      <ModalComponentBio selfProfile={props.selfProfile} changeBio={props.changeBio}/>
+      <ModalComponentBio mode={props.mode} selfProfile={props.selfProfile} changeBio={props.changeBio}/>
     </div>
   )
 

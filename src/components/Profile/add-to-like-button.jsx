@@ -28,14 +28,14 @@ export default function AddToLikeButton(props) {
       {liked ? (
         <div class="click-to-like">
           <Tooltip title="Unlike this game">
-            <FavoriteIcon onClick={handleClick} fontSize="large" sx={{ color: '#1b2838'}}/>
+            <FavoriteIcon onClick={handleClick} fontSize="large" sx={{ color: (props.mode ? "cornflowerblue" : '#1b2838')}}/>
           </Tooltip>
 
         </div>
       ) : (
         <div class="click-to-like">
           <Tooltip title="Click to like this game!">
-            <FavoriteBorderIcon onClick={handleClick} fontSize="large" sx={{ color: '1b2838'}}/>
+            <FavoriteBorderIcon onClick={handleClick} fontSize="large" sx={{ color: (props.mode ? "cornflowerblue" : '1b2838')}}/>
           </Tooltip>
         </div>
 
