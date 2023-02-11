@@ -11,12 +11,13 @@ function MyProfile(props) {
   var selfId = props.selfId;
   var selfProfile = props.selfProfile;
   const types = ["Friends", "Favorite"]
-  console.log(selfProfile, "14");
+  const dark = {"background": "radial-gradient(circle closest-side, transparent 10%, black), url(" + (Object.keys(selfProfile).length !== 0 ? (selfProfile.photos[0].photo_url) : null) + ")"};
+  const light = {"background": "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url(" + (Object.keys(selfProfile).length !== 0 ? (selfProfile.photos[0].photo_url) : null) + ")"};
   return(
-    <div className="profile" style={{"background": "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), url(" + (selfProfile.photos ? selfProfile.photos[0].photo_url : null) + ")"}}>
+    <div className="profile" style={props.mode ? dark : light}>
        {/* <div class="profile-nav"><Navigation /></div> */}
        <div class="profile-main">
-        <Profile selfId={selfId} selfProfile={selfProfile}/>
+        <Profile selfId={selfId} selfProfile={selfProfile} mode={props.mode}/>
         <div className="car-div">{types.map((t) => (
           <Carousel type={t} fav={selfProfile} fri={selfProfile}/>
         ))}</div>

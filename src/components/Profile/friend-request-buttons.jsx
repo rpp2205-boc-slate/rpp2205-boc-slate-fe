@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Button from '@mui/material/Button';
 import PersonIcon from '@mui/icons-material/Person';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 
 
 export default function FriendRequestButtons(props) {
@@ -71,29 +73,29 @@ export default function FriendRequestButtons(props) {
   }
   if (reqSent) {
     return (
-      <>
+      <Stack style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
         <Button id="request-sent">Friend Request Sent</Button>
-      </>
+      </Stack>
     )
   } else if (reqReceived) {
     return (
-      <>
+      <Stack direction="row" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
         <Button id="accept-friend" onClick={acceptFriend}>Accept Friends Request</Button>
         <Button id="reject-friend"onClick={denyFriend}>Deny Friends Request</Button>
-      </>
+      </Stack>
     )
   } else if (isFriend) {
     return (
-      <>
+      <Stack direction="row" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
         <PersonIcon>Friend</PersonIcon>
-        <Button id="unfriend" >Friend</Button>
-      </>
+        <Typography id="unfriend" >Friend</Typography>
+      </Stack>
     )
   } else {
     return (
-      <>
+      <Stack style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
         <Button id="send-friend-request" onClick={sendFriendReq}>Send Friend Request</Button>
-      </>
+      </Stack>
     )
   }
 }

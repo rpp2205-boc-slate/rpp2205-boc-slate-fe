@@ -83,18 +83,18 @@ export default function Profile(props) {
                 <img src={profileObj.background_image} class="profilePhoto" />
               </a>
               {props.isAuthenticated ? (<div class="likeGame">
-                <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated}/></div>
+                <div id="like"><AddToLikeButton selfId={props.selfId} slug={props.slug} selfProfile={props.selfProfile} isAuthenticated={props.isAuthenticated} mode={props.mode} /></div>
               </div>) : null}
             </div>
-            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack">
-              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
-              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Rating: " + profileObj.rating}</Typography>
-              {profileObj.released ? <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{"Release Date: " + profileObj.released}</Typography> : null}
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
+              <Typography class="game-intro-stack">{"Platforms: " + profileObj.platforms.map(obj => obj.platform.name).join(', ')}</Typography>
+              <Typography class="game-intro-stack" >{"Rating: " + profileObj.rating}</Typography>
+              {profileObj.released ? <Typography class="game-intro-stack">{"Release Date: " + profileObj.released}</Typography> : null}
               <Stack direction="row" spacing={2} sx={{"flexWrap": "wrap"}}>
-              <Typography class="game-intro-stack" style={{"color": "white", "font": "Courier New"}}>{profileObj.tags.length > 0 ? "Tags: " : null}</Typography>
+              <Typography class="game-intro-stack">{profileObj.tags.length > 0 ? "Tags: " : null}</Typography>
               {profileObj.tags.map((tag, index) => {
                 return (
-                  <div key={index} style={{"padding":"5px"}}><Tag tag={tag} /></div>
+                  <div key={index} style={{"padding":"5px"}}><Tag tag={tag} mode={props.mode}/></div>
                 )
               })}
               </Stack>
@@ -102,7 +102,7 @@ export default function Profile(props) {
 
           </div>
           <div class="rightColumn">
-            <div class="aboutMe">
+            <div class="aboutMe" style={{"color":(props.mode ? "white" : "black")}} >
               <div class="aboutTitle"><h3>{"About " + (profileObj.name)}</h3></div>
               <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.description }}></div>
               {profileObj.reddit_url ? (<div id="reddit-container">
@@ -128,15 +128,17 @@ export default function Profile(props) {
             <div class="profilePhoto">
               <img src={(profileObj.photos && profileObj.photos.length >= 1) ? profileObj.photos[0].photo_url : "./img_avatar2.png"} class="profilePhoto" />
             </div>
-            <div class="profile-name">{"Username: " + profileObj.username}</div>
-            <div class="profile-firstName">{"First Name: " + (profileObj.first_Name || ' ')}</div>
-            <div class="profile-lastName">{"Last Name: " + (profileObj.last_Name || ' ')}</div>
-            <div class="profile-email">{"Email Address: " + profileObj.email}</div>
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
+              <Typography class="profile-name">{"Username: " + profileObj.username}</Typography>
+              <Typography class="profile-firstName">{"First Name: " + (profileObj.first_Name || ' ')}</Typography>
+              <Typography class="profile-lastName">{"Last Name: " + (profileObj.last_Name || ' ')}</Typography>
+              <Typography class="profile-email">{"Email Address: " + profileObj.email}</Typography>
+            </Stack>
             <div class="friendRequest">
-              <FriendRequestButtons userId={props.userId} selfId={props.selfId} selfProfile={props.selfProfile} userProfile={profileObj}/>
+              <FriendRequestButtons mode={props.mode} userId={props.userId} selfId={props.selfId} selfProfile={props.selfProfile} userProfile={profileObj}/>
             </div>
           </div>
-          <div class="rightColumn">
+          <div class="rightColumn" style={{"color":(props.mode ? "white" : "black")}} >
             <div class="aboutMe">
               <div class="aboutTitle"><h3>{"About " + (profileObj.username)}</h3></div>
               {/* <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.bio }}></div> */}
@@ -155,17 +157,20 @@ export default function Profile(props) {
         <div class="profile-for-all" >
           <div class="leftColumn">
             <div class="editProfileButton">
-              <EditProfileButton selfId={props.selfId} selfProfile={props.selfProfile} changeImage={changeImage} changeFirstName={changeFirstName} changeLastName={changeLastName} />
+              <EditProfileButton mode={props.mode} selfId={props.selfId} selfProfile={props.selfProfile} changeImage={changeImage} changeFirstName={changeFirstName} changeLastName={changeLastName} />
             </div>
             <img src={img} class="profilePhoto" />
-            <div class="profile-name">{"Username: " + props.selfProfile.username}</div>
-            <div class="profile-firstName">{"First Name: " + firstName}</div>
-            <div class="profile-lastName">{"Last Name: " + lastName}</div>
-            <div class="profile-email">{"Email Address: " + props.selfProfile.email}</div>
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
+              <Typography class="profile-name">{"Username: " + props.selfProfile.username}</Typography>
+              <Typography class="profile-firstName">{"First Name: " + firstName}</Typography>
+              <Typography class="profile-lastName">{"Last Name: " + lastName}</Typography>
+              <Typography class="profile-email">{"Email Address: " + props.selfProfile.email}</Typography>
+            </Stack>
+
           </div>
-          <div class="rightColumn">
+          <div class="rightColumn" style={{"color":(props.mode ? "white" : "black")}} >
             <div class="editAboutButton">
-              <EditAboutButton selfId={props.selfId} selfProfile={props.selfProfile} changeBio={changeBio}/>
+              <EditAboutButton selfId={props.selfId} selfProfile={props.selfProfile} changeBio={changeBio} mode={props.mode}/>
             </div>
             <div class="aboutMe">
               <div class="aboutTitle"><h3>{"About Me"}</h3></div>

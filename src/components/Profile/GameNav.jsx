@@ -11,7 +11,7 @@ export default function GameNav(props) {
   }
   return (
     <div class="gameNav">
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={2} style={{"color": props.mode ? "silver" : "black"}}>
         <Typography id="all-games" >All Games</Typography>
         <Typography id="arrow" >></Typography>
         <Typography id="genre">{props.gameProfile.genres.length > 0 ? props.gameProfile.genres[0].name : null}</Typography>
