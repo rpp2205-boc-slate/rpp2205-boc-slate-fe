@@ -11,7 +11,7 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-import logo from '../Carousel/Testing/2.png';
+import mainlogo from '../Carousel/Testing/2.png';
 import { height } from '@mui/system';
 import './navBar.css';
 
@@ -44,7 +44,7 @@ function Navigation(props) {
       <Container>
         <div id="logo-gc">
           <img src={mainlogo} style={{height: 80}}/>
-          <a className="navbar-brand">GAMERCITY</a>
+          <a className="navbar-brand" onClick={()=> window.location.href ='/'}>GAMERCITY</a>
         </div>
 
 
