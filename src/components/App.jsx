@@ -37,10 +37,13 @@ export default function App(props) {
   const [chatOpen, setChatOpen] = useState(false);
   const [mode, setMode] = useState(false);
 
+  // console.log('user info', userProfile)
+
   useEffect(() => {
     if (isAuthenticated && (!user || (Object.keys(user).length !== 0))) {
       axios.post('/user/addinfo', user)
         .then(response => {
+          // console.log('app data login', response.data)
           setUserProfile(response.data);
           setUserId(response.data.user_id);
         })
@@ -49,11 +52,6 @@ export default function App(props) {
         })
     }
   }, [user, isAuthenticated]);
-
-  // const handleChatClick = (bool) => {
-  //   console.log('clicked', bool);
-  //   setChatOpen(bool);
-  // }
 
 
   if (isLoading) {
@@ -84,7 +82,7 @@ export default function App(props) {
         <img src={logo} alt="Logo" className="logo"/> */}
 
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
-        <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/>
+        {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
 
         {chatOpen && (<div className="chat">
           <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile} dark={mode} />
