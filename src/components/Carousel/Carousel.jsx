@@ -134,11 +134,11 @@ function Carousel(props) {
   if(games && games.length > 0) {
   return (
     <div className="Car"> {props.type}
-      <Slider {...settings}>
+      <Slider {...settings} >
       {games.map((game) => {
   if (game.background_image) {
     return (
-      <div key={game.id} gameid={game.slug} className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
+      <div style={{background: "black"}} key={game.id} gameid={game.slug} className="card" onClick={(e) => handleClick(e.target.getAttribute('gameid'))}>
         <Gam clickFun={handleClick} g={game} error={handleErrorImage} />
       </div>
     );

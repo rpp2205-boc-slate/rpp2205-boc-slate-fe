@@ -71,14 +71,14 @@ export default function App(props) {
         <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} testUser={user} setChatOpen={setChatOpen} chatOpen={chatOpen} switchMode={setMode}/>
         <Routes history={appHistory}>
           <Route path='/' element={<Home types={['Popular', "Top Rated", "New"]} mode={mode}/>} />
-            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} selfId={userId} selfProfile={userProfile} isAuthenticated={isAuthenticated}/>} />
+            <Route path='/gameprofile/:slug' element={<GameProfile types={['Games', 'DLC']} mode={mode} selfId={userId} selfProfile={userProfile} isAuthenticated={isAuthenticated}/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/results/:params' element={<SearchResult/>} />
             <Route path='/results/' element={<SearchResult/>} />
             <Route path='/userlist' element={<UserList />} />
-            <Route path='/userprofile/:userId' element={<AuthUserProfile selfId={userId} selfProfile={userProfile}/>} />
-            <Route path='/myprofile' element={<AuthMyProfile selfId={userId} selfProfile={userProfile}/>} />
+            <Route path='/userprofile/:userId' element={<AuthUserProfile mode={mode} selfId={userId} selfProfile={userProfile}/>} />
+            <Route path='/myprofile' element={<AuthMyProfile mode={mode} selfId={userId} selfProfile={userProfile}/>} />
             {/* <Route path='/chat' element={<AuthenticationGuard component={Chat} />} /> */}
         </Routes>
 

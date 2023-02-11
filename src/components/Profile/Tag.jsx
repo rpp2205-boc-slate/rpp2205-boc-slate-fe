@@ -16,7 +16,7 @@ String.prototype.hashCode = function() {
   return hash;
 };
 
-const colors = {0: "light-blue", 1: "#FFFFFF", 2: "#C9F0FF", 3: "#ABD4FF", 4: "#8DB8FF", 5: "#6E9EFF", 6: "#4D84EB", 7: "#0053B2", 8: "#003D97"};
+const colors = {0: "light-blue", 1: "lightsteelblue", 2: "paleturquoise", 3: "#ABD4FF", 4: "#8DB8FF", 5: "#6E9EFF", 6: "#4D84EB", 7: "#0053B2", 8: "#003D97"};
 
 const selectColorForString = (str) => {
   var hashed = Math.abs(str.hashCode());
@@ -26,7 +26,7 @@ const selectColorForString = (str) => {
 export default function Tag(props) {
   return(
     <div class="chip">
-      <Chip label={props.tag.name} style={{"backgroundColor":selectColorForString(props.tag.name)}}/>
+      <Chip label={props.tag.name} style={{"backgroundColor":selectColorForString(props.tag.name), "color": (props.mode ? "white" : "black")}}/>
     </div>
   );
 
