@@ -4,16 +4,11 @@ import axios from "axios";
 // testData will be replaced with props.user.received_req_from once the api is functional
 
 function FriendRequestList(props) {
+  console.log(props)
   const [friendRequests, setFriendRequests] = useState([]);
   const [message, setMessage] = useState('');
   const [showDisplay, setShowDisplay] = useState(true);
 
-  // const [rejectDisplay, setRejectDisplay] = useState(true);
-  let testData = [
-    { userId: 7, username: 'Joaquin' },
-    { userId: 8, username: 'Emmanuel' },
-    { userId: 9, username: 'Diego' }
-  ];
 
   let theme = 'friend-request-light';
   theme = props.dark ? 'friend-request-dark' : 'friend-request-light';
@@ -53,7 +48,7 @@ function FriendRequestList(props) {
 
 
   if (props.chatOpen) {
-    if (props.user.received_req_from.length) {
+    if (props.user.received_req_from?.length) {
       return (
         <div className={theme}>
           <ul className="friend-request-list">
