@@ -29,12 +29,12 @@
 }
 
 .fcard-top > img {
-  width:auto;
+  width:100%;
   height:auto;
   object-fit: cover;
 }
 
-.card-bottom {
+.fcard-bottom {
   margin: 10px 20px;
   color: black;
 }

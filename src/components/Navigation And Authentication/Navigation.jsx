@@ -32,8 +32,7 @@ function Navigation(props) {
   useEffect(() => {
     if (props.setIsAuthenticated) {
       props.setIsAuthenticated(isAuthenticated);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
-
+    }
     if (props.setUser) {
       props.setUser(user);
     }
@@ -45,7 +44,7 @@ function Navigation(props) {
       <Container>
         <div id="logo-gc">
           <img src={mainlogo} style={{height: 80}}/>
-          <a className="navbar-brand">GAMERCITY</a>
+          <a className="navbar-brand" onClick={()=> window.location.href ='/'}>GAMERCITY</a>
         </div>
 
 
