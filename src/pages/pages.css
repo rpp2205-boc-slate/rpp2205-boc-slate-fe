@@ -82,16 +82,26 @@
   justify-content:flex-end;
   position:sticky;
   height:480px;
-  padding-top: 100px;
-  padding-bottom: 50px;
+  padding-bottom: 150px;
   width: 850px;
   box-shadow: rgba(0, 0, 0, 0.1);
 }
 
 
-.friend-request-list {
+.friend-request-dark {
   background-color: rgb(12, 12, 12);
   color: rgb(243, 243, 243);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  /* border-radius: 8px; */
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+}
+
+.friend-request-light {
+  background-color: rgb(227, 231, 241);
+  /* color: rgb(243, 243, 243); */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 5px;
   /* border-radius: 8px; */
@@ -112,8 +122,15 @@
   border-radius: 10px;
 }
 
-.request {
+.request-dark {
   background-color: rgb(42, 43, 45);
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.request-light {
+  background-color: rgb(227, 231, 241);
   border-radius: 10px;
   align-items: center;
   text-align: center;

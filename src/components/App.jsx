@@ -84,11 +84,11 @@ export default function App(props) {
         <img src={logo} alt="Logo" className="logo"/> */}
 
         {/* <ProfileButton isAuthenticated={isAuthenticated}/> */}
-        {/* <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/> */}
+        <ChatButton setChatOpen={setChatOpen} chatOpen={chatOpen}/>
 
         {chatOpen && (<div className="chat">
-          <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile}/>
-          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} />
+          <FriendRequest chatOpen={chatOpen} userId={userId} user={userProfile} dark={mode} />
+          <Chat isAuthenticated={isAuthenticated} chatOpen={chatOpen} userId={userId} user={userProfile} dark={mode} />
         </div>)}
 
     </div>
