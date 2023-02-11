@@ -18,11 +18,7 @@ const ChatApp = (props) => {
   // console.log(props.user, props.userId, props.user.username)
   console.log('dark mode?', props.dark)
   let theme = 'str-chat__theme-light';
-  if (props.dark) {
-    theme = 'str-chat__theme-dark';
-  } else {
-    theme = 'str-chat__theme-light';
-  }
+  theme = props.dark ? 'str-chat__theme-dark' : 'str-chat__theme-light';
   // now that userId is accessed we can get the user/:userId/profile data and access received_req_from to display all pending friend requests!
   // const filters = { members: [chatClient.user.id]}
   const sort = { last_message_at: -1 };

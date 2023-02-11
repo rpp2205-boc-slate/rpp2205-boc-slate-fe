@@ -15,6 +15,9 @@ function FriendRequestList(props) {
     { userId: 9, username: 'Diego' }
   ];
 
+  let theme = 'friend-request-light';
+  theme = props.dark ? 'friend-request-dark' : 'friend-request-light';
+
   const acceptReq = (id) => {
     console.log('accepted', props.userId, id);
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
@@ -52,7 +55,7 @@ function FriendRequestList(props) {
   if (props.chatOpen) {
     if (props.user.received_req_from.length) {
       return (
-        <div>
+        <div className={theme}>
           <ul className="friend-request-list">
           <p><b>{props.user.received_req_from.length} Pending Friend Requests</b></p>
           {props.user.received_req_from.map(request => (
@@ -69,7 +72,7 @@ function FriendRequestList(props) {
         </div>
       );
     } else {
-      return <p className="friend-request-list">You have no pending friend requests...</p>;
+      return <p className={theme}>You have no pending friend requests...</p>;
     }
   } else {
     return null;
