@@ -7,7 +7,8 @@ const axios = require('axios');
 require('dotenv').config();
 //mock api path
 //const apiPath = 'https://6l9qj.wiremockapi.cloud';
-const gameApiPath = 'https://api.rawg.io/api/games';
+const 
+ApiPath = 'https://api.rawg.io/api/games';
 const genreApiPath = 'https://api.rawg.io/api/genres';
 const platformApiPath = 'https://api.rawg.io/api/platforms';
 const gameApiKey = process.env.API_KEY;
@@ -302,6 +303,30 @@ app.get('/games/platform/:platform/query/:query', (req, res) => {
   axios.get(`${gameApiPath}?platforms=${q}&key=${gameApiKey}`)
     .then((response) => {
       // console.log(response.data)
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+//get all games based on a tag name
+app.get('/games/tag/:tag', (req, res) => {
+  let t = req.params.tag;
+  axios.get(`${gameApiPath}?tags=${t}&key=${API_KEY}`)
+    .then(response => {
+      res.status(200).send(response.data)
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
+});
+
+//get all games based on a genre
+app.get('/games/oneGenre/:genre', (req, res) => {
+  let g = req.params.genre;
+  axios.get(`${gameApiPath}?genres=${g}&key=${API_KEY}`)
+    .then(response => {
       res.status(200).send(response.data)
     })
     .catch(err => {
