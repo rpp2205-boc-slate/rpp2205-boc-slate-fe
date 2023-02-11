@@ -16,29 +16,29 @@ function FriendRequestList(props) {
   ];
 
   const acceptReq = (id) => {
-    console.log('accepted');
+    console.log('accepted', props.userId, id);
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
-    let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
+    let friend = props.user.received_req_from.filter(request => request.user_id === id)[0].username;
     axios.post(`/${props.userId}/respond/${id}`, {respond: "approved"})
       .then(function (response) {
         console.log(response);
+        setMessage(`${friend} is now your friend`);
+        setShowDisplay(false);
       })
       .catch(function (error) {
         console.log(error);
       });
-    setMessage(`${friend} is now your friend`);
-    setShowDisplay(false);
   };
 
   const rejectReq = (id) => {
     console.log('rejected');
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
-    let reject = props.user.received_req_from.filter(request => request.userId === id)[0].username;
-    axios.post(`/${props.userId}/respond/${id}`, {
-      respond: "rejected"
-    })
+    let reject = props.user.received_req_from.filter(request => request.user_id === id)[0].username;
+    axios.post(`/${props.userId}/respond/${id}`, {respond: "rejected"})
     .then(function (response) {
       console.log(response);
+      setMessage(`Rejected ${reject}'s request`);
+      setShowDisplay(false);
     })
       .then(function (response) {
         console.log(response);
@@ -46,8 +46,6 @@ function FriendRequestList(props) {
       .catch(function (error) {
         console.log(error);
       });
-    setMessage(`Rejected ${reject}'s request`);
-    setShowDisplay(false);
   };
 
 
@@ -61,8 +59,8 @@ function FriendRequestList(props) {
               <li key={request.userId} >
                { showDisplay && <div className='request'>
                   {request.username} wants to be your friend
-                  <button onClick={() => acceptReq(request.userId)}>Accept</button>
-                  <button onClick={() => rejectReq(request.userId)}>Reject</button>
+                  <button onClick={() => acceptReq(request.user_id)}>Accept</button>
+                  <button onClick={() => rejectReq(request.user_id)}>Reject</button>
                 </div> }
               </li>
             ))}
