@@ -88,7 +88,7 @@
   right: 0;
   bottom: 0;
   top: 100;
-  z-index: 99;
+  z-index: 10;
   padding-top: 100px;
   /* background-color: rgb(227, 231, 241); */
 }
@@ -97,18 +97,7 @@
 .friend-request-dark {
   background-color: rgb(12, 12, 12);
   color: rgb(243, 243, 243);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  /* border-radius: 8px; */
-  list-style-type: none;
-  text-align: center;
-  align-items: center;
-}
-
-.friend-request-light {
-  background-color: rgb(227, 231, 241);
-  /* color: rgb(243, 243, 243); */
-  margin-top: -150px;
+  margin-top: -100px;
   /* width:max-content; */
   position:fixed;
   /* height: 50px; */
@@ -119,6 +108,24 @@
   list-style-type: none;
   text-align: center;
   align-items: center;
+  z-index: 99;
+}
+
+.friend-request-light {
+  background-color: rgb(227, 231, 241);
+  /* color: rgb(243, 243, 243); */
+  margin-top: -100px;
+  /* width:max-content; */
+  position:fixed;
+  /* height: 50px; */
+  width: 500px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  /* border-radius: 8px; */
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+  z-index: 99;
 }
 
 .friend-request-list li {
