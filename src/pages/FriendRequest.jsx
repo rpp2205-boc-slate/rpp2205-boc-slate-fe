@@ -7,6 +7,7 @@ function FriendRequestList(props) {
   const [friendRequests, setFriendRequests] = useState([]);
   const [message, setMessage] = useState('');
   const [showDisplay, setShowDisplay] = useState(true);
+
   // const [rejectDisplay, setRejectDisplay] = useState(true);
   let testData = [
     { userId: 7, username: 'Joaquin' },
@@ -14,53 +15,55 @@ function FriendRequestList(props) {
     { userId: 9, username: 'Diego' }
   ];
 
+  let theme = 'friend-request-light';
+  theme = props.dark ? 'friend-request-dark' : 'friend-request-light';
+
   const acceptReq = (id) => {
-    console.log('accepted');
+    console.log('accepted', props.userId, id);
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
-    let friend = props.user.received_req_from.filter(request => request.userId === id)[0].username;
-    axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "approved"
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    setMessage(`${friend} is now your friend`);
-    setShowDisplay(false);
+    let friend = props.user.received_req_from.filter(request => request.user_id === id)[0].username;
+    axios.post(`/${props.userId}/respond/${id}`, {respond: "approved"})
+      .then(function (response) {
+        console.log(response);
+        setMessage(`${friend} is now your friend`);
+        setShowDisplay(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const rejectReq = (id) => {
     console.log('rejected');
     setFriendRequests(friendRequests => friendRequests.filter(request => request.userId !== id));
-    let reject = props.user.received_req_from.filter(request => request.userId === id)[0].username;
-    axios.post(`/${props.userId}/respond/${id}`, {
-      "respond": "rejected"
-    })
+    let reject = props.user.received_req_from.filter(request => request.user_id === id)[0].username;
+    axios.post(`/${props.userId}/respond/${id}`, {respond: "rejected"})
     .then(function (response) {
       console.log(response);
+      setMessage(`Rejected ${reject}'s request`);
+      setShowDisplay(false);
     })
-    .catch(function (error) {
-      console.log(error);
-    });
-    setMessage(`Rejected ${reject}'s request`);
-    setShowDisplay(false);
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
 
   if (props.chatOpen) {
     if (props.user.received_req_from.length) {
       return (
-        <div>
+        <div className={theme}>
           <ul className="friend-request-list">
           <p><b>{props.user.received_req_from.length} Pending Friend Requests</b></p>
           {props.user.received_req_from.map(request => (
               <li key={request.userId} >
                { showDisplay && <div className='request'>
                   {request.username} wants to be your friend
-                  <button onClick={() => acceptReq(request.userId)}>Accept</button>
-                  <button onClick={() => rejectReq(request.userId)}>Reject</button>
+                  <button onClick={() => acceptReq(request.user_id)}>Accept</button>
+                  <button onClick={() => rejectReq(request.user_id)}>Reject</button>
                 </div> }
               </li>
             ))}
@@ -69,7 +72,7 @@ function FriendRequestList(props) {
         </div>
       );
     } else {
-      return <p className="friend-request-list">You have no pending friend requests...</p>;
+      return <p className={theme}>You have no pending friend requests...</p>;
     }
   } else {
     return null;
