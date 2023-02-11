@@ -128,15 +128,17 @@ export default function Profile(props) {
             <div class="profilePhoto">
               <img src={(profileObj.photos && profileObj.photos.length >= 1) ? profileObj.photos[0].photo_url : "./img_avatar2.png"} class="profilePhoto" />
             </div>
-            <div class="profile-name">{"Username: " + profileObj.username}</div>
-            <div class="profile-firstName">{"First Name: " + (profileObj.first_Name || ' ')}</div>
-            <div class="profile-lastName">{"Last Name: " + (profileObj.last_Name || ' ')}</div>
-            <div class="profile-email">{"Email Address: " + profileObj.email}</div>
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
+              <Typography class="profile-name">{"Username: " + profileObj.username}</Typography>
+              <Typography class="profile-firstName">{"First Name: " + (profileObj.first_Name || ' ')}</Typography>
+              <Typography class="profile-lastName">{"Last Name: " + (profileObj.last_Name || ' ')}</Typography>
+              <Typography class="profile-email">{"Email Address: " + profileObj.email}</Typography>
+            </Stack>
             <div class="friendRequest">
-              <FriendRequestButtons userId={props.userId} selfId={props.selfId} selfProfile={props.selfProfile} userProfile={profileObj}/>
+              <FriendRequestButtons mode={props.mode} userId={props.userId} selfId={props.selfId} selfProfile={props.selfProfile} userProfile={profileObj}/>
             </div>
           </div>
-          <div class="rightColumn">
+          <div class="rightColumn" style={{"color":(props.mode ? "white" : "black")}} >
             <div class="aboutMe">
               <div class="aboutTitle"><h3>{"About " + (profileObj.username)}</h3></div>
               {/* <div className="content" dangerouslySetInnerHTML={{ __html: profileObj.bio }}></div> */}
@@ -155,17 +157,20 @@ export default function Profile(props) {
         <div class="profile-for-all" >
           <div class="leftColumn">
             <div class="editProfileButton">
-              <EditProfileButton selfId={props.selfId} selfProfile={props.selfProfile} changeImage={changeImage} changeFirstName={changeFirstName} changeLastName={changeLastName} />
+              <EditProfileButton mode={props.mode} selfId={props.selfId} selfProfile={props.selfProfile} changeImage={changeImage} changeFirstName={changeFirstName} changeLastName={changeLastName} />
             </div>
             <img src={img} class="profilePhoto" />
-            <div class="profile-name">{"Username: " + props.selfProfile.username}</div>
-            <div class="profile-firstName">{"First Name: " + firstName}</div>
-            <div class="profile-lastName">{"Last Name: " + lastName}</div>
-            <div class="profile-email">{"Email Address: " + props.selfProfile.email}</div>
+            <Stack direction="column" justifyContent="left" alignItems="left" id="game-intro-stack" style={{"color": (props.mode ? "white" : "black"), "font": "Courier New"}}>
+              <Typography class="profile-name">{"Username: " + props.selfProfile.username}</Typography>
+              <Typography class="profile-firstName">{"First Name: " + firstName}</Typography>
+              <Typography class="profile-lastName">{"Last Name: " + lastName}</Typography>
+              <Typography class="profile-email">{"Email Address: " + props.selfProfile.email}</Typography>
+            </Stack>
+
           </div>
-          <div class="rightColumn">
+          <div class="rightColumn" style={{"color":(props.mode ? "white" : "black")}} >
             <div class="editAboutButton">
-              <EditAboutButton selfId={props.selfId} selfProfile={props.selfProfile} changeBio={changeBio}/>
+              <EditAboutButton selfId={props.selfId} selfProfile={props.selfProfile} changeBio={changeBio} mode={props.mode}/>
             </div>
             <div class="aboutMe">
               <div class="aboutTitle"><h3>{"About Me"}</h3></div>
